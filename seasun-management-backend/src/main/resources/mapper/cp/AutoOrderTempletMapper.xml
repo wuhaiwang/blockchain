@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.AutoOrderTempletMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.AutoOrderTemplet">
+    <id column="GameProject" jdbcType="VARCHAR" property="gameProject" />
+    <id column="ArtType" jdbcType="VARCHAR" property="artType" />
+    <id column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="Client" jdbcType="VARCHAR" property="client" />
+    <result column="WorkRequirements" jdbcType="VARCHAR" property="workRequirements" />
+    <result column="TheFormatWorks" jdbcType="VARCHAR" property="theFormatWorks" />
+    <result column="AcceptanceCriteria" jdbcType="VARCHAR" property="acceptanceCriteria" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Other" jdbcType="VARCHAR" property="other" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    GameProject, ArtType, Title, ID, Client, WorkRequirements, TheFormatWorks, AcceptanceCriteria, 
+    Remark, Other
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.AutoOrderTemplet">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.autoordertemplet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gameProject != null">
+        GameProject,
+      </if>
+      <if test="artType != null">
+        ArtType,
+      </if>
+      <if test="title != null">
+        Title,
+      </if>
+      <if test="client != null">
+        Client,
+      </if>
+      <if test="workRequirements != null">
+        WorkRequirements,
+      </if>
+      <if test="theFormatWorks != null">
+        TheFormatWorks,
+      </if>
+      <if test="acceptanceCriteria != null">
+        AcceptanceCriteria,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="other != null">
+        Other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gameProject != null">
+        #{gameProject,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null">
+        #{artType,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="client != null">
+        #{client,jdbcType=VARCHAR},
+      </if>
+      <if test="workRequirements != null">
+        #{workRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="theFormatWorks != null">
+        #{theFormatWorks,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptanceCriteria != null">
+        #{acceptanceCriteria,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.AutoOrderTemplet">
+    update cp.autoordertemplet
+    <set>
+      <if test="id != null">
+        ID = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="client != null">
+        Client = #{client,jdbcType=VARCHAR},
+      </if>
+      <if test="workRequirements != null">
+        WorkRequirements = #{workRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="theFormatWorks != null">
+        TheFormatWorks = #{theFormatWorks,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptanceCriteria != null">
+        AcceptanceCriteria = #{acceptanceCriteria,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        Other = #{other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GameProject = #{gameProject,jdbcType=VARCHAR}
+      and ArtType = #{artType,jdbcType=VARCHAR}
+      and Title = #{title,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PmMilestoneMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.PmMilestone">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="milestone_day" jdbcType="DATE" property="milestoneDay" />
+    <result column="project_estimate_day" jdbcType="DATE" property="projectEstimateDay" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="risk" jdbcType="VARCHAR" property="risk" />
+    <result column="publish_flag" jdbcType="BIT" property="publishFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, milestone_day, project_estimate_day, end_time, status, project_id, channel,
+    risk, publish_flag, create_time, update_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.PmMilestone">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pm_milestone
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="milestoneDay != null">
+        milestone_day,
+      </if>
+      <if test="projectEstimateDay != null">
+        project_estimate_day,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="risk != null">
+        risk,
+      </if>
+      <if test="publishFlag != null">
+        publish_flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="milestoneDay != null">
+        #{milestoneDay,jdbcType=DATE},
+      </if>
+      <if test="projectEstimateDay != null">
+        #{projectEstimateDay,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="risk != null">
+        #{risk,jdbcType=VARCHAR},
+      </if>
+      <if test="publishFlag != null">
+        #{publishFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PmMilestone">
+    update pm_milestone
+    <set>
+      <if test="milestoneDay != null">
+        milestone_day = #{milestoneDay,jdbcType=DATE},
+      </if>
+      <if test="projectEstimateDay != null">
+        project_estimate_day = #{projectEstimateDay,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="risk != null">
+        risk = #{risk,jdbcType=VARCHAR},
+      </if>
+      <if test="publishFlag != null">
+        publish_flag = #{publishFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

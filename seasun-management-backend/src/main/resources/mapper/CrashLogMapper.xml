@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CrashLogMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.CrashLog">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="system" jdbcType="VARCHAR" property="system"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="app_version" jdbcType="VARCHAR" property="appVersion"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.seasun.management.model.CrashLog">
+        <result column="description" jdbcType="LONGVARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, system, version, model, app_version, create_time
+  </sql>
+    <sql id="Blob_Column_List">
+    description
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.CrashLog">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into crash_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="system != null">
+                system,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="model != null">
+                model,
+            </if>
+            <if test="appVersion != null">
+                app_version,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="system != null">
+                #{system,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersion != null">
+                #{appVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CrashLog">
+        update crash_log
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="system != null">
+                system = #{system,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                model = #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersion != null">
+                app_version = #{appVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--the flowing are user defined ... -->
+
+    <select id="selectByCondition" resultType="com.seasun.management.vo.CrashLogVo"
+            parameterType="com.seasun.management.vo.CrashLogQueryConditionVo">
+        SELECT l.*,concat(u.last_name,u.first_name) AS user_name FROM crash_log l
+        LEFT JOIN user u ON l.user_id = u.id
+        WHERE 1 = 1
+
+        <if test="system != null and system != ''">
+            AND system = #{system}
+        </if>
+        <if test="operator != null and operator != ''">
+            AND concat(u.last_name,u.first_name) LIKE CONCAT('%',#{operator},'%')
+        </if>
+        <if test="systemVersion != null and systemVersion != ''">
+            AND l.version LIKE CONCAT('%',#{systemVersion},'%')
+        </if>
+        <if test="model != null and model != ''">
+            AND l.model LIKE CONCAT('%',#{model},'%')
+        </if>
+        <if test="appVersion != null and appVersion != ''">
+            AND l.app_version LIKE CONCAT('%',#{appVersion},'%')
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND( concat(u.last_name,u.first_name) LIKE CONCAT('%',#{keyword},'%')
+            OR l.version LIKE CONCAT('%',#{keyword},'%')
+            OR l.model LIKE CONCAT('%',#{keyword},'%')
+            OR l.app_version LIKE CONCAT('%',#{keyword},'%')
+            OR l.description LIKE CONCAT('%',#{keyword},'%')
+            )
+        </if>
+
+        <if test="startTime != null">
+            and  <![CDATA[ l.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ l.create_time <= #{endTime} ]]>
+        </if>
+
+        ORDER BY create_time DESC
+        <if test="currentPage != null">
+            LIMIT #{beginNum} , #{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCountByCondition" resultType="java.lang.Double" parameterType="com.seasun.management.vo.CrashLogQueryConditionVo">
+        SELECT COUNT(*) FROM crash_log l
+        LEFT JOIN user u ON l.user_id = u.id
+        WHERE 1 = 1
+
+        <if test="system != null and system != ''">
+            AND system = #{system}
+        </if>
+        <if test="operator != null and operator != ''">
+            AND concat(u.last_name,u.first_name) LIKE CONCAT('%',#{operator},'%')
+        </if>
+        <if test="systemVersion != null and systemVersion != ''">
+            AND l.version LIKE CONCAT('%',#{systemVersion},'%')
+        </if>
+        <if test="model != null and model != ''">
+            AND l.model LIKE CONCAT('%',#{model},'%')
+        </if>
+        <if test="appVersion != null and appVersion != ''">
+            AND l.app_version LIKE CONCAT('%',#{appVersion},'%')
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND( concat(u.last_name,u.first_name) LIKE CONCAT('%',#{keyword},'%')
+            OR l.version LIKE CONCAT('%',#{keyword},'%')
+            OR l.model LIKE CONCAT('%',#{keyword},'%')
+            OR l.app_version LIKE CONCAT('%',#{keyword},'%')
+            OR l.description LIKE CONCAT('%',#{keyword},'%')
+            )
+        </if>
+
+        <if test="startTime != null">
+            and  <![CDATA[ l.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ l.create_time <= #{endTime} ]]>
+        </if>
+
+    </select>
+
+</mapper>

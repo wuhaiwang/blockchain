@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.dataCenter.StatOnlineAccountMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.dataCenter.StatOnlineAccount">
+    <result column="CONFIG_GAME_ID" jdbcType="DECIMAL" property="configGameId" />
+    <result column="STAT_TIME" jdbcType="TIMESTAMP" property="statTime" />
+    <result column="GATEWAY_ID" jdbcType="DECIMAL" property="gatewayId" />
+    <result column="ACCOUNT_COUNT" jdbcType="DECIMAL" property="accountCount" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.dataCenter.StatOnlineAccount">
+    insert into KBOSS20.STAT_ONLINE_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configGameId != null">
+        CONFIG_GAME_ID,
+      </if>
+      <if test="statTime != null">
+        STAT_TIME,
+      </if>
+      <if test="gatewayId != null">
+        GATEWAY_ID,
+      </if>
+      <if test="accountCount != null">
+        ACCOUNT_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configGameId != null">
+        #{configGameId,jdbcType=DECIMAL},
+      </if>
+      <if test="statTime != null">
+        #{statTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gatewayId != null">
+        #{gatewayId,jdbcType=DECIMAL},
+      </if>
+      <if test="accountCount != null">
+        #{accountCount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

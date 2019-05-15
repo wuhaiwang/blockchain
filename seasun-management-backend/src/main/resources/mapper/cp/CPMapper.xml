@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.CPMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.CP">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="FullName" jdbcType="VARCHAR" property="fullName"/>
+        <result column="StartDate" jdbcType="VARCHAR" property="startDate"/>
+        <result column="City" jdbcType="VARCHAR" property="city"/>
+        <result column="Receipt" jdbcType="BIT" property="receipt"/>
+        <result column="Certificate" jdbcType="BIT" property="certificate"/>
+        <result column="NameIsSame" jdbcType="BIT" property="nameIsSame"/>
+        <result column="Contacts" jdbcType="VARCHAR" property="contacts"/>
+        <result column="QQ" jdbcType="VARCHAR" property="qq"/>
+        <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="Mail" jdbcType="VARCHAR" property="mail"/>
+        <result column="Boss" jdbcType="VARCHAR" property="boss"/>
+        <result column="Channel" jdbcType="VARCHAR" property="channel"/>
+        <result column="GoodStyle" jdbcType="VARCHAR" property="goodStyle"/>
+        <result column="Entry" jdbcType="VARCHAR" property="entry"/>
+        <result column="Sign" jdbcType="VARCHAR" property="sign"/>
+        <result column="ContractNo" jdbcType="VARCHAR" property="contractNo"/>
+        <result column="Suggest" jdbcType="VARCHAR" property="suggest"/>
+        <result column="Employees" jdbcType="INTEGER" property="employees"/>
+        <result column="Grade" jdbcType="INTEGER" property="grade"/>
+        <result column="Description" jdbcType="VARCHAR" property="description"/>
+        <result column="Address" jdbcType="VARCHAR" property="address"/>
+        <result column="WebSite" jdbcType="VARCHAR" property="webSite"/>
+        <result column="Direction" jdbcType="VARCHAR" property="direction"/>
+        <result column="FileLastWriteTime" jdbcType="VARCHAR" property="fileLastWriteTime"/>
+        <result column="ScheduleLastWriteTime" jdbcType="VARCHAR" property="scheduleLastWriteTime"/>
+        <result column="CreatedTime" jdbcType="VARCHAR" property="createdTime"/>
+        <result column="Status" jdbcType="INTEGER" property="status"/>
+        <result column="ContactMan" jdbcType="VARCHAR" property="contactMan"/>
+        <result column="ContactPhone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="LegalRepresentative" jdbcType="VARCHAR" property="legalRepresentative"/>
+        <result column="Bank" jdbcType="VARCHAR" property="bank"/>
+        <result column="Account" jdbcType="VARCHAR" property="account"/>
+        <result column="AccountName" jdbcType="VARCHAR" property="accountName"/>
+        <result column="Personal" jdbcType="TINYINT" property="personal"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.seasun.management.model.cp.CP">
+        <result column="Exp" jdbcType="LONGVARCHAR" property="exp"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, Name, FullName, StartDate, City, Receipt, Certificate, NameIsSame, Contacts, 
+    QQ, Phone, Mail, Boss, Channel, GoodStyle, Entry, Sign, ContractNo, Suggest, Employees, 
+    Grade, Description, Address, WebSite, Direction, FileLastWriteTime, ScheduleLastWriteTime, 
+    CreatedTime, Status, ContactMan, ContactPhone, LegalRepresentative, Bank, Account, 
+    AccountName, Personal
+  </sql>
+    <sql id="Blob_Column_List">
+    Exp
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.cp.CP">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into cp.cp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                Name,
+            </if>
+            <if test="fullName != null">
+                FullName,
+            </if>
+            <if test="startDate != null">
+                StartDate,
+            </if>
+            <if test="city != null">
+                City,
+            </if>
+            <if test="receipt != null">
+                Receipt,
+            </if>
+            <if test="certificate != null">
+                Certificate,
+            </if>
+            <if test="nameIsSame != null">
+                NameIsSame,
+            </if>
+            <if test="contacts != null">
+                Contacts,
+            </if>
+            <if test="qq != null">
+                QQ,
+            </if>
+            <if test="phone != null">
+                Phone,
+            </if>
+            <if test="mail != null">
+                Mail,
+            </if>
+            <if test="boss != null">
+                Boss,
+            </if>
+            <if test="channel != null">
+                Channel,
+            </if>
+            <if test="goodStyle != null">
+                GoodStyle,
+            </if>
+            <if test="entry != null">
+                Entry,
+            </if>
+            <if test="sign != null">
+                Sign,
+            </if>
+            <if test="contractNo != null">
+                ContractNo,
+            </if>
+            <if test="suggest != null">
+                Suggest,
+            </if>
+            <if test="employees != null">
+                Employees,
+            </if>
+            <if test="grade != null">
+                Grade,
+            </if>
+            <if test="description != null">
+                Description,
+            </if>
+            <if test="address != null">
+                Address,
+            </if>
+            <if test="webSite != null">
+                WebSite,
+            </if>
+            <if test="direction != null">
+                Direction,
+            </if>
+            <if test="fileLastWriteTime != null">
+                FileLastWriteTime,
+            </if>
+            <if test="scheduleLastWriteTime != null">
+                ScheduleLastWriteTime,
+            </if>
+            <if test="createdTime != null">
+                CreatedTime,
+            </if>
+            <if test="status != null">
+                Status,
+            </if>
+            <if test="contactMan != null">
+                ContactMan,
+            </if>
+            <if test="contactPhone != null">
+                ContactPhone,
+            </if>
+            <if test="legalRepresentative != null">
+                LegalRepresentative,
+            </if>
+            <if test="bank != null">
+                Bank,
+            </if>
+            <if test="account != null">
+                Account,
+            </if>
+            <if test="accountName != null">
+                AccountName,
+            </if>
+            <if test="personal != null">
+                Personal,
+            </if>
+            <if test="exp != null">
+                Exp,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                #{startDate,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="receipt != null">
+                #{receipt,jdbcType=BIT},
+            </if>
+            <if test="certificate != null">
+                #{certificate,jdbcType=BIT},
+            </if>
+            <if test="nameIsSame != null">
+                #{nameIsSame,jdbcType=BIT},
+            </if>
+            <if test="contacts != null">
+                #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="boss != null">
+                #{boss,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="goodStyle != null">
+                #{goodStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="entry != null">
+                #{entry,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="contractNo != null">
+                #{contractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="suggest != null">
+                #{suggest,jdbcType=VARCHAR},
+            </if>
+            <if test="employees != null">
+                #{employees,jdbcType=INTEGER},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="webSite != null">
+                #{webSite,jdbcType=VARCHAR},
+            </if>
+            <if test="direction != null">
+                #{direction,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLastWriteTime != null">
+                #{fileLastWriteTime,jdbcType=VARCHAR},
+            </if>
+            <if test="scheduleLastWriteTime != null">
+                #{scheduleLastWriteTime,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="contactMan != null">
+                #{contactMan,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPhone != null">
+                #{contactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="legalRepresentative != null">
+                #{legalRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="bank != null">
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="accountName != null">
+                #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="personal != null">
+                #{personal,jdbcType=TINYINT},
+            </if>
+            <if test="exp != null">
+                #{exp,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.CP">
+        update cp.cp
+        <set>
+            <if test="name != null">
+                Name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                FullName = #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                StartDate = #{startDate,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                City = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="receipt != null">
+                Receipt = #{receipt,jdbcType=BIT},
+            </if>
+            <if test="certificate != null">
+                Certificate = #{certificate,jdbcType=BIT},
+            </if>
+            <if test="nameIsSame != null">
+                NameIsSame = #{nameIsSame,jdbcType=BIT},
+            </if>
+            <if test="contacts != null">
+                Contacts = #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                QQ = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                Phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                Mail = #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="boss != null">
+                Boss = #{boss,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                Channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="goodStyle != null">
+                GoodStyle = #{goodStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="entry != null">
+                Entry = #{entry,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                Sign = #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="contractNo != null">
+                ContractNo = #{contractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="suggest != null">
+                Suggest = #{suggest,jdbcType=VARCHAR},
+            </if>
+            <if test="employees != null">
+                Employees = #{employees,jdbcType=INTEGER},
+            </if>
+            <if test="grade != null">
+                Grade = #{grade,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                Description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                Address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="webSite != null">
+                WebSite = #{webSite,jdbcType=VARCHAR},
+            </if>
+            <if test="direction != null">
+                Direction = #{direction,jdbcType=VARCHAR},
+            </if>
+            <if test="fileLastWriteTime != null">
+                FileLastWriteTime = #{fileLastWriteTime,jdbcType=VARCHAR},
+            </if>
+            <if test="scheduleLastWriteTime != null">
+                ScheduleLastWriteTime = #{scheduleLastWriteTime,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                CreatedTime = #{createdTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                Status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="contactMan != null">
+                ContactMan = #{contactMan,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPhone != null">
+                ContactPhone = #{contactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="legalRepresentative != null">
+                LegalRepresentative = #{legalRepresentative,jdbcType=VARCHAR},
+            </if>
+            <if test="bank != null">
+                Bank = #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                Account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="accountName != null">
+                AccountName = #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="personal != null">
+                Personal = #{personal,jdbcType=TINYINT},
+            </if>
+            <if test="exp != null">
+                Exp = #{exp,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- the following are user defined...-->
+
+    <select id="selectByCond" resultType="com.seasun.management.vo.cp.OutsourcerVo">
+        select a.*,b.ordersRecord,round((IFNULL(b.ordersRecord,0)-IFNULL(c.undoneRecord,0))/IFNULL(b.ordersRecord,1)*100,2) percent
+        from (select cp.ID id,cp.Grade grade,cp.`Name` name, cd.Txt makingType from cp.cp cp left join (SELECT CPID,group_concat(DISTINCT Txt) txt FROM cp.cpdetails where Digit>0 and  txt in (select d.`value` from cp_support_data d where d.type=1) GROUP BY CPID) cd on cp.id =cd.CPID
+        <where>
+        <if test="grades !=null and grades.size != 0">
+            and cp.Grade in
+            <foreach collection="grades" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="styleType != null and styleType !=''" >
+            and cp.GoodStyle like CONCAT('%',#{styleType},'%')
+        </if>
+        <if test="makingType != null and makingType !=''" >
+            and cd.Txt like
+            CONCAT('%',#{makingType},'%')
+        </if></where>
+        ) a
+        left join (select ox.CPID,count(1) ordersRecord<!--, sum(IFNULL(ox.PrePayMoney,0)+IFNULL(ox.MidPayMoney,0)+IFNULL(ox.LastPayMoney,0)) totalAmount--> from cp.ordissuesex ox left join cp.ordissues os on os.id=ox.IssueID where os.Status  not in (12,15,17,21) and date_format(os.CreatedOn,'%Y') =#{year}  GROUP BY ox.CPID) b on a.id=b.CPID
+         left join (select cox.CPID,count(1) undoneRecord from cp.ordissuesex cox left join cp.ordissues cos on cos.id=cox.IssueID where cos.Status not in (12,15,17,21) and  date_format(cos.CreatedOn,'%Y') =#{year} and exists (select 1 from cp.files cf   where cf.IssueID=cox.IssueId and cf.Status &lt; 2) GROUP BY cox.CPID) c on c.CPID=a.id
+        where b.ordersRecord is not null
+        <if test="sortField !=null and sortField != ''">
+            order by b.${sortField}
+        </if>
+
+    </select>
+
+    <select id="selectCountByCond" resultType="Integer">
+        select count(1)
+        from (select cp.ID id,cp.Grade grade,cp.`Name` name, cd.Txt makingType from cp.cp cp left join (SELECT CPID,group_concat(DISTINCT Txt) txt FROM cp.cpdetails where Digit>0 GROUP BY CPID) cd on cp.id =cd.CPID
+        <where>
+            <if test="grades !=null and grades.size != 0">
+                and cp.Grade in
+                <foreach collection="grades" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="styleType != null and styleType !=''" >
+                and cp.GoodStyle like CONCAT('%',#{styleType},'%')
+            </if>
+            <if test="makingType != null and makingType !=''" >
+                and cd.Txt like
+                CONCAT('%',#{makingType},'%')
+            </if></where>
+        ) a
+        left join (select ox.CPID,count(1) ordersRecord,sum(IFNULL(ox.PrePayMoney,0)+IFNULL(ox.MidPayMoney,0)+IFNULL(ox.LastPayMoney,0)) totalAmount from cp.ordissuesex ox left join cp.ordissues os on os.id=ox.IssueID where os.Status not in (12,15,17,21) and date_format(os.CreatedOn,'%Y') =#{year}  GROUP BY ox.CPID) b on a.id=b.CPID
+      <!--  left join (select cox.CPID,count(1) undoneRecord from cp.ordissuesex cox left join cp.ordissues cos on cos.id=cox.IssueID where cos.Status not in (12,15,17,21) and  date_format(cos.CreatedOn,'%Y') =#{year} and exists (select 1 from cp.files cf   where cf.IssueID=cox.IssueId and cf.Status &lt; 2) GROUP BY cox.CPID) c on c.CPID=a.id -->
+        where b.ordersRecord is not null
+
+    </select>
+
+</mapper>

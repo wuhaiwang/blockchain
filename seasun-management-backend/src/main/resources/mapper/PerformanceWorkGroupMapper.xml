@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PerformanceWorkGroupMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.PerformanceWorkGroup">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="work_group_id" jdbcType="BIGINT" property="workGroupId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="strict_type" jdbcType="BIT" property="strictType"/>
+        <result column="parent" jdbcType="BIGINT" property="parent"/>
+        <result column="performance_manager_id" jdbcType="BIGINT" property="performanceManagerId"/>
+        <result column="active_flag" jdbcType="BIT" property="activeFlag"/>
+        <result column="project_confirm_flag" jdbcType="BIT" property="projectConfirmFlag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, work_group_id, name, strict_type, parent, performance_manager_id, active_flag,
+    project_confirm_flag
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.PerformanceWorkGroup">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into performance_work_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workGroupId != null">
+                work_group_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="strictType != null">
+                strict_type,
+            </if>
+            <if test="parent != null">
+                parent,
+            </if>
+            <if test="performanceManagerId != null">
+                performance_manager_id,
+            </if>
+            <if test="activeFlag != null">
+                active_flag,
+            </if>
+            <if test="projectConfirmFlag != null">
+                project_confirm_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workGroupId != null">
+                #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="strictType != null">
+                #{strictType,jdbcType=BIT},
+            </if>
+            <if test="parent != null">
+                #{parent,jdbcType=BIGINT},
+            </if>
+            <if test="performanceManagerId != null">
+                #{performanceManagerId,jdbcType=BIGINT},
+            </if>
+            <if test="activeFlag != null">
+                #{activeFlag,jdbcType=BIT},
+            </if>
+            <if test="projectConfirmFlag != null">
+                #{projectConfirmFlag,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PerformanceWorkGroup">
+        update performance_work_group
+        <set>
+            <if test="workGroupId != null">
+                work_group_id = #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="strictType != null">
+                strict_type = #{strictType,jdbcType=BIT},
+            </if>
+            <if test="parent != null">
+                parent = #{parent,jdbcType=BIGINT},
+            </if>
+            <if test="performanceManagerId != null">
+                performance_manager_id = #{performanceManagerId,jdbcType=BIGINT},
+            </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag,jdbcType=BIT},
+            </if>
+            <if test="projectConfirmFlag != null">
+                project_confirm_flag = #{projectConfirmFlag,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--the follow are user defined-->
+    <update id="updateActiveAllInList" parameterType="java.util.List">
+        update performance_work_group
+        set active_flag = 0
+        where id in
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>
+    </update>
+
+    <delete id="batchDeleteByPks" parameterType="java.util.List">
+        delete from performance_work_group
+        where id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="selectWithProjectIdByProjectIds" parameterType="java.util.List"
+            resultType="com.seasun.management.dto.PerformanceWorkGroupDto">
+            select pwg.*, p.id project_id, concat(u.last_name,u.first_name) manager_name
+            from performance_work_group pwg
+            left join project p on pwg.work_group_id = p.work_group_id
+            left join user u on u.id = pwg.performance_manager_id
+            where  pwg.active_flag = 1
+            AND p.id IN
+            <foreach collection="list" index="index" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+    </select>
+
+    <select id="selectByIds" resultType="com.seasun.management.model.PerformanceWorkGroup">
+        select * from performance_work_group
+        where id IN
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

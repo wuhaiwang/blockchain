@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnWeekShareCommitLogMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FnWeekShareCommitLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plat_id" jdbcType="BIGINT" property="platId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="week" jdbcType="INTEGER" property="week" />
+    <result column="commit_time" jdbcType="TIMESTAMP" property="commitTime" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plat_id, year, week, commit_time, operator_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FnWeekShareCommitLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fn_week_share_commit_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        plat_id,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="week != null">
+        week,
+      </if>
+      <if test="commitTime != null">
+        commit_time,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="week != null">
+        #{week,jdbcType=INTEGER},
+      </if>
+      <if test="commitTime != null">
+        #{commitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnWeekShareCommitLog">
+    update fn_week_share_commit_log
+    <set>
+      <if test="platId != null">
+        plat_id = #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="week != null">
+        week = #{week,jdbcType=INTEGER},
+      </if>
+      <if test="commitTime != null">
+        commit_time = #{commitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

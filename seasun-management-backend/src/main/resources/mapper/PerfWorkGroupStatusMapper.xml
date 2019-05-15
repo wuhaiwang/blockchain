@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PerfWorkGroupStatusMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.PerfWorkGroupStatus">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="perf_work_group_id" jdbcType="BIGINT" property="perfWorkGroupId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="operate_id" jdbcType="BIGINT" property="operateId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, perf_work_group_id, status, year, month, create_time, update_time, operate_id
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.PerfWorkGroupStatus">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into perf_work_group_status
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="perfWorkGroupId != null">
+                perf_work_group_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="operateId != null">
+                operate_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="perfWorkGroupId != null">
+                #{perfWorkGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operateId != null">
+                #{operateId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PerfWorkGroupStatus">
+        update perf_work_group_status
+        <set>
+            <if test="perfWorkGroupId != null">
+                perf_work_group_id = #{perfWorkGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operateId != null">
+                operate_id = #{operateId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+    <insert id="batchInsert">
+    INSERT INTO perf_work_group_status( perf_work_group_id, status, year, month, create_time, update_time, operate_id)
+    VALUES
+    <foreach collection="list" open="" close="" separator="," item="item">
+        (#{item.perfWorkGroupId}, #{item.status}, #{item.year}, #{item.month}, #{item.createTime}, #{item.updateTime}, #{item.operateId})
+    </foreach>
+  </insert>
+</mapper>

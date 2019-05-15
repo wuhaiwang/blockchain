@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CfgPlatAttrMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.CfgPlatAttr">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="plat_id" jdbcType="BIGINT" property="platId" />
+    <result column="share_start_year" jdbcType="INTEGER" property="shareStartYear" />
+    <result column="share_start_month" jdbcType="INTEGER" property="shareStartMonth" />
+    <result column="share_detail_flag" jdbcType="BIT" property="shareDetailFlag" />
+    <result column="share_flag" jdbcType="BIT" property="shareFlag" />
+    <result column="share_week_write_flag" jdbcType="BIT" property="shareWeekWriteFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plat_id, share_start_year, share_start_month, share_detail_flag, share_flag, share_week_write_flag
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.CfgPlatAttr">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cfg_plat_attr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        plat_id,
+      </if>
+      <if test="shareStartYear != null">
+        share_start_year,
+      </if>
+      <if test="shareStartMonth != null">
+        share_start_month,
+      </if>
+      <if test="shareDetailFlag != null">
+        share_detail_flag,
+      </if>
+      <if test="shareFlag != null">
+        share_flag,
+      </if>
+      <if test="shareWeekWriteFlag != null">
+        share_week_write_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="shareStartYear != null">
+        #{shareStartYear,jdbcType=INTEGER},
+      </if>
+      <if test="shareStartMonth != null">
+        #{shareStartMonth,jdbcType=INTEGER},
+      </if>
+      <if test="shareDetailFlag != null">
+        #{shareDetailFlag,jdbcType=BIT},
+      </if>
+      <if test="shareFlag != null">
+        #{shareFlag,jdbcType=BIT},
+      </if>
+      <if test="shareWeekWriteFlag != null">
+        #{shareWeekWriteFlag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CfgPlatAttr">
+    update cfg_plat_attr
+    <set>
+      <if test="platId != null">
+        plat_id = #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="shareStartYear != null">
+        share_start_year = #{shareStartYear,jdbcType=INTEGER},
+      </if>
+      <if test="shareStartMonth != null">
+        share_start_month = #{shareStartMonth,jdbcType=INTEGER},
+      </if>
+      <if test="shareDetailFlag != null">
+        share_detail_flag = #{shareDetailFlag,jdbcType=BIT},
+      </if>
+      <if test="shareFlag != null">
+        share_flag = #{shareFlag,jdbcType=BIT},
+      </if>
+      <if test="shareWeekWriteFlag != null">
+        share_week_write_flag = #{shareWeekWriteFlag,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectDetailPlatCountByPlatIds" resultType="Integer">
+    select count(1) from cfg_plat_attr where share_detail_flag=1 and plat_id in
+    <foreach collection="list" open="(" item="item" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FmGroupConfirmInfoMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FmGroupConfirmInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="performance_work_group_id" jdbcType="BIGINT" property="performanceWorkGroupId" />
+    <result column="plat_id" jdbcType="BIGINT" property="platId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="plat_confirmer_id" jdbcType="BIGINT" property="platConfirmerId" />
+    <result column="project_confirmer_id" jdbcType="BIGINT" property="projectConfirmerId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, year, month, performance_work_group_id, plat_id, project_id, plat_confirmer_id,
+    project_confirmer_id, status
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FmGroupConfirmInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_group_confirm_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="performanceWorkGroupId != null">
+        performance_work_group_id,
+      </if>
+      <if test="platId != null">
+        plat_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="platConfirmerId != null">
+        plat_confirmer_id,
+      </if>
+      <if test="projectConfirmerId != null">
+        project_confirmer_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="performanceWorkGroupId != null">
+        #{performanceWorkGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="platId != null">
+        #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="platConfirmerId != null">
+        #{platConfirmerId,jdbcType=BIGINT},
+      </if>
+      <if test="projectConfirmerId != null">
+        #{projectConfirmerId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FmGroupConfirmInfo">
+    update fm_group_confirm_info
+    <set>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="performanceWorkGroupId != null">
+        performance_work_group_id = #{performanceWorkGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="platId != null">
+        plat_id = #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="platConfirmerId != null">
+        plat_confirmer_id = #{platConfirmerId,jdbcType=BIGINT},
+      </if>
+      <if test="projectConfirmerId != null">
+        project_confirmer_id = #{projectConfirmerId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--the following are user defined...-->
+  <insert id="batchInsertByPlatConfirmerSubmit" parameterType="java.util.List">
+    insert into fm_group_confirm_info
+    (year, month, performance_work_group_id, plat_id, project_id, plat_confirmer_id, project_confirmer_id, status)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.year},
+      #{item.month},
+      #{item.performanceWorkGroupId},
+      #{item.platId},
+      #{item.projectId},
+      #{item.platConfirmerId},
+      #{item.projectConfirmerId},
+      #{item.status}
+      )
+    </foreach>
+  </insert>
+
+  <update id="batchUpdateConfirmerAndStatusByPks" parameterType="java.util.List">
+    update fm_group_confirm_info set
+    status=
+    <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+      when #{item.id} then #{item.status}
+    </foreach>
+    ,plat_confirmer_id=
+    <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+      when #{item.id} then #{item.platConfirmerId}
+    </foreach>
+    ,project_confirmer_id=
+    <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+      when #{item.id} then #{item.projectConfirmerId}
+    </foreach>
+    where ID in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.id}
+    </foreach>
+  </update>
+</mapper>

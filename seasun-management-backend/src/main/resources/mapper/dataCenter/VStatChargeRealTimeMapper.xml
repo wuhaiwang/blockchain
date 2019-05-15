@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.dataCenter.VStatChargeRealTimeMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.dataCenter.VStatChargeRealTime">
+    <result column="CONFIG_GAME_ID" jdbcType="DECIMAL" property="configGameId" />
+    <result column="BEGIN_TIME" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="ACCOUNT_NUM" jdbcType="DECIMAL" property="accountNum" />
+    <result column="NUM_THAN_YESTERDAY" jdbcType="DECIMAL" property="numThanYesterday" />
+    <result column="NUM_THAN_LAST_WEEK" jdbcType="DECIMAL" property="numThanLastWeek" />
+    <result column="CHARGE_VALUE" jdbcType="DECIMAL" property="chargeValue" />
+    <result column="VALUE_THAN_YESTERDAY" jdbcType="DECIMAL" property="valueThanYesterday" />
+    <result column="VALUE_THAN_LAST_WEEK" jdbcType="DECIMAL" property="valueThanLastWeek" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.dataCenter.VStatChargeRealTime">
+    insert into KBOSS20.V_STAT_CHARGE_REAL_TIME
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configGameId != null">
+        CONFIG_GAME_ID,
+      </if>
+      <if test="beginTime != null">
+        BEGIN_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="accountNum != null">
+        ACCOUNT_NUM,
+      </if>
+      <if test="numThanYesterday != null">
+        NUM_THAN_YESTERDAY,
+      </if>
+      <if test="numThanLastWeek != null">
+        NUM_THAN_LAST_WEEK,
+      </if>
+      <if test="chargeValue != null">
+        CHARGE_VALUE,
+      </if>
+      <if test="valueThanYesterday != null">
+        VALUE_THAN_YESTERDAY,
+      </if>
+      <if test="valueThanLastWeek != null">
+        VALUE_THAN_LAST_WEEK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configGameId != null">
+        #{configGameId,jdbcType=DECIMAL},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountNum != null">
+        #{accountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="numThanYesterday != null">
+        #{numThanYesterday,jdbcType=DECIMAL},
+      </if>
+      <if test="numThanLastWeek != null">
+        #{numThanLastWeek,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeValue != null">
+        #{chargeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="valueThanYesterday != null">
+        #{valueThanYesterday,jdbcType=DECIMAL},
+      </if>
+      <if test="valueThanLastWeek != null">
+        #{valueThanLastWeek,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

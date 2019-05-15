@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="./mysql-connector-java-5.1.38.jar" />
+
+    <context id="context1" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <jdbcConnection connectionURL="jdbc:mysql://42.62.96.68:3306/management?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false" driverClass="com.mysql.jdbc.Driver" password="management" userId="management" />
+
+        <!--<javaModelGenerator targetPackage="com.seasun.management.model" targetProject="./others">-->
+        <javaModelGenerator targetPackage="com.seasun.management.model" targetProject="../../seasun-management-backend/src/main/java">
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!--<sqlMapGenerator targetPackage="mapper" targetProject="./others" />-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="../../seasun-management-backend/src/main/resources" />
+
+        <!--<javaClientGenerator targetPackage="com.seasun.management.mapper" targetProject="./others" type="MIXEDMAPPER" />-->
+        <javaClientGenerator targetPackage="com.seasun.management.mapper" targetProject="../../seasun-management-backend/src/main/java" type="MIXEDMAPPER" />
+        <table tableName="pm_quality_project_relation" domainObjectName="PmQualityProjectRelation"
+               enableSelectByExample="false"
+               enableDeleteByExample="false"
+               enableCountByExample= "false"
+               enableUpdateByExample="false" >
+
+
+            <generatedKey column="id" identity="true" sqlStatement="Mysql"/>
+        </table>
+
+
+
+    </context>
+</generatorConfiguration>
+
+        <!--<columnOverride column="process_result" javaType="Integer" jdbcType="TINYINT" />-->
+        <!--official-doc: http://mbg.cndocs.tk/configreference-->

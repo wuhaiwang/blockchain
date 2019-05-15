@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserMessageMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserMessage">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="sender" jdbcType="BIGINT" property="sender"/>
+        <result column="receiver" jdbcType="BIGINT" property="receiver"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="params" jdbcType="VARCHAR" property="params"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="version_id" jdbcType="BIGINT" property="versionId"/>
+        <result column="read_flag" jdbcType="BIT" property="readFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="read_time" jdbcType="TIMESTAMP" property="readTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, sender, receiver, type, location, params, content, version_id, read_flag, create_time,
+    read_time
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserMessage">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sender != null">
+                sender,
+            </if>
+            <if test="receiver != null">
+                receiver,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="params != null">
+                params,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="versionId != null">
+                version_id,
+            </if>
+            <if test="readFlag != null">
+                read_flag,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="readTime != null">
+                read_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sender != null">
+                #{sender,jdbcType=BIGINT},
+            </if>
+            <if test="receiver != null">
+                #{receiver,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="params != null">
+                #{params,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="versionId != null">
+                #{versionId,jdbcType=BIGINT},
+            </if>
+            <if test="readFlag != null">
+                #{readFlag,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="readTime != null">
+                #{readTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserMessage">
+        update user_message
+        <set>
+            <if test="sender != null">
+                sender = #{sender,jdbcType=BIGINT},
+            </if>
+            <if test="receiver != null">
+                receiver = #{receiver,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="params != null">
+                params = #{params,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="versionId != null">
+                version_id = #{versionId,jdbcType=BIGINT},
+            </if>
+            <if test="readFlag != null">
+                read_flag = #{readFlag,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="readTime != null">
+                read_time = #{readTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--the following are user defined...-->
+    <insert id="batchInsertSelective" parameterType="java.util.List">
+        insert into user_message
+        (sender, receiver, type, location, params, content, version_id, read_flag, create_time, read_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.sender},
+            #{item.receiver},
+            #{item.type},
+            #{item.location},
+            #{item.params},
+            #{item.content},
+            (select a.count from (select (count(*) + 1) count from user_message where receiver = #{item.receiver}) a),
+            #{item.readFlag},
+            #{item.createTime},
+            #{item.readTime}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectByCondition" parameterType="com.seasun.management.vo.UserMessageConditionVo"
+            resultType="com.seasun.management.vo.UserMessageCommuteDto">
+        select m.*,
+        (select concat(u.last_name,u.first_name) from user u where m.receiver = u.id) as receiverName,
+        (select concat(u.last_name,u.first_name) from user u where m.sender = u.id) as senderName
+        from user_message m
+
+        WHERE 1 = 1
+        <if test="sender != null and sender != ''">
+            AND (select concat(u.last_name,u.first_name) from user u where m.sender = u.id) LIKE
+            CONCAT('%',#{sender},'%')
+        </if>
+        <if test="receiver != null and receiver != ''">
+            AND (select concat(u.last_name,u.first_name) from user u where m.receiver = u.id) LIKE
+            CONCAT('%',#{receiver},'%')
+        </if>
+        <if test="version != null and version != ''">
+            AND m.version_id LIKE CONCAT('%',#{version},'%')
+        </if>
+        <if test="content != null and content != ''">
+            AND m.content LIKE CONCAT('%',#{content},'%')
+        </if>
+        <if test="type != null and type != ''">
+            AND m.type LIKE CONCAT('%',#{type},'%')
+        </if>
+        <if test="readFlag != null">
+            AND m.read_flag = #{readFlag}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND ((select concat(u.last_name,u.first_name) from user u where m.sender = u.id) LIKE
+            CONCAT('%',#{keyword},'%')
+            OR (select concat(u.last_name,u.first_name) from user u where m.receiver = u.id) LIKE
+            CONCAT('%',#{keyword},'%')
+            OR m.version_id LIKE CONCAT('%',#{keyword},'%')
+            OR m.content LIKE CONCAT('%',#{keyword},'%')
+            OR m.type LIKE CONCAT('%',#{keyword},'%')
+            )
+        </if>
+
+        <if test="startTime != null">
+            AND  <![CDATA[ m.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            AND  <![CDATA[ m.create_time <= #{endTime} ]]>
+        </if>
+
+        <if test="startReadTime != null">
+            AND  <![CDATA[ m.read_time >= #{startReadTime} ]]>
+        </if>
+        <if test="endReadTime != null">
+            AND  <![CDATA[ m.read_time <= #{endReadTime} ]]>
+        </if>
+
+        ORDER BY create_time DESC
+        <if test="currentPage != null">
+            limit #{beginNum} , #{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCountByCondition" parameterType="com.seasun.management.vo.UserMessageCommuteDto"
+            resultType="java.lang.Double">
+        select count(*)
+        from user_message m
+        WHERE 1 = 1
+        <if test="sender != null and sender != ''">
+            AND (select concat(u.last_name,u.first_name) from user u where m.sender = u.id) LIKE
+            CONCAT('%',#{sender},'%')
+        </if>
+        <if test="receiver != null and receiver != ''">
+            AND (select concat(u.last_name,u.first_name) from user u where m.receiver = u.id) LIKE
+            CONCAT('%',#{receiver},'%')
+        </if>
+        <if test="version != null and version != ''">
+            AND m.version_id LIKE CONCAT('%',#{version},'%')
+        </if>
+        <if test="content != null and content != ''">
+            AND m.content LIKE CONCAT('%',#{content},'%')
+        </if>
+        <if test="type != null and type != ''">
+            AND m.type LIKE CONCAT('%',#{type},'%')
+        </if>
+        <if test="readFlag != null">
+            AND m.read_flag = #{readFlag}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND ((select concat(u.last_name,u.first_name) from user u where m.sender = u.id) LIKE
+            CONCAT('%',#{keyword},'%')
+            OR (select concat(u.last_name,u.first_name) from user u where m.receiver = u.id) LIKE
+            CONCAT('%',#{keyword},'%')
+            OR m.version_id LIKE CONCAT('%',#{keyword},'%')
+            OR m.content LIKE CONCAT('%',#{keyword},'%')
+            OR m.type LIKE CONCAT('%',#{keyword},'%')
+            )
+        </if>
+
+        <if test="startTime != null">
+            AND  <![CDATA[ m.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            AND  <![CDATA[ m.create_time <= #{endTime} ]]>
+        </if>
+
+        <if test="startReadTime != null">
+            AND  <![CDATA[ m.read_time >= #{startReadTime} ]]>
+        </if>
+        <if test="endReadTime != null">
+            AND  <![CDATA[ m.read_time <= #{endReadTime} ]]>
+        </if>
+
+    </select>
+
+    <update id="updateReadFlagByIds" parameterType="long">
+        UPDATE user_message
+        SET read_flag= 1 , read_time=now()
+        <where>
+            read_flag = 0
+            AND id in
+            <foreach collection="list" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </update>
+
+</mapper>

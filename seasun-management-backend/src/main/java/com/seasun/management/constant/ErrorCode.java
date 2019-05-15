@@ -1,0 +1,81 @@
+package com.seasun.management.constant;
+
+public interface ErrorCode {
+
+    int SYSTEM_ERROR = 999;
+
+    int USER_INVALID_ERROR = 998;
+
+    int PARAM_ERROR = 997;
+
+    int USER_NO_PERMISSION_ERROR = 996;
+
+    int PERSISTENT_LAYER_MESSAGE = 995;
+
+    //用于用户的一些无效操作,所抛出的message将直接显示前台
+    int USER_INVALID_OPERATE_ERROR = 994;
+
+
+    // 每个大功能，分配100个错误码
+
+    int PM_SUBMIIT_ERROR = 1100;
+
+    int DATA_SYNC_ERROR = 800;
+
+    int FILE_IMPORT_COMMON_ERROR = 700;
+
+    int FILE_IMPORT_BUSY_ERROR = 701;
+
+    int FILE_IMPORT_TYPE_ERROR = 702;
+
+    int FILE_IMPORT_FILE_SAVE_ERROR = 703;
+
+    int FILE_IMPORT_NO_VALID_SHEET_ERROR = 704;
+
+    int FILE_IMPORT_USER_CANCELED = 705;
+
+    int FILE_IMPORT_SELECT_YEAR_DO_NOT_MATCH_IN_SHEET_ERROR = 706;
+
+    int FILE_IMPORT_SELECT_MONTH_DO_NOT_MATCH_IN_SHEET_ERROR = 707;
+
+    int FILE_IMPORT_FILE_READ_ERROR = 708;
+
+
+    // 每个小功能，分配10个错误码
+    int TOKEN_INVALID_ERROR = 690;
+
+    int PASSWORD_VERIFY_ERROR = 689;
+
+    int COPY_SHARE_CONFIG_ERROR = 670;
+
+    int PLAT_SHARE_MEMBER_EXISTS = 660;
+
+    // 组权限变更错误码
+    int UNFINISHED_PERFORMANCE_RECORD_ERROR = 650;
+    int UNFINISHED_SALARY_RECORD_ERROR = 649;
+
+    // 用户调薪异常
+    int SALARY_CHANGE_EXCEPTION = 630;
+
+    // 工作流异常
+    int FLOW_INVALID_NEXT_STEP_NAME_EXCEPTION = 620;
+    int FLOW_NO_BUSINESS_LISTENER_FOUND_EXCEPTION = 619;
+
+    // excel 创建相关
+    int EXCEL_DATA_ACCESS_EXCEPTION = 610;
+
+    //KSLife 象关
+    int KS_USER_SEAT_NO_EXCEPTION=609;
+
+    //调动人员本月绩效状态非已完成
+    int USER_PERFORMANCE_WORK_GROUP_MODIFY_ERROR = 101;
+
+    //订单异常
+    //微信服务器连接失败
+    int WXPAY_NETWORKCONNECT_ERROR = 1101;
+
+    //CP外包
+    int CP_OPERATION_ERROR = 2000;
+}
+
+

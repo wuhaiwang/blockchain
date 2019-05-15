@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PmFinanceReportMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.PmFinanceReport">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="income_float_reason" jdbcType="VARCHAR" property="incomeFloatReason" />
+    <result column="cost_float_reason" jdbcType="VARCHAR" property="costFloatReason" />
+    <result column="profit_float_reason" jdbcType="VARCHAR" property="profitFloatReason" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_id, year, month, income_float_reason, cost_float_reason, profit_float_reason, 
+    status, create_time, update_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.PmFinanceReport">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pm_finance_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="incomeFloatReason != null">
+        income_float_reason,
+      </if>
+      <if test="costFloatReason != null">
+        cost_float_reason,
+      </if>
+      <if test="profitFloatReason != null">
+        profit_float_reason,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="incomeFloatReason != null">
+        #{incomeFloatReason,jdbcType=VARCHAR},
+      </if>
+      <if test="costFloatReason != null">
+        #{costFloatReason,jdbcType=VARCHAR},
+      </if>
+      <if test="profitFloatReason != null">
+        #{profitFloatReason,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PmFinanceReport">
+    update pm_finance_report
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="incomeFloatReason != null">
+        income_float_reason = #{incomeFloatReason,jdbcType=VARCHAR},
+      </if>
+      <if test="costFloatReason != null">
+        cost_float_reason = #{costFloatReason,jdbcType=VARCHAR},
+      </if>
+      <if test="profitFloatReason != null">
+        profit_float_reason = #{profitFloatReason,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+  <select id="selectByCond" parameterType="com.seasun.management.model.PmFinanceReport" resultMap="BaseResultMap">
+    SELECT * FROM pm_finance_report
+    <where>
+      <if test="projectId != null">
+        AND project_id = #{projectId,jdbcType=BIGINT}
+      </if>
+      <if test="year != null">
+        AND year = #{year,jdbcType=INTEGER}
+      </if>
+      <if test="month != null">
+        AND month = #{month,jdbcType=INTEGER}
+      </if>
+      <if test="incomeFloatReason != null">
+        AND income_float_reason = #{incomeFloatReason,jdbcType=VARCHAR}
+      </if>
+      <if test="costFloatReason != null">
+        AND  cost_float_reason = #{costFloatReason,jdbcType=VARCHAR}
+      </if>
+      <if test="profitFloatReason != null">
+        AND  profit_float_reason = #{profitFloatReason,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        AND  status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND  update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

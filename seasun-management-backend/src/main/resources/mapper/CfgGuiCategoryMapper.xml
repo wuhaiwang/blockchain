@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CfgGuiCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.CfgGuiCategory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, subtitle, type, channel, image, url, param, remark
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.CfgGuiCategory">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cfg_gui_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="subtitle != null">
+        subtitle,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="param != null">
+        param,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CfgGuiCategory">
+    update cfg_gui_category
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null">
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

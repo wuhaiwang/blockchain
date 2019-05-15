@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CfgPerfHideManagerCommentMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.CfgPerfHideManagerComment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="perf_work_group_id" jdbcType="BIGINT" property="perfWorkGroupId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, perf_work_group_id, year, month
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.CfgPerfHideManagerComment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cfg_perf_hide_manager_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="perfWorkGroupId != null">
+        perf_work_group_id,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="perfWorkGroupId != null">
+        #{perfWorkGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CfgPerfHideManagerComment">
+    update cfg_perf_hide_manager_comment
+    <set>
+      <if test="perfWorkGroupId != null">
+        perf_work_group_id = #{perfWorkGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

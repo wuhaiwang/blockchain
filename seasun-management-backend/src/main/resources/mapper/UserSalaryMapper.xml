@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserSalaryMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserSalary">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="salary" jdbcType="VARCHAR" property="salary" />
+        <result column="last_salary_change_date" jdbcType="VARCHAR" property="lastSalaryChangeDate" />
+        <result column="last_salary_change_amount" jdbcType="VARCHAR" property="lastSalaryChangeAmount" />
+        <result column="create_time" jdbcType="DATE" property="createTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, salary, last_salary_change_date, last_salary_change_amount, create_time
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserSalary">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_salary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="salary != null">
+                salary,
+            </if>
+            <if test="lastSalaryChangeDate != null">
+                last_salary_change_date,
+            </if>
+            <if test="lastSalaryChangeAmount != null">
+                last_salary_change_amount,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="salary != null">
+                #{salary,jdbcType=VARCHAR},
+            </if>
+            <if test="lastSalaryChangeDate != null">
+                #{lastSalaryChangeDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastSalaryChangeAmount != null">
+                #{lastSalaryChangeAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserSalary">
+        update user_salary
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="salary != null">
+                salary = #{salary,jdbcType=VARCHAR},
+            </if>
+            <if test="lastSalaryChangeDate != null">
+                last_salary_change_date = #{lastSalaryChangeDate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastSalaryChangeAmount != null">
+                last_salary_change_amount = #{lastSalaryChangeAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into user_salary
+        (user_id, salary, last_salary_change_date,last_salary_change_amount,create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.userId},
+            #{item.salary},
+            #{item.lastSalaryChangeDate},
+            #{item.lastSalaryChangeAmount},
+            #{item.createTime}
+            )
+        </foreach>
+    </insert>
+</mapper>

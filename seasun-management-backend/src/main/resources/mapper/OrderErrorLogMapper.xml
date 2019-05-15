@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.OrderErrorLogMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.OrderErrorLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="client_full_info" jdbcType="VARCHAR" property="clientFullInfo" />
+    <result column="response" jdbcType="VARCHAR" property="response" />
+    <result column="error_message" jdbcType="VARCHAR" property="errorMessage" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, client_full_info, response, error_message, create_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.OrderErrorLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into order_error_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="clientFullInfo != null">
+        client_full_info,
+      </if>
+      <if test="response != null">
+        response,
+      </if>
+      <if test="errorMessage != null">
+        error_message,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="clientFullInfo != null">
+        #{clientFullInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="response != null">
+        #{response,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.OrderErrorLog">
+    update order_error_log
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="clientFullInfo != null">
+        client_full_info = #{clientFullInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="response != null">
+        response = #{response,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        error_message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

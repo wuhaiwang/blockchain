@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserSalaryChangeMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserSalaryChange">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="work_group_id" jdbcType="BIGINT" property="workGroupId"/>
+        <result column="sub_group" jdbcType="VARCHAR" property="subGroup"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="quarter" jdbcType="INTEGER" property="quarter"/>
+        <result column="old_salary" jdbcType="INTEGER" property="oldSalary"/>
+        <result column="increase_salary" jdbcType="INTEGER" property="increaseSalary"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="performance_count" jdbcType="INTEGER" property="performanceCount"/>
+        <result column="evaluate_type" jdbcType="VARCHAR" property="evaluateType"/>
+        <result column="grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="last_salary_change_date" jdbcType="DATE" property="lastSalaryChangeDate"/>
+        <result column="last_salary_change_amount" jdbcType="INTEGER" property="lastSalaryChangeAmount"/>
+        <result column="last_grade_change_date" jdbcType="DATE" property="lastGradeChangeDate"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <result column="update_time" jdbcType="DATE" property="updateTime"/>
+        <result column="work_age" jdbcType="INTEGER" property="workAge"/>
+        <result column="work_age_in_ks" jdbcType="INTEGER" property="workAgeInKs"/>
+        <result column="post" jdbcType="VARCHAR" property="post"/>
+        <result column="work_group_name" jdbcType="VARCHAR" property="workGroupName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, work_group_id, sub_group, user_id, year, quarter, old_salary, increase_salary,
+        score, performance_count, evaluate_type, grade, status, last_salary_change_date,
+        last_salary_change_amount, last_grade_change_date, create_time, update_time, work_age,
+        work_age_in_ks, post, work_group_name
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserSalaryChange">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_salary_change
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workGroupId != null">
+                work_group_id,
+            </if>
+            <if test="subGroup != null">
+                sub_group,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="quarter != null">
+                quarter,
+            </if>
+            <if test="oldSalary != null">
+                old_salary,
+            </if>
+            <if test="increaseSalary != null">
+                increase_salary,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="performanceCount != null">
+                performance_count,
+            </if>
+            <if test="evaluateType != null">
+                evaluate_type,
+            </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="lastSalaryChangeDate != null">
+                last_salary_change_date,
+            </if>
+            <if test="lastSalaryChangeAmount != null">
+                last_salary_change_amount,
+            </if>
+            <if test="lastGradeChangeDate != null">
+                last_grade_change_date,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="workAge != null">
+                work_age,
+            </if>
+            <if test="workAgeInKs != null">
+                work_age_in_ks,
+            </if>
+            <if test="post != null">
+                post,
+            </if>
+            <if test="workGroupName != null">
+                work_group_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workGroupId != null">
+                #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="subGroup != null">
+                #{subGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="quarter != null">
+                #{quarter,jdbcType=INTEGER},
+            </if>
+            <if test="oldSalary != null">
+                #{oldSalary,jdbcType=INTEGER},
+            </if>
+            <if test="increaseSalary != null">
+                #{increaseSalary,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="performanceCount != null">
+                #{performanceCount,jdbcType=INTEGER},
+            </if>
+            <if test="evaluateType != null">
+                #{evaluateType,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="lastSalaryChangeDate != null">
+                #{lastSalaryChangeDate,jdbcType=DATE},
+            </if>
+            <if test="lastSalaryChangeAmount != null">
+                #{lastSalaryChangeAmount,jdbcType=INTEGER},
+            </if>
+            <if test="lastGradeChangeDate != null">
+                #{lastGradeChangeDate,jdbcType=DATE},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=DATE},
+            </if>
+            <if test="workAge != null">
+                #{workAge,jdbcType=INTEGER},
+            </if>
+            <if test="workAgeInKs != null">
+                #{workAgeInKs,jdbcType=INTEGER},
+            </if>
+            <if test="post != null">
+                #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="workGroupName != null">
+                #{workGroupName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserSalaryChange">
+        update user_salary_change
+        <set>
+            <if test="workGroupId != null">
+                work_group_id = #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="subGroup != null">
+                sub_group = #{subGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="quarter != null">
+                quarter = #{quarter,jdbcType=INTEGER},
+            </if>
+            <if test="oldSalary != null">
+                old_salary = #{oldSalary,jdbcType=INTEGER},
+            </if>
+            <if test="increaseSalary != null">
+                increase_salary = #{increaseSalary,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="performanceCount != null">
+                performance_count = #{performanceCount,jdbcType=INTEGER},
+            </if>
+            <if test="evaluateType != null">
+                evaluate_type = #{evaluateType,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                grade = #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="lastSalaryChangeDate != null">
+                last_salary_change_date = #{lastSalaryChangeDate,jdbcType=DATE},
+            </if>
+            <if test="lastSalaryChangeAmount != null">
+                last_salary_change_amount = #{lastSalaryChangeAmount,jdbcType=INTEGER},
+            </if>
+            <if test="lastGradeChangeDate != null">
+                last_grade_change_date = #{lastGradeChangeDate,jdbcType=DATE},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=DATE},
+            </if>
+            <if test="workAge != null">
+                work_age = #{workAge,jdbcType=INTEGER},
+            </if>
+            <if test="workAgeInKs != null">
+                work_age_in_ks = #{workAgeInKs,jdbcType=INTEGER},
+            </if>
+            <if test="post != null">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="workGroupName != null">
+                work_group_name = #{workGroupName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--the following are user defined...-->
+
+    <select id="selectSalaryChangeList" resultType="com.seasun.management.dto.UserSalaryChangeDto">
+        SELECT c.id,c.year,c.quarter,c.user_id , y.name,c.score
+        ,c.grade,c.evaluate_type,y.manager,y.work_group,c.status,c.increase_salary FROM
+        (SELECT x.id, x.work_group, u.id user_id ,CONCAT(last_name,first_name) name ,x.manager FROM
+        (select q.id,q.work_group, GROUP_CONCAT(CONCAT(last_name,first_name)) manager from
+        (SELECT z.id,z.work_group,r.user_id FROM
+        (SELECT id,name work_group from work_group
+        WHERE id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        z LEFT JOIN r_user_work_group_perm r ON z.id=r.work_group_id)
+        q LEFT JOIN user on q.user_id=user.id
+        GROUP BY id)
+        x LEFT JOIN user u on x.id=u.work_group_id)
+        y LEFT JOIN user_salary_change c ON y.user_id=c.user_id
+        WHERE year= #{year}
+        AND quarter= #{quarter}
+    </select>
+
+    <select id="selectWaitingForCut" resultType="java.lang.Long">
+        (SELECT count(*) FROM user_salary_change WHERE user_id IN
+        (SELECT user.id user_id FROM
+        (SELECT id,name work_group from work_group
+        WHERE id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        x LEFT JOIN user ON x.id=user.work_group_id)
+        AND year= #{year}
+        AND quarter= #{quarter}
+        and status='待淘汰')
+    </select>
+
+    <select id="selectIncreaseList" resultType="com.seasun.management.model.UserSalaryChange">
+        SELECT * FROM
+        (SELECT us.* FROM
+        (SELECT x.work_group ,user.id user_id FROM
+        (SELECT id,name work_group from work_group
+        WHERE id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        x LEFT JOIN user ON x.id=user.work_group_id)
+        y LEFT JOIN user_salary_change us ON us.user_id=y.user_id)
+        z WHERE z.increase_salary>0
+        AND year= #{year}
+        AND quarter= #{quarter}
+    </select>
+
+    <select id="getGroupSimpleInfoList" resultType="com.seasun.management.vo.OrdinateSalaryChangeAppVo">
+        SELECT y.id, y.name work_group,CONCAT(user.last_name,user.first_name) manager FROM
+        (SELECT x.id, name,user_id FROM
+        (SELECT id,name FROM work_group WHERE id in
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>
+        AND active_flag=1) x LEFT JOIN
+        (SELECT * FROM r_user_work_group_perm r WHERE work_group_role_id=2 GROUP BY work_group_id)r ON x.id=r.work_group_id)
+        y LEFT JOIN user ON y.user_id=user.id
+    </select>
+
+    <update id="updateDirectStatus" parameterType="java.util.List">
+        UPDATE user_salary_change
+        SET status= #{str}
+        , update_time= NOW()
+        <if test="work_group_id != null">
+            , work_group_id = #{workGroupId}
+        </if>
+        WHERE user_id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateSelectiveOld" parameterType="java.util.List">
+        <foreach close="" collection="list" index="index" item="item" open="" separator=";">
+            update user_salary_change
+            <set>
+                <if test="#{item.workGroupId} != null">
+                    work_group_id = #{item.workGroupId,jdbcType=BIGINT},
+                </if>
+                <if test="#{item.subGroup} != null">
+                    sub_group = #{item.subGroup,jdbcType=VARCHAR},
+                </if>
+                <if test="#{item.userId} != null">
+                    user_id = #{item.userId,jdbcType=BIGINT},
+                </if>
+                <if test="#{item.year} != null">
+                    year = #{item.year,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.quarter} != null">
+                    quarter = #{item.quarter,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.oldSalary} != null">
+                    old_salary = #{item.oldSalary,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.increaseSalary} != null">
+                    increase_salary = #{item.increaseSalary,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.score} != null">
+                    score = #{item.score,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.performanceCount} != null">
+                    performance_count = #{item.performanceCount,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.evaluateType} != null">
+                    evaluate_type = #{item.evaluateType,jdbcType=VARCHAR},
+                </if>
+                <if test="#{item.grade} != null">
+                    grade = #{item.grade,jdbcType=VARCHAR},
+                </if>
+                <if test="#{item.status} != null">
+                    status = #{item.status,jdbcType=VARCHAR},
+                </if>
+                <if test="#{item.lastSalaryChangeDate} != null">
+                    last_salary_change_date = #{item.lastSalaryChangeDate,jdbcType=DATE},
+                </if>
+                <if test="#{item.lastSalaryChangeAmount} != null">
+                    last_salary_change_amount = #{item.lastSalaryChangeAmount,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.lastGradeChangeDate} != null">
+                    last_grade_change_date = #{item.lastGradeChangeDate,jdbcType=DATE},
+                </if>
+                <if test="#{item.createTime} != null">
+                    create_time = #{item.createTime,jdbcType=DATE},
+                </if>
+                <if test="#{item.updateTime} != null">
+                    update_time = #{item.updateTime,jdbcType=DATE},
+                </if>
+                <if test="#{item.workAge} != null">
+                    work_age = #{item.workAge,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.workAgeInKs} != null">
+                    work_age_in_ks = #{item.workAgeInKs,jdbcType=INTEGER},
+                </if>
+                <if test="#{item.post} != null">
+                    post = #{item.post,jdbcType=VARCHAR},
+                </if>
+                <if test="#{item.workGroupName} != null">
+                    work_group_name = #{item.workGroupName,jdbcType=VARCHAR},
+                </if>
+            </set>
+            where id=#{item.id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <insert id="batchInsertSelective" parameterType="java.util.List">
+        INSERT INTO user_salary_change
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            work_group_id,
+            sub_group,
+            user_id,
+            year,
+            quarter,
+            old_salary,
+            increase_salary,
+            score,
+            performance_count,
+            evaluate_type,
+            grade,
+            status,
+            last_salary_change_date,
+            last_salary_change_amount,
+            last_grade_change_date,
+            create_time,
+            update_time,
+            work_age,
+            work_age_in_ks,
+            post,
+            work_group_name
+        </trim>
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.workGroupId,jdbcType=BIGINT},
+            #{item.subGroup,jdbcType=VARCHAR},
+            #{item.userId,jdbcType=BIGINT},
+            #{item.year,jdbcType=INTEGER},
+            #{item.quarter,jdbcType=INTEGER},
+            #{item.oldSalary,jdbcType=INTEGER},
+            #{item.increaseSalary,jdbcType=INTEGER},
+            #{item.score,jdbcType=INTEGER},
+            #{item.performanceCount,jdbcType=VARCHAR},
+            #{item.evaluateType,jdbcType=VARCHAR},
+            #{item.grade,jdbcType=VARCHAR},
+            #{item.status,jdbcType=VARCHAR},
+            #{item.lastSalaryChangeDate,jdbcType=DATE},
+            #{item.lastSalaryChangeAmount,jdbcType=INTEGER},
+            #{item.lastGradeChangeDate,jdbcType=DATE},
+            #{item.createTime,jdbcType=DATE},
+            #{item.updateTime,jdbcType=DATE},
+            #{item.workAge,jdbcType=INTEGER},
+            #{item.workAgeInKs,jdbcType=INTEGER},
+            #{item.post,jdbcType=VARCHAR},
+            #{item.workGroupName,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+
+    <update id="batchUpdateSelective" parameterType="java.util.List">
+        update user_salary_change set
+        work_group_id=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.workGroupId,jdbcType=BIGINT}
+        </foreach>
+        ,sub_group=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.subGroup,jdbcType=VARCHAR}
+        </foreach>
+        ,user_id=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.userId,jdbcType=BIGINT}
+        </foreach>
+        ,year=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.year,jdbcType=INTEGER}
+        </foreach>
+        ,quarter=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.quarter,jdbcType=INTEGER}
+        </foreach>
+        ,old_salary=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.oldSalary,jdbcType=INTEGER}
+        </foreach>
+        ,increase_salary=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.increaseSalary,jdbcType=INTEGER}
+        </foreach>
+        ,score=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.score,jdbcType=INTEGER}
+        </foreach>
+        ,performance_count=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.performanceCount,jdbcType=VARCHAR}
+        </foreach>
+        ,evaluate_type=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.evaluateType,jdbcType=VARCHAR}
+        </foreach>
+        ,grade=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.grade,jdbcType=VARCHAR}
+        </foreach>
+        ,status=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.status,jdbcType=VARCHAR}
+        </foreach>
+        ,last_salary_change_date=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.lastSalaryChangeDate,jdbcType=DATE}
+        </foreach>
+        ,last_salary_change_amount=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.lastSalaryChangeAmount,jdbcType=INTEGER}
+        </foreach>
+        ,last_grade_change_date=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.lastGradeChangeDate,jdbcType=DATE}
+        </foreach>
+        ,create_time=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.createTime,jdbcType=DATE}
+        </foreach>
+        ,update_time=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.updateTime,jdbcType=DATE}
+        </foreach>
+        ,work_age=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.workAge,jdbcType=INTEGER}
+        </foreach>
+        ,work_age_in_ks=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.workAgeInKs,jdbcType=INTEGER}
+        </foreach>
+        ,post=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.post,jdbcType=VARCHAR}
+        </foreach>
+        ,work_group_name=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then  #{item.workGroupName,jdbcType=VARCHAR}
+        </foreach>
+
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+
+    </update>
+
+</mapper>

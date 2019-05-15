@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.ReqissuesExMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.ReqissuesEx">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="IssueID" jdbcType="INTEGER" property="issueId" />
+    <result column="CPID" jdbcType="INTEGER" property="cPId" />
+    <result column="GameProject" jdbcType="VARCHAR" property="gameProject" />
+    <result column="ResType" jdbcType="VARCHAR" property="resType" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="Location" jdbcType="VARCHAR" property="location" />
+    <result column="Amount" jdbcType="INTEGER" property="amount" />
+    <result column="SchemeReady" jdbcType="BIT" property="schemeReady" />
+    <result column="StandardReady" jdbcType="BIT" property="standardReady" />
+    <result column="PreReady" jdbcType="BIT" property="preReady" />
+    <result column="InterfaceMan" jdbcType="INTEGER" property="interfaceMan" />
+    <result column="TestStatus" jdbcType="INTEGER" property="testStatus" />
+    <result column="ArtLeader" jdbcType="INTEGER" property="artLeader" />
+    <result column="ArtConfirm" jdbcType="BIT" property="artConfirm" />
+    <result column="ArtConfirmTime" jdbcType="TIMESTAMP" property="artConfirmTime" />
+    <result column="OrderNo" jdbcType="VARCHAR" property="orderNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, IssueID, CPID, GameProject, ResType, Description, Location, Amount, SchemeReady, 
+    StandardReady, PreReady, InterfaceMan, TestStatus, ArtLeader, ArtConfirm, ArtConfirmTime, 
+    OrderNo
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.ReqissuesEx">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.reqissuesex
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="issueId != null">
+        IssueID,
+      </if>
+      <if test="cPId != null">
+        CPID,
+      </if>
+      <if test="gameProject != null">
+        GameProject,
+      </if>
+      <if test="resType != null">
+        ResType,
+      </if>
+      <if test="description != null">
+        Description,
+      </if>
+      <if test="location != null">
+        Location,
+      </if>
+      <if test="amount != null">
+        Amount,
+      </if>
+      <if test="schemeReady != null">
+        SchemeReady,
+      </if>
+      <if test="standardReady != null">
+        StandardReady,
+      </if>
+      <if test="preReady != null">
+        PreReady,
+      </if>
+      <if test="interfaceMan != null">
+        InterfaceMan,
+      </if>
+      <if test="testStatus != null">
+        TestStatus,
+      </if>
+      <if test="artLeader != null">
+        ArtLeader,
+      </if>
+      <if test="artConfirm != null">
+        ArtConfirm,
+      </if>
+      <if test="artConfirmTime != null">
+        ArtConfirmTime,
+      </if>
+      <if test="orderNo != null">
+        OrderNo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="issueId != null">
+        #{issueId,jdbcType=INTEGER},
+      </if>
+      <if test="cPId != null">
+        #{cPId,jdbcType=INTEGER},
+      </if>
+      <if test="gameProject != null">
+        #{gameProject,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null">
+        #{resType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="schemeReady != null">
+        #{schemeReady,jdbcType=BIT},
+      </if>
+      <if test="standardReady != null">
+        #{standardReady,jdbcType=BIT},
+      </if>
+      <if test="preReady != null">
+        #{preReady,jdbcType=BIT},
+      </if>
+      <if test="interfaceMan != null">
+        #{interfaceMan,jdbcType=INTEGER},
+      </if>
+      <if test="testStatus != null">
+        #{testStatus,jdbcType=INTEGER},
+      </if>
+      <if test="artLeader != null">
+        #{artLeader,jdbcType=INTEGER},
+      </if>
+      <if test="artConfirm != null">
+        #{artConfirm,jdbcType=BIT},
+      </if>
+      <if test="artConfirmTime != null">
+        #{artConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.ReqissuesEx">
+    update cp.reqissuesex
+    <set>
+      <if test="issueId != null">
+        IssueID = #{issueId,jdbcType=INTEGER},
+      </if>
+      <if test="cPId != null">
+        CPID = #{cPId,jdbcType=INTEGER},
+      </if>
+      <if test="gameProject != null">
+        GameProject = #{gameProject,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null">
+        ResType = #{resType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        Location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        Amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="schemeReady != null">
+        SchemeReady = #{schemeReady,jdbcType=BIT},
+      </if>
+      <if test="standardReady != null">
+        StandardReady = #{standardReady,jdbcType=BIT},
+      </if>
+      <if test="preReady != null">
+        PreReady = #{preReady,jdbcType=BIT},
+      </if>
+      <if test="interfaceMan != null">
+        InterfaceMan = #{interfaceMan,jdbcType=INTEGER},
+      </if>
+      <if test="testStatus != null">
+        TestStatus = #{testStatus,jdbcType=INTEGER},
+      </if>
+      <if test="artLeader != null">
+        ArtLeader = #{artLeader,jdbcType=INTEGER},
+      </if>
+      <if test="artConfirm != null">
+        ArtConfirm = #{artConfirm,jdbcType=BIT},
+      </if>
+      <if test="artConfirmTime != null">
+        ArtConfirmTime = #{artConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNo != null">
+        OrderNo = #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

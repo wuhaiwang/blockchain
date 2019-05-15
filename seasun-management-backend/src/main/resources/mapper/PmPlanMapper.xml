@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PmPlanMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.PmPlan">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="project_estimate_day" jdbcType="TIMESTAMP" property="projectEstimateDay"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, project_id, year, version, status, create_time, update_time
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.PmPlan">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into pm_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="projectEstimateDay != null">
+                project_estimate_day,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="projectEstimateDay != null">
+                #{projectEstimateDay,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PmPlan">
+        update pm_plan
+        <set>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="projectEstimateDay != null">
+                project_estimate_day = #{projectEstimateDay,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+
+    <select id="selectProjectsStatusByProjectAssistant" resultType="com.seasun.management.vo.StatusVo">
+    select p.id,p.name,p.status projectStatus,pt.id pmPlanId,CASE pt.status  WHEN '1' THEN '已提交' ELSE '未提交' END status
+    from (select id,name,status from project where  active_flag=1 and service_line !='平台' and service_line !='汇总' and service_line !='分摊项' and app_show_mode > 0 ) p left join (select pp.id,pp.project_id,pp.status from (SELECT project_id,max(version) version FROM pm_plan  group by project_id) p left join pm_plan pp
+    on p.project_id=pp.project_id and p.version=pp.version) pt on p.id=pt.project_id
+    where p.id IN
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </select>
+
+    <select id="selectPmFinanceDetail" resultType="com.seasun.management.vo.PmFinanceDetailVo">
+        <![CDATA[
+            select p.id projectId,p.`name` projectName,p.city city,p.service_line type,p.contact_name managerName,p.`status` status,
+            (
+                (select value from fn_project_stat_data where fn_stat_id = #{monthProfitId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)
+                -
+                (select value from fn_project_stat_data where fn_stat_id = #{costId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)
+            )monthProfit,
+            (select value from fn_project_stat_data where fn_stat_id = #{totalProfitId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = 0 LIMIT 0,1)totalProfit,
+            (select value from fn_project_stat_data where fn_stat_id = #{incomeId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)income,
+            (select value from fn_project_stat_data where fn_stat_id = #{costId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)cost,
+            (select value from fn_project_stat_data where fn_stat_id = #{innerSettleId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)innerSettle,
+            (
+                (select value from fn_project_stat_data where fn_stat_id = #{realProfitId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)
+                -
+                (select value from fn_project_stat_data where fn_stat_id = #{costId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)
+                -
+                (select value from fn_project_stat_data where fn_stat_id = #{innerSettleId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)
+            )realProfit,
+            (select value from fn_project_stat_data where fn_stat_id = #{memberCountId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)memberCount,
+            (select value from fn_project_stat_data where fn_stat_id = #{averageProfitId,jdbcType=BIGINT} and project_id = p.id and `year` = #{year,jdbcType=BIGINT} and `month` = #{month,jdbcType=INTEGER} LIMIT 0,1)averageProfit,
+            (select value from fn_project_stat_data where fn_stat_id = #{incomeId,jdbcType=BIGINT} and project_id = p.id and `year` <= #{year,jdbcType=BIGINT} and `month` < #{month,jdbcType=INTEGER} ORDER BY year desc,month desc LIMIT 0,1)preIncome,
+            d.id id,
+            d.year year,
+            d.month month,
+            d.remark remark
+            from project p left join pm_finance_detail d on p.id =d.project_id and d.year = #{year,jdbcType=BIGINT} and d.month = #{month,jdbcType=INTEGER}
+            where  (active_flag=1 and finance_flag=true)
+        ]]>
+    </select>
+</mapper>

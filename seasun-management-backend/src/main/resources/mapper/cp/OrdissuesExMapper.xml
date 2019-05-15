@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.OrdissuesExMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.OrdissuesEx">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="IssueID" jdbcType="INTEGER" property="issueId"/>
+        <result column="CPID" jdbcType="INTEGER" property="cPId"/>
+        <result column="GameProject" jdbcType="VARCHAR" property="gameProject"/>
+        <result column="ResType" jdbcType="VARCHAR" property="resType"/>
+        <result column="Amount" jdbcType="INTEGER" property="amount"/>
+        <result column="Attitude" jdbcType="DECIMAL" property="attitude"/>
+        <result column="Feedback" jdbcType="DECIMAL" property="feedback"/>
+        <result column="OnTime" jdbcType="DECIMAL" property="onTime"/>
+        <result column="Quality" jdbcType="DECIMAL" property="quality"/>
+        <result column="OrderStatus" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="OrderNo" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="Description" jdbcType="VARCHAR" property="description"/>
+        <result column="EvaluationTime" jdbcType="TIMESTAMP" property="evaluationTime"/>
+        <result column="ReimbursementNo" jdbcType="VARCHAR" property="reimbursementNo"/>
+        <result column="OrderID" jdbcType="INTEGER" property="orderID"/>
+        <result column="Sign" jdbcType="INTEGER" property="sign"/>
+        <result column="AutoStatus" jdbcType="INTEGER" property="autoStatus"/>
+        <result column="CPOrderNo" jdbcType="VARCHAR" property="cPOrderNo"/>
+        <result column="EndEvaluation" jdbcType="TINYINT" property="endEvaluation"/>
+        <result column="Currencies" jdbcType="VARCHAR" property="currencies"/>
+        <result column="PayTimes" jdbcType="INTEGER" property="payTimes"/>
+        <result column="VerifyTimes" jdbcType="INTEGER" property="verifyTimes"/>
+        <result column="PrePayMoney" jdbcType="DECIMAL" property="prePayMoney"/>
+        <result column="MidPayMoney" jdbcType="DECIMAL" property="midPayMoney"/>
+        <result column="LastPayMoney" jdbcType="DECIMAL" property="lastPayMoney"/>
+        <result column="RealPrePayMoney" jdbcType="DECIMAL" property="realPrePayMoney"/>
+        <result column="RealMidPayMoney" jdbcType="DECIMAL" property="realMidPayMoney"/>
+        <result column="RealLastPayMoney" jdbcType="DECIMAL" property="realLastPayMoney"/>
+        <result column="RealPayMoney" jdbcType="DECIMAL" property="realPayMoney"/>
+        <result column="Remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="ModifyRealPayMoney" jdbcType="TINYINT" property="modifyRealPayMoney"/>
+        <result column="Verify" jdbcType="TINYINT" property="verify"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.seasun.management.model.cp.OrdissuesEx">
+        <result column="Appraise" jdbcType="LONGVARCHAR" property="appraise"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, IssueID, CPID, GameProject, ResType, Amount, Attitude, Feedback, OnTime, Quality, 
+    OrderStatus, OrderNo, Description, EvaluationTime, ReimbursementNo, OrderID, Sign, 
+    AutoStatus, CPOrderNo, EndEvaluation, Currencies, PayTimes, VerifyTimes, PrePayMoney, 
+    MidPayMoney, LastPayMoney, RealPrePayMoney, RealMidPayMoney, RealLastPayMoney, RealPayMoney, 
+    Remark, ModifyRealPayMoney, Verify
+  </sql>
+    <sql id="Blob_Column_List">
+    Appraise
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.cp.OrdissuesEx">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into cp.ordissuesex
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="issueId != null">
+                IssueID,
+            </if>
+            <if test="cPId != null">
+                CPID,
+            </if>
+            <if test="gameProject != null">
+                GameProject,
+            </if>
+            <if test="resType != null">
+                ResType,
+            </if>
+            <if test="amount != null">
+                Amount,
+            </if>
+            <if test="attitude != null">
+                Attitude,
+            </if>
+            <if test="feedback != null">
+                Feedback,
+            </if>
+            <if test="onTime != null">
+                OnTime,
+            </if>
+            <if test="quality != null">
+                Quality,
+            </if>
+            <if test="orderStatus != null">
+                OrderStatus,
+            </if>
+            <if test="orderNo != null">
+                OrderNo,
+            </if>
+            <if test="description != null">
+                Description,
+            </if>
+            <if test="evaluationTime != null">
+                EvaluationTime,
+            </if>
+            <if test="reimbursementNo != null">
+                ReimbursementNo,
+            </if>
+            <if test="orderID != null">
+                OrderID,
+            </if>
+            <if test="sign != null">
+                Sign,
+            </if>
+            <if test="autoStatus != null">
+                AutoStatus,
+            </if>
+            <if test="cPOrderNo != null">
+                CPOrderNo,
+            </if>
+            <if test="endEvaluation != null">
+                EndEvaluation,
+            </if>
+            <if test="currencies != null">
+                Currencies,
+            </if>
+            <if test="payTimes != null">
+                PayTimes,
+            </if>
+            <if test="verifyTimes != null">
+                VerifyTimes,
+            </if>
+            <if test="prePayMoney != null">
+                PrePayMoney,
+            </if>
+            <if test="midPayMoney != null">
+                MidPayMoney,
+            </if>
+            <if test="lastPayMoney != null">
+                LastPayMoney,
+            </if>
+            <if test="realPrePayMoney != null">
+                RealPrePayMoney,
+            </if>
+            <if test="realMidPayMoney != null">
+                RealMidPayMoney,
+            </if>
+            <if test="realLastPayMoney != null">
+                RealLastPayMoney,
+            </if>
+            <if test="realPayMoney != null">
+                RealPayMoney,
+            </if>
+            <if test="remark != null">
+                Remark,
+            </if>
+            <if test="modifyRealPayMoney != null">
+                ModifyRealPayMoney,
+            </if>
+            <if test="verify != null">
+                Verify,
+            </if>
+            <if test="appraise != null">
+                Appraise,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="issueId != null">
+                #{issueId,jdbcType=INTEGER},
+            </if>
+            <if test="cPId != null">
+                #{cPId,jdbcType=INTEGER},
+            </if>
+            <if test="gameProject != null">
+                #{gameProject,jdbcType=VARCHAR},
+            </if>
+            <if test="resType != null">
+                #{resType,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="attitude != null">
+                #{attitude,jdbcType=DECIMAL},
+            </if>
+            <if test="feedback != null">
+                #{feedback,jdbcType=DECIMAL},
+            </if>
+            <if test="onTime != null">
+                #{onTime,jdbcType=DECIMAL},
+            </if>
+            <if test="quality != null">
+                #{quality,jdbcType=DECIMAL},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluationTime != null">
+                #{evaluationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reimbursementNo != null">
+                #{reimbursementNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderID != null">
+                #{orderID,jdbcType=INTEGER},
+            </if>
+            <if test="sign != null">
+                #{sign,jdbcType=INTEGER},
+            </if>
+            <if test="autoStatus != null">
+                #{autoStatus,jdbcType=INTEGER},
+            </if>
+            <if test="cPOrderNo != null">
+                #{cPOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="endEvaluation != null">
+                #{endEvaluation,jdbcType=TINYINT},
+            </if>
+            <if test="currencies != null">
+                #{currencies,jdbcType=VARCHAR},
+            </if>
+            <if test="payTimes != null">
+                #{payTimes,jdbcType=INTEGER},
+            </if>
+            <if test="verifyTimes != null">
+                #{verifyTimes,jdbcType=INTEGER},
+            </if>
+            <if test="prePayMoney != null">
+                #{prePayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="midPayMoney != null">
+                #{midPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="lastPayMoney != null">
+                #{lastPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realPrePayMoney != null">
+                #{realPrePayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realMidPayMoney != null">
+                #{realMidPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realLastPayMoney != null">
+                #{realLastPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realPayMoney != null">
+                #{realPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyRealPayMoney != null">
+                #{modifyRealPayMoney,jdbcType=TINYINT},
+            </if>
+            <if test="verify != null">
+                #{verify,jdbcType=TINYINT},
+            </if>
+            <if test="appraise != null">
+                #{appraise,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.OrdissuesEx">
+        update cp.ordissuesex
+        <set>
+            <if test="issueId != null">
+                IssueID = #{issueId,jdbcType=INTEGER},
+            </if>
+            <if test="cPId != null">
+                CPID = #{cPId,jdbcType=INTEGER},
+            </if>
+            <if test="gameProject != null">
+                GameProject = #{gameProject,jdbcType=VARCHAR},
+            </if>
+            <if test="resType != null">
+                ResType = #{resType,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                Amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="attitude != null">
+                Attitude = #{attitude,jdbcType=DECIMAL},
+            </if>
+            <if test="feedback != null">
+                Feedback = #{feedback,jdbcType=DECIMAL},
+            </if>
+            <if test="onTime != null">
+                OnTime = #{onTime,jdbcType=DECIMAL},
+            </if>
+            <if test="quality != null">
+                Quality = #{quality,jdbcType=DECIMAL},
+            </if>
+            <if test="orderStatus != null">
+                OrderStatus = #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null">
+                OrderNo = #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                Description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluationTime != null">
+                EvaluationTime = #{evaluationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reimbursementNo != null">
+                ReimbursementNo = #{reimbursementNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderID != null">
+                OrderID = #{orderID,jdbcType=INTEGER},
+            </if>
+            <if test="sign != null">
+                Sign = #{sign,jdbcType=INTEGER},
+            </if>
+            <if test="autoStatus != null">
+                AutoStatus = #{autoStatus,jdbcType=INTEGER},
+            </if>
+            <if test="cPOrderNo != null">
+                CPOrderNo = #{cPOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="endEvaluation != null">
+                EndEvaluation = #{endEvaluation,jdbcType=TINYINT},
+            </if>
+            <if test="currencies != null">
+                Currencies = #{currencies,jdbcType=VARCHAR},
+            </if>
+            <if test="payTimes != null">
+                PayTimes = #{payTimes,jdbcType=INTEGER},
+            </if>
+            <if test="verifyTimes != null">
+                VerifyTimes = #{verifyTimes,jdbcType=INTEGER},
+            </if>
+            <if test="prePayMoney != null">
+                PrePayMoney = #{prePayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="midPayMoney != null">
+                MidPayMoney = #{midPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="lastPayMoney != null">
+                LastPayMoney = #{lastPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realPrePayMoney != null">
+                RealPrePayMoney = #{realPrePayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realMidPayMoney != null">
+                RealMidPayMoney = #{realMidPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realLastPayMoney != null">
+                RealLastPayMoney = #{realLastPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="realPayMoney != null">
+                RealPayMoney = #{realPayMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                Remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyRealPayMoney != null">
+                ModifyRealPayMoney = #{modifyRealPayMoney,jdbcType=TINYINT},
+            </if>
+            <if test="verify != null">
+                Verify = #{verify,jdbcType=TINYINT},
+            </if>
+            <if test="appraise != null">
+                Appraise = #{appraise,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <!-- the following are user defined...-->
+
+    <select id="selectByCPIdsAndCreatedYear" resultType="com.seasun.management.dto.cp.OrdissuesExDto">
+        select os.`Status` status,ox.* from cp.ordissuesex ox left join cp.ordissues os on os.id=ox.IssueID  where
+        DATE_FORMAT(os.CreatedOn,'%Y') =#{year}  and os.Status not in (15,21) and ox.CPID in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </select>
+
+    <select id="selectByGameProjectNamesAndCreatedYear" resultType="com.seasun.management.dto.cp.OrdissuesExDto">
+        select os.`Status` status,ox.*,g.Id cPProjectId from cp.ordissuesex ox left join cp.ordissues os on os.id=ox.IssueID left join cp.gameproject g on g.Name=ox.GameProject where
+        DATE_FORMAT(os.CreatedOn,'%Y') =#{year} and g.Active=1 and os.Status not in (15,21) and ox.GameProject in
+        <foreach collection="names" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByGameProjectIdsAndCreatedYear" resultType="com.seasun.management.dto.cp.CPOrderDto">
+        select a.*,CONCAT(IFNULL(c.doneTotal,0),'/',IFNULL(b.total,1)) progress,DATE_FORMAT(d.sendDate,'%Y-%m-%d') sendDateStr
+        from ( select ox.IssueID,ox.Verify verify,ox.OrderNo orderNo,os.Status status,cp.name,ox.Currencies currencies,ox.ModifyRealPayMoney modifyRealPayMoney,
+        ox.ResType makingType,(IFNULL(ox.PrePayMoney,0)+IFNULL(ox.MidPayMoney,0)+IFNULL(ox.LastPayMoney,0))
+        amount,IFNULL(ox.RealPayMoney,0) realPayMoney,DATE_FORMAT(os.CreatedOn,'%Y-%m-%d') createDateStr from
+        cp.ordissuesex ox left join cp.ordissues os on os.id=ox.IssueID left join cp.cp cp on ox.CPID=cp.id
+        where DATE_FORMAT(os.CreatedOn,'%Y') =#{year} and os.Status not in (15,21) and ox.GameProject in (select Name
+        from cp.gameproject 		where ID in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach> and Active=1
+        ) order by os.CreatedOn
+        ) a left join
+        (select IssueId,count(1) total from cp.files GROUP BY IssueID) b on b.IssueID=a.IssueID left join (select
+        IssueId,count(1) doneTotal from cp.files where `Status`!=1 GROUP BY IssueID) c on c.IssueID=a.IssueID left join (select min(ETA) sendDate,IssueID from cp.files group by IssueID) d
+        on d.IssueID=a.IssueID
+    </select>
+</mapper>

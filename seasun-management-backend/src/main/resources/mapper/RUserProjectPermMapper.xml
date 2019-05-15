@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.RUserProjectPermMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.RUserProjectPerm">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="project_role_id" jdbcType="BIGINT" property="projectRoleId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, project_id, project_role_id
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.RUserProjectPerm">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into r_user_project_perm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="projectRoleId != null">
+                project_role_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="projectRoleId != null">
+                #{projectRoleId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.RUserProjectPerm">
+        update r_user_project_perm
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="projectRoleId != null">
+                project_role_id = #{projectRoleId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+    <select id="selectSelective" parameterType="com.seasun.management.model.RUserProjectPerm" resultMap="BaseResultMap">
+        select * from r_user_project_perm
+        where user_id = #{userId,jdbcType=BIGINT}
+        <if test="null != projectId">
+            and project_id = #{projectId,jdbcType=BIGINT}
+        </if>
+        <if test="null == projectId">
+            and project_id is null
+        </if>
+        <if test="null != projectRoleId">
+            and project_role_id = #{projectRoleId,jdbcType=BIGINT}
+        </if>
+    </select>
+    <update id="updateSelective" parameterType="com.seasun.management.model.RUserProjectPerm">
+        update r_user_project_perm
+        set project_role_id = #{projectRoleId,jdbcType=BIGINT}
+        where user_id = #{userId,jdbcType=BIGINT}
+        and project_id = #{projectId,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByProjectIdAndUserIdsNotIn">
+        delete from r_user_project_perm
+        where project_id=#{projectId} and project_role_id=1
+        and user_id not in
+        <foreach item="item" index="index" collection="userIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into r_user_project_perm
+        (user_id, project_id, project_role_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.userId},
+            #{item.projectId},
+            #{item.projectRoleId}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteSelective" parameterType="com.seasun.management.model.RUserProjectPerm">
+        DELETE FROM r_user_project_perm
+        <where>
+            <if test="userId != null">
+               AND user_id=#{userId}
+            </if>
+            <if test="projectId != null">
+                AND  project_id=#{projectId}
+            </if>
+            <if test="projectRoleId != null">
+                AND project_role_id=#{projectRoleId}
+            </if>
+        </where>
+    </delete>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.Menu">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, key, type, remark
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.Menu">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="key != null">
+        key,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.Menu">
+    update menu
+    <set>
+      <if test="key != null">
+        key = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

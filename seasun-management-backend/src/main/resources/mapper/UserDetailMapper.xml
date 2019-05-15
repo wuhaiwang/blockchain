@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserDetailMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="post" jdbcType="VARCHAR" property="post" />
+    <result column="gender" jdbcType="BIT" property="gender" />
+    <result column="work_status" jdbcType="VARCHAR" property="workStatus" />
+    <result column="Work_Age_Out_KS" jdbcType="INTEGER" property="workAgeOutKs" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="certificate_type" jdbcType="VARCHAR" property="certificateType" />
+    <result column="certification_no" jdbcType="VARCHAR" property="certificationNo" />
+    <result column="extra_phone" jdbcType="VARCHAR" property="extraPhone" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="emg_contact_person" jdbcType="VARCHAR" property="emgContactPerson" />
+    <result column="emg_contact_person_rel" jdbcType="VARCHAR" property="emgContactPersonRel" />
+    <result column="emg_contact_person_tel" jdbcType="VARCHAR" property="emgContactPersonTel" />
+    <result column="marry_flag" jdbcType="VARCHAR" property="marryFlag" />
+    <result column="hobbies" jdbcType="VARCHAR" property="hobbies" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="msn" jdbcType="VARCHAR" property="msn" />
+    <result column="special_skill" jdbcType="VARCHAR" property="specialSkill" />
+    <result column="graduate_from" jdbcType="VARCHAR" property="graduateFrom" />
+    <result column="graduate_date" jdbcType="DATE" property="graduateDate" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="join_type" jdbcType="VARCHAR" property="joinType" />
+    <result column="personal_email" jdbcType="VARCHAR" property="personalEmail" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="post_address" jdbcType="VARCHAR" property="postAddress" />
+    <result column="leave_type" jdbcType="VARCHAR" property="leaveType" />
+    <result column="leave_date" jdbcType="DATE" property="leaveDate" />
+    <result column="top_education" jdbcType="VARCHAR" property="topEducation" />
+    <result column="top_degree" jdbcType="VARCHAR" property="topDegree" />
+    <result column="nation_name" jdbcType="VARCHAR" property="nationName" />
+    <result column="political_status" jdbcType="VARCHAR" property="politicalStatus" />
+    <result column="household_type" jdbcType="VARCHAR" property="householdType" />
+    <result column="english_level" jdbcType="VARCHAR" property="englishLevel" />
+    <result column="other_language_level" jdbcType="VARCHAR" property="otherLanguageLevel" />
+    <result column="first_join_date" jdbcType="DATE" property="firstJoinDate" />
+    <result column="subcompany_id" jdbcType="BIGINT" property="subcompanyId" />
+    <result column="belong_to_center" jdbcType="VARCHAR" property="belongToCenter" />
+    <result column="family_contact_person" jdbcType="VARCHAR" property="familyContactPerson" />
+    <result column="family_contact_person_rel" jdbcType="VARCHAR" property="familyContactPersonRel" />
+    <result column="family_contact_person_plane" jdbcType="VARCHAR" property="familyContactPersonPlane" />
+    <result column="family_contact_person_tel" jdbcType="VARCHAR" property="familyContactPersonTel" />
+    <result column="Nationality" jdbcType="VARCHAR" property="nationality" />
+    <result column="home_address" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="current_address" jdbcType="VARCHAR" property="currentAddress" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="insurance_place" jdbcType="VARCHAR" property="insurancePlace" />
+    <result column="household_place" jdbcType="VARCHAR" property="householdPlace" />
+    <result column="encouragement" jdbcType="VARCHAR" property="encouragement" />
+    <result column="join_post_date" jdbcType="DATE" property="joinPostDate" />
+    <result column="intership_end_date" jdbcType="DATE" property="intershipEndDate" />
+    <result column="become_valid_date" jdbcType="DATE" property="becomeValidDate" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, post, gender, work_status, Work_Age_Out_KS, birthday, certificate_type,
+    certification_no, extra_phone, qq, emg_contact_person, emg_contact_person_rel, emg_contact_person_tel,
+    marry_flag, hobbies, fax, msn, special_skill, graduate_from, graduate_date, major,
+    job, join_type, personal_email, post_code, post_address, leave_type, leave_date,
+    top_education, top_degree, nation_name, political_status, household_type, english_level,
+    other_language_level, first_join_date, subcompany_id, belong_to_center, family_contact_person,
+    family_contact_person_rel, family_contact_person_plane, family_contact_person_tel,
+    Nationality, home_address, current_address, native_place, insurance_place, household_place,
+    encouragement, join_post_date, intership_end_date, become_valid_date, create_time,
+    update_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="post != null">
+        post,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="workStatus != null">
+        work_status,
+      </if>
+      <if test="workAgeOutKs != null">
+        Work_Age_Out_KS,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="certificateType != null">
+        certificate_type,
+      </if>
+      <if test="certificationNo != null">
+        certification_no,
+      </if>
+      <if test="extraPhone != null">
+        extra_phone,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="emgContactPerson != null">
+        emg_contact_person,
+      </if>
+      <if test="emgContactPersonRel != null">
+        emg_contact_person_rel,
+      </if>
+      <if test="emgContactPersonTel != null">
+        emg_contact_person_tel,
+      </if>
+      <if test="marryFlag != null">
+        marry_flag,
+      </if>
+      <if test="hobbies != null">
+        hobbies,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="msn != null">
+        msn,
+      </if>
+      <if test="specialSkill != null">
+        special_skill,
+      </if>
+      <if test="graduateFrom != null">
+        graduate_from,
+      </if>
+      <if test="graduateDate != null">
+        graduate_date,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="joinType != null">
+        join_type,
+      </if>
+      <if test="personalEmail != null">
+        personal_email,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="postAddress != null">
+        post_address,
+      </if>
+      <if test="leaveType != null">
+        leave_type,
+      </if>
+      <if test="leaveDate != null">
+        leave_date,
+      </if>
+      <if test="topEducation != null">
+        top_education,
+      </if>
+      <if test="topDegree != null">
+        top_degree,
+      </if>
+      <if test="nationName != null">
+        nation_name,
+      </if>
+      <if test="politicalStatus != null">
+        political_status,
+      </if>
+      <if test="householdType != null">
+        household_type,
+      </if>
+      <if test="englishLevel != null">
+        english_level,
+      </if>
+      <if test="otherLanguageLevel != null">
+        other_language_level,
+      </if>
+      <if test="firstJoinDate != null">
+        first_join_date,
+      </if>
+      <if test="subcompanyId != null">
+        subcompany_id,
+      </if>
+      <if test="belongToCenter != null">
+        belong_to_center,
+      </if>
+      <if test="familyContactPerson != null">
+        family_contact_person,
+      </if>
+      <if test="familyContactPersonRel != null">
+        family_contact_person_rel,
+      </if>
+      <if test="familyContactPersonPlane != null">
+        family_contact_person_plane,
+      </if>
+      <if test="familyContactPersonTel != null">
+        family_contact_person_tel,
+      </if>
+      <if test="nationality != null">
+        Nationality,
+      </if>
+      <if test="homeAddress != null">
+        home_address,
+      </if>
+      <if test="currentAddress != null">
+        current_address,
+      </if>
+      <if test="nativePlace != null">
+        native_place,
+      </if>
+      <if test="insurancePlace != null">
+        insurance_place,
+      </if>
+      <if test="householdPlace != null">
+        household_place,
+      </if>
+      <if test="encouragement != null">
+        encouragement,
+      </if>
+      <if test="joinPostDate != null">
+        join_post_date,
+      </if>
+      <if test="intershipEndDate != null">
+        intership_end_date,
+      </if>
+      <if test="becomeValidDate != null">
+        become_valid_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="post != null">
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="workStatus != null">
+        #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="workAgeOutKs != null">
+        #{workAgeOutKs,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationNo != null">
+        #{certificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="extraPhone != null">
+        #{extraPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPerson != null">
+        #{emgContactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPersonRel != null">
+        #{emgContactPersonRel,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPersonTel != null">
+        #{emgContactPersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="marryFlag != null">
+        #{marryFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        #{hobbies,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null">
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="specialSkill != null">
+        #{specialSkill,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateFrom != null">
+        #{graduateFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null">
+        #{graduateDate,jdbcType=DATE},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null">
+        #{joinType,jdbcType=VARCHAR},
+      </if>
+      <if test="personalEmail != null">
+        #{personalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postAddress != null">
+        #{postAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveType != null">
+        #{leaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveDate != null">
+        #{leaveDate,jdbcType=DATE},
+      </if>
+      <if test="topEducation != null">
+        #{topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="topDegree != null">
+        #{topDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="nationName != null">
+        #{nationName,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null">
+        #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null">
+        #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="englishLevel != null">
+        #{englishLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="otherLanguageLevel != null">
+        #{otherLanguageLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstJoinDate != null">
+        #{firstJoinDate,jdbcType=DATE},
+      </if>
+      <if test="subcompanyId != null">
+        #{subcompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="belongToCenter != null">
+        #{belongToCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPerson != null">
+        #{familyContactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonRel != null">
+        #{familyContactPersonRel,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonPlane != null">
+        #{familyContactPersonPlane,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonTel != null">
+        #{familyContactPersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currentAddress != null">
+        #{currentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="insurancePlace != null">
+        #{insurancePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="householdPlace != null">
+        #{householdPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="encouragement != null">
+        #{encouragement,jdbcType=VARCHAR},
+      </if>
+      <if test="joinPostDate != null">
+        #{joinPostDate,jdbcType=DATE},
+      </if>
+      <if test="intershipEndDate != null">
+        #{intershipEndDate,jdbcType=DATE},
+      </if>
+      <if test="becomeValidDate != null">
+        #{becomeValidDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserDetail">
+    update user_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="post != null">
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="workStatus != null">
+        work_status = #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="workAgeOutKs != null">
+        Work_Age_Out_KS = #{workAgeOutKs,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="certificateType != null">
+        certificate_type = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationNo != null">
+        certification_no = #{certificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="extraPhone != null">
+        extra_phone = #{extraPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPerson != null">
+        emg_contact_person = #{emgContactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPersonRel != null">
+        emg_contact_person_rel = #{emgContactPersonRel,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPersonTel != null">
+        emg_contact_person_tel = #{emgContactPersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="marryFlag != null">
+        marry_flag = #{marryFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        hobbies = #{hobbies,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null">
+        msn = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="specialSkill != null">
+        special_skill = #{specialSkill,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateFrom != null">
+        graduate_from = #{graduateFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null">
+        graduate_date = #{graduateDate,jdbcType=DATE},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null">
+        join_type = #{joinType,jdbcType=VARCHAR},
+      </if>
+      <if test="personalEmail != null">
+        personal_email = #{personalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postAddress != null">
+        post_address = #{postAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveType != null">
+        leave_type = #{leaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveDate != null">
+        leave_date = #{leaveDate,jdbcType=DATE},
+      </if>
+      <if test="topEducation != null">
+        top_education = #{topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="topDegree != null">
+        top_degree = #{topDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="nationName != null">
+        nation_name = #{nationName,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null">
+        political_status = #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null">
+        household_type = #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="englishLevel != null">
+        english_level = #{englishLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="otherLanguageLevel != null">
+        other_language_level = #{otherLanguageLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstJoinDate != null">
+        first_join_date = #{firstJoinDate,jdbcType=DATE},
+      </if>
+      <if test="subcompanyId != null">
+        subcompany_id = #{subcompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="belongToCenter != null">
+        belong_to_center = #{belongToCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPerson != null">
+        family_contact_person = #{familyContactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonRel != null">
+        family_contact_person_rel = #{familyContactPersonRel,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonPlane != null">
+        family_contact_person_plane = #{familyContactPersonPlane,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonTel != null">
+        family_contact_person_tel = #{familyContactPersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        Nationality = #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        home_address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currentAddress != null">
+        current_address = #{currentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="insurancePlace != null">
+        insurance_place = #{insurancePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="householdPlace != null">
+        household_place = #{householdPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="encouragement != null">
+        encouragement = #{encouragement,jdbcType=VARCHAR},
+      </if>
+      <if test="joinPostDate != null">
+        join_post_date = #{joinPostDate,jdbcType=DATE},
+      </if>
+      <if test="intershipEndDate != null">
+        intership_end_date = #{intershipEndDate,jdbcType=DATE},
+      </if>
+      <if test="becomeValidDate != null">
+        become_valid_date = #{becomeValidDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+  <update id="updateByUserIdSelective" parameterType="com.seasun.management.model.UserDetail">
+    update user_detail
+    <set>
+      <if test="post != null">
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="workStatus != null">
+        work_status = #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="workAgeOutKs != null">
+        Work_Age_Out_KS = #{workAgeOutKs,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="certificateType != null">
+        certificate_type = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationNo != null">
+        certification_no = #{certificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="extraPhone != null">
+        extra_phone = #{extraPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPerson != null">
+        emg_contact_person = #{emgContactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPersonRel != null">
+        emg_contact_person_rel = #{emgContactPersonRel,jdbcType=VARCHAR},
+      </if>
+      <if test="emgContactPersonTel != null">
+        emg_contact_person_tel = #{emgContactPersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="marryFlag != null">
+        marry_flag = #{marryFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        hobbies = #{hobbies,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null">
+        msn = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="specialSkill != null">
+        special_skill = #{specialSkill,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateFrom != null">
+        graduate_from = #{graduateFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null">
+        graduate_date = #{graduateDate,jdbcType=DATE},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null">
+        join_type = #{joinType,jdbcType=VARCHAR},
+      </if>
+      <if test="personalEmail != null">
+        personal_email = #{personalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postAddress != null">
+        post_address = #{postAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveType != null">
+        leave_type = #{leaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveDate != null">
+        leave_date = #{leaveDate,jdbcType=DATE},
+      </if>
+      <if test="topEducation != null">
+        top_education = #{topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="topDegree != null">
+        top_degree = #{topDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="nationName != null">
+        nation_name = #{nationName,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null">
+        political_status = #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null">
+        household_type = #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="englishLevel != null">
+        english_level = #{englishLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="otherLanguageLevel != null">
+        other_language_level = #{otherLanguageLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstJoinDate != null">
+        first_join_date = #{firstJoinDate,jdbcType=DATE},
+      </if>
+      <if test="subcompanyId != null">
+        subcompany_id = #{subcompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="belongToCenter != null">
+        belong_to_center = #{belongToCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPerson != null">
+        family_contact_person = #{familyContactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonRel != null">
+        family_contact_person_rel = #{familyContactPersonRel,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonPlane != null">
+        family_contact_person_plane = #{familyContactPersonPlane,jdbcType=VARCHAR},
+      </if>
+      <if test="familyContactPersonTel != null">
+        family_contact_person_tel = #{familyContactPersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        Nationality = #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        home_address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currentAddress != null">
+        current_address = #{currentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="insurancePlace != null">
+        insurance_place = #{insurancePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="householdPlace != null">
+        household_place = #{householdPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="encouragement != null">
+        encouragement = #{encouragement,jdbcType=VARCHAR},
+      </if>
+      <if test="joinPostDate != null">
+        join_post_date = #{joinPostDate,jdbcType=DATE},
+      </if>
+      <if test="intershipEndDate != null">
+        intership_end_date = #{intershipEndDate,jdbcType=DATE},
+      </if>
+      <if test="becomeValidDate != null">
+        become_valid_date = #{becomeValidDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_Id = #{userId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

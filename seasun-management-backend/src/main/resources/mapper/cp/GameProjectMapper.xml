@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.GameProjectMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.GameProject">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="City" jdbcType="VARCHAR" property="city" />
+    <result column="Code" jdbcType="VARCHAR" property="code" />
+    <result column="ProductLine" jdbcType="VARCHAR" property="productLine" />
+    <result column="Active" jdbcType="TINYINT" property="active" />
+    <result column="CostCenter" jdbcType="VARCHAR" property="costCenter" />
+    <result column="ProjectOrder" jdbcType="VARCHAR" property="projectOrder" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, Name, City, Code, ProductLine, Active, CostCenter, ProjectOrder
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.GameProject">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.gameproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="city != null">
+        City,
+      </if>
+      <if test="code != null">
+        Code,
+      </if>
+      <if test="productLine != null">
+        ProductLine,
+      </if>
+      <if test="active != null">
+        Active,
+      </if>
+      <if test="costCenter != null">
+        CostCenter,
+      </if>
+      <if test="projectOrder != null">
+        ProjectOrder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=TINYINT},
+      </if>
+      <if test="costCenter != null">
+        #{costCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="projectOrder != null">
+        #{projectOrder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.GameProject">
+    update cp.gameproject
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        Code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        ProductLine = #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        Active = #{active,jdbcType=TINYINT},
+      </if>
+      <if test="costCenter != null">
+        CostCenter = #{costCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="projectOrder != null">
+        ProjectOrder = #{projectOrder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

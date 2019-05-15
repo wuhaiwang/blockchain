@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PerfUserCheckResultMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.PerfUserCheckResult">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, type, user_id, remark, create_by, create_time
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.PerfUserCheckResult">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into perf_user_check_result
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                type,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PerfUserCheckResult">
+        update perf_user_check_result
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+
+    <insert id="batchInsert" parameterType="list">
+        INSERT INTO perf_user_check_result( type, user_id, remark, create_by, create_time)
+        VALUES
+        <foreach collection="list" item="item" open="" separator="," close="">
+            (#{item.type},#{item.userId},#{item.remark},#{item.createBy},#{item.createTime})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate" parameterType="list">
+        UPDATE perf_user_check_result
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="type =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.type}
+                </foreach>
+            </trim>
+            <trim prefix="user_id =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.userId}
+                </foreach>
+            </trim>
+            <trim prefix="remark =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.remark}
+                </foreach>
+            </trim>
+            <trim prefix="create_by =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.createBy}
+                </foreach>
+            </trim>
+            <trim prefix="create_time =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id=#{item.id} then #{item.createTime}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id
+        IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <delete id="deleteByUserIds" parameterType="list">
+        DELETE  FROM perf_user_check_result
+        WHERE user_id IN
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

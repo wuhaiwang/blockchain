@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.AutoOrderContentMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.AutoOrderContent">
+    <id column="IssueID" jdbcType="INTEGER" property="issueId" />
+    <result column="WorkName" jdbcType="VARCHAR" property="workName" />
+    <result column="WorkAmount" jdbcType="VARCHAR" property="workAmount" />
+    <result column="WorkCost" jdbcType="VARCHAR" property="workCost" />
+    <result column="FileNames" jdbcType="VARCHAR" property="fileNames" />
+    <result column="WorkRequirements" jdbcType="VARCHAR" property="workRequirements" />
+    <result column="TheFormatWorks" jdbcType="VARCHAR" property="theFormatWorks" />
+    <result column="EndDate" jdbcType="VARCHAR" property="endDate" />
+    <result column="AcceptanceCriteria" jdbcType="VARCHAR" property="acceptanceCriteria" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Other" jdbcType="VARCHAR" property="other" />
+    <result column="OpTime" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="MakeType" jdbcType="VARCHAR" property="makeType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.seasun.management.model.cp.AutoOrderContent">
+    <result column="Content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    IssueID, WorkName, WorkAmount, WorkCost, FileNames, WorkRequirements, TheFormatWorks, 
+    EndDate, AcceptanceCriteria, Remark, Other, OpTime, MakeType
+  </sql>
+  <sql id="Blob_Column_List">
+    Content
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.AutoOrderContent">
+    <selectKey keyProperty="issueId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.autoordercontent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="workName != null">
+        WorkName,
+      </if>
+      <if test="workAmount != null">
+        WorkAmount,
+      </if>
+      <if test="workCost != null">
+        WorkCost,
+      </if>
+      <if test="fileNames != null">
+        FileNames,
+      </if>
+      <if test="workRequirements != null">
+        WorkRequirements,
+      </if>
+      <if test="theFormatWorks != null">
+        TheFormatWorks,
+      </if>
+      <if test="endDate != null">
+        EndDate,
+      </if>
+      <if test="acceptanceCriteria != null">
+        AcceptanceCriteria,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="other != null">
+        Other,
+      </if>
+      <if test="opTime != null">
+        OpTime,
+      </if>
+      <if test="makeType != null">
+        MakeType,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="workName != null">
+        #{workName,jdbcType=VARCHAR},
+      </if>
+      <if test="workAmount != null">
+        #{workAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="workCost != null">
+        #{workCost,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNames != null">
+        #{fileNames,jdbcType=VARCHAR},
+      </if>
+      <if test="workRequirements != null">
+        #{workRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="theFormatWorks != null">
+        #{theFormatWorks,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptanceCriteria != null">
+        #{acceptanceCriteria,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null">
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="makeType != null">
+        #{makeType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.AutoOrderContent">
+    update cp.autoordercontent
+    <set>
+      <if test="workName != null">
+        WorkName = #{workName,jdbcType=VARCHAR},
+      </if>
+      <if test="workAmount != null">
+        WorkAmount = #{workAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="workCost != null">
+        WorkCost = #{workCost,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNames != null">
+        FileNames = #{fileNames,jdbcType=VARCHAR},
+      </if>
+      <if test="workRequirements != null">
+        WorkRequirements = #{workRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="theFormatWorks != null">
+        TheFormatWorks = #{theFormatWorks,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        EndDate = #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptanceCriteria != null">
+        AcceptanceCriteria = #{acceptanceCriteria,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        Other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null">
+        OpTime = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="makeType != null">
+        MakeType = #{makeType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where IssueID = #{issueId,jdbcType=INTEGER}
+  </update>
+</mapper>

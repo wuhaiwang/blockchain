@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.AReprProjSchedDataMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.AReprProjSchedData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="total_cost" jdbcType="REAL" property="totalCost" />
+    <result column="rest_budget" jdbcType="REAL" property="restBudget" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="anticipated_revenue" jdbcType="REAL" property="anticipatedRevenue" />
+    <result column="hr_numbers" jdbcType="REAL" property="hrNumbers" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_name, project_id, month, year, total_cost, rest_budget, create_time, 
+    update_time, anticipated_revenue, hr_numbers
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.AReprProjSchedData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into a_repr_proj_sched_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="totalCost != null">
+        total_cost,
+      </if>
+      <if test="restBudget != null">
+        rest_budget,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="anticipatedRevenue != null">
+        anticipated_revenue,
+      </if>
+      <if test="hrNumbers != null">
+        hr_numbers,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalCost != null">
+        #{totalCost,jdbcType=REAL},
+      </if>
+      <if test="restBudget != null">
+        #{restBudget,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anticipatedRevenue != null">
+        #{anticipatedRevenue,jdbcType=REAL},
+      </if>
+      <if test="hrNumbers != null">
+        #{hrNumbers,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.AReprProjSchedData">
+    update a_repr_proj_sched_data
+    <set>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalCost != null">
+        total_cost = #{totalCost,jdbcType=REAL},
+      </if>
+      <if test="restBudget != null">
+        rest_budget = #{restBudget,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anticipatedRevenue != null">
+        anticipated_revenue = #{anticipatedRevenue,jdbcType=REAL},
+      </if>
+      <if test="hrNumbers != null">
+        hr_numbers = #{hrNumbers,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

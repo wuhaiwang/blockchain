@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnPlatShareConfigMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.FnPlatShareConfig">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="plat_id" jdbcType="BIGINT" property="platId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+        <result column="share_pro" jdbcType="DECIMAL" property="sharePro"/>
+        <result column="share_amount" jdbcType="DECIMAL" property="shareAmount"/>
+        <result column="fixed_number" jdbcType="DECIMAL" property="fixedNumber"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="weight" jdbcType="DECIMAL" property="weight"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, plat_id, project_id, year, month, share_pro, share_amount, fixed_number, create_by, remark,
+        create_time, update_time, weight
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.FnPlatShareConfig">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into fn_plat_share_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="platId != null">
+                plat_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="sharePro != null">
+                share_pro,
+            </if>
+            <if test="shareAmount != null">
+                share_amount,
+            </if>
+            <if test="fixedNumber != null">
+                fixed_number,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="platId != null">
+                #{platId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="sharePro != null">
+                #{sharePro,jdbcType=DECIMAL},
+            </if>
+            <if test="shareAmount != null">
+                #{shareAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="fixedNumber != null">
+                #{fixedNumber,jdbcType=DECIMAL},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnPlatShareConfig">
+        update fn_plat_share_config
+        <set>
+            <if test="platId != null">
+                plat_id = #{platId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="sharePro != null">
+                share_pro = #{sharePro,jdbcType=DECIMAL},
+            </if>
+            <if test="shareAmount != null">
+                share_amount = #{shareAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="fixedNumber != null">
+                fixed_number = #{fixedNumber,jdbcType=DECIMAL},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into fn_plat_share_config
+        (plat_id, project_id, year,month,share_pro,share_amount,fixed_number,create_by,weight,create_time,update_time)
+        values
+        <foreach collection="collection" item="item" index="index" separator=",">
+            (
+            #{item.platId},
+            #{item.projectId},
+            #{item.year},
+            #{item.month},
+            #{item.sharePro},
+            #{item.shareAmount},
+            #{item.fixedNumber},
+            #{item.createBy},
+            #{item.weight},
+            #{item.createTime},
+            #{item.updateTime}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectByCondition" resultType="com.seasun.management.model.FnPlatShareConfig"
+            parameterType="com.seasun.management.model.FnPlatShareConfig">
+        select * from fn_plat_share_config
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
+            <if test="platId != null">
+                plat_id = #{platId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="sharePro != null">
+                share_pro = #{sharePro,jdbcType=DECIMAL},
+            </if>
+            <if test="shareAmount != null">
+                share_amount = #{shareAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="fixedNumber != null">
+                fixed_number = #{fixedNumber,jdbcType=DECIMAL},
+            </if>
+            <if test="createBy != null ">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null and remark !='' ">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=DECIMAL},
+            </if>
+        </where>
+    </select>
+
+    <select id="selectConfigUserDTOByPlatIdsAndYearAndMonth"
+            resultType="com.seasun.management.dto.FnPlatShareConfigUserDTO">
+        select fn.*,u.employee_no,concat(u.last_name,u.first_name) userName,CASE d.gender WHEN 0 THEN '男' ELSE '女' END gender , d.work_status,date_format(u.in_date,'%Y/%c/%e') inDate,w.`name` workGroupName,d.post
+        from fn_plat_share_config fn
+        left join user u on u.id=fn.create_by
+        left join user_detail d on d.user_id=u.id
+        left join work_group w on w.id=u.work_group_id
+        where fn.year=#{year} and fn.month=#{month} AND
+        plat_id IN
+        <foreach collection="platIds" separator="," close=")" item="item" open="(" >
+            #{item}
+        </foreach>
+        order by u.work_group_id
+    </select>
+    <select id="selectWeekly" resultType="com.seasun.management.dto.FnPlatWeekShareReportDto" parameterType="com.seasun.management.dto.FnPlatWeekShareReportDto">
+        select
+        projectName,
+        preTotalWorkload,
+        totalWorkload,
+        artsWorkload,
+        zhWorkload,
+        gzWorkload,
+        whWorkload,
+        cdWorkload,
+        bjWorkload,
+        audioWorkload,
+        technologyWorkload,
+        qualityWorkload,
+        testWorkload,
+        webWorkload,
+        operateWorkload
+        from (
+        select p.name projectName,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{previousYear,jdbcType=INTEGER} and week = #{previousWeek,jdbcType=INTEGER}
+        and plat_id in
+        <foreach collection="platIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) preTotalWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER}
+        and plat_id in
+        <foreach collection="platIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) totalWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="artsPlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) artsWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id = #{zhPlatId,jdbcType=BIGINT}) zhWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id = #{gzPlatId,jdbcType=BIGINT}) gzWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id = #{whPlatId,jdbcType=BIGINT}) whWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id = #{cdPlatId,jdbcType=BIGINT}) cdWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id = #{bjPlatId,jdbcType=BIGINT}) bjWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="audioPlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) audioWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="technologyPlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) technologyWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="qualityPlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) qualityWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="testPlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) testWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="webPlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) webWorkload,
+        (select sum(share_amount) from fn_plat_week_share_config where project_id = c.project_id and year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER} and plat_id in
+        <foreach collection="operatePlatIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        ) operateWorkload
+        from (select DISTINCT project_id from fn_plat_week_share_config c left join project p on c.project_id = p.id where year = #{currentYear,jdbcType=INTEGER} and week = #{currentWeek,jdbcType=INTEGER}
+        and plat_id in
+        <foreach collection="platIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        )c
+        left join project p on c.project_id = p.id) rp order by rp.totalWorkload desc
+    </select>
+    <select id="selectUserNo" resultType="com.seasun.management.dto.FnPlatWeekShareUserCountDto">
+        select #{platId,jdbcType=BIGINT} id,IFNULL(max_member,0) total,'1' type from  project p where p.id = #{platId,jdbcType=BIGINT}
+        UNION ALL
+        select #{platId,jdbcType=BIGINT} id,IFNULL(count(u.id),0) total,'2' type
+        from user u
+        left join user_detail d on u.id = d.user_id
+        left join order_center o on o.id =  u.order_center_id
+        left join project p on p.id = o.project_id
+        where  u.active_flag = 1 and u.virtual_flag = 0 and (d.work_status = '正式' or d.work_status = '试用')
+        and (p.id = #{platId,jdbcType=BIGINT} or p.parent_hr_id =#{platId,jdbcType=BIGINT});
+    </select>
+</mapper>

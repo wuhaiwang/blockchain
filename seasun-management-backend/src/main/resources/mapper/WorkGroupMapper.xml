@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.WorkGroupMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.WorkGroup">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent" jdbcType="BIGINT" property="parent" />
+    <result column="active_flag" jdbcType="BIT" property="activeFlag" />
+    <result column="share_week_flag" jdbcType="BIT" property="shareWeekFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, parent, active_flag, share_week_flag
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.WorkGroup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into work_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="activeFlag != null">
+        active_flag,
+      </if>
+      <if test="shareWeekFlag != null">
+        share_week_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=BIGINT},
+      </if>
+      <if test="activeFlag != null">
+        #{activeFlag,jdbcType=BIT},
+      </if>
+      <if test="shareWeekFlag != null">
+        #{shareWeekFlag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.WorkGroup">
+    update work_group
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=BIGINT},
+      </if>
+      <if test="activeFlag != null">
+        active_flag = #{activeFlag,jdbcType=BIT},
+      </if>
+      <if test="shareWeekFlag != null">
+        share_week_flag = #{shareWeekFlag,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+
+  <select id="selectWorkGroupHrDtoByCond" parameterType="com.seasun.management.dto.WorkGroupHrDto" resultType="com.seasun.management.dto.WorkGroupHrDto">
+    select w.*,r.user_id hrId from work_group w left join r_user_work_group_perm r on r.work_group_id=w.id
+    <where>
+      r.work_group_role_id=3
+      <if test="name != null">
+       and w.name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="parent != null">
+        and w.parent = #{parent,jdbcType=BIGINT}
+      </if>
+      <if test="activeFlag != null">
+        and w.active_flag = #{activeFlag,jdbcType=BIT}
+      </if>
+      <if test="shareWeekFlag != null">
+        and w.share_week_flag = #{shareWeekFlag,jdbcType=BIT}
+      </if>
+    </where>
+  </select>
+
+</mapper>

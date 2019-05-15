@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PmPlanDetailMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.PmPlanDetail">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="pm_plan_id" jdbcType="BIGINT" property="pmPlanId"/>
+        <result column="stage_name" jdbcType="VARCHAR" property="stageName"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="month_goal" jdbcType="VARCHAR" property="monthGoal"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="actual_status" jdbcType="VARCHAR" property="actualStatus"/>
+        <result column="delay_reason" jdbcType="VARCHAR" property="delayReason"/>
+        <result column="actual_progress" jdbcType="VARCHAR" property="actualProgress"/>
+        <result column="cancel_reason" jdbcType="VARCHAR" property="cancelReason"/>
+        <result column="manager_id" jdbcType="VARCHAR" property="managerId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="real_end_time" jdbcType="TIMESTAMP" property="realEndTime"/>
+        <result column="new_flag" jdbcType="TINYINT" property="newFlag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, pm_plan_id, stage_name, start_time, end_time, month_goal, description, actual_status, 
+    delay_reason, actual_progress, cancel_reason, manager_id, create_time, update_time, 
+    real_end_time, new_flag
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.PmPlanDetail">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into pm_plan_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pmPlanId != null">
+                pm_plan_id,
+            </if>
+            <if test="stageName != null">
+                stage_name,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="monthGoal != null">
+                month_goal,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="actualStatus != null">
+                actual_status,
+            </if>
+            <if test="delayReason != null">
+                delay_reason,
+            </if>
+            <if test="actualProgress != null">
+                actual_progress,
+            </if>
+            <if test="cancelReason != null">
+                cancel_reason,
+            </if>
+            <if test="managerId != null">
+                manager_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="realEndTime != null">
+                real_end_time,
+            </if>
+            <if test="newFlag != null">
+                new_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pmPlanId != null">
+                #{pmPlanId,jdbcType=BIGINT},
+            </if>
+            <if test="stageName != null">
+                #{stageName,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="monthGoal != null">
+                #{monthGoal,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="actualStatus != null">
+                #{actualStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="delayReason != null">
+                #{delayReason,jdbcType=VARCHAR},
+            </if>
+            <if test="actualProgress != null">
+                #{actualProgress,jdbcType=VARCHAR},
+            </if>
+            <if test="cancelReason != null">
+                #{cancelReason,jdbcType=VARCHAR},
+            </if>
+            <if test="managerId != null">
+                #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="realEndTime != null">
+                #{realEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="newFlag != null">
+                #{newFlag,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PmPlanDetail">
+        update pm_plan_detail
+        <set>
+            <if test="pmPlanId != null">
+                pm_plan_id = #{pmPlanId,jdbcType=BIGINT},
+            </if>
+            <if test="stageName != null">
+                stage_name = #{stageName,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="monthGoal != null">
+                month_goal = #{monthGoal,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="actualStatus != null">
+                actual_status = #{actualStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="delayReason != null">
+                delay_reason = #{delayReason,jdbcType=VARCHAR},
+            </if>
+            <if test="actualProgress != null">
+                actual_progress = #{actualProgress,jdbcType=VARCHAR},
+            </if>
+            <if test="cancelReason != null">
+                cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+            </if>
+            <if test="managerId != null">
+                manager_id = #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="realEndTime != null">
+                real_end_time = #{realEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="newFlag != null">
+                new_flag = #{newFlag,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+
+    <insert id="batchInsert">
+    INSERT INTO pm_plan_detail( `pm_plan_id`, `stage_name`, `start_time`, `end_time`, `month_goal`, `description`, `actual_status`, `delay_reason`, `actual_progress`, `cancel_reason`, `manager_id`, `create_time`, `update_time`, `real_end_time`, `new_flag`)
+    VALUES
+    <foreach collection="list" item="item" open="" close="" separator=",">
+        (#{item.pmPlanId}, #{item.stageName}, #{item.startTime}, #{item.endTime}, #{item.monthGoal},  #{item.description},  #{item.actualStatus},  #{item.delayReason},  #{item.actualProgress},  #{item.cancelReason},  #{item.managerId},  #{item.createTime},  #{item.updateTime},  #{item.realEndTime},  #{item.newFlag})
+    </foreach>
+  </insert>
+</mapper>

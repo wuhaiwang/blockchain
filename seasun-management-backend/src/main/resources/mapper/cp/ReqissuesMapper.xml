@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.ReqissuesMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.Reqissues">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BriefDescription" jdbcType="VARCHAR" property="briefDescription" />
+    <result column="FullDescription" jdbcType="VARCHAR" property="fullDescription" />
+    <result column="CreatedBy" jdbcType="INTEGER" property="createdBy" />
+    <result column="ClosedBy" jdbcType="INTEGER" property="closedBy" />
+    <result column="AssignedTo" jdbcType="VARCHAR" property="assignedTo" />
+    <result column="CreatedOn" jdbcType="TIMESTAMP" property="createdOn" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Severity" jdbcType="INTEGER" property="severity" />
+    <result column="Priority" jdbcType="INTEGER" property="priority" />
+    <result column="ResolutionOutcome" jdbcType="INTEGER" property="resolutionOutcome" />
+    <result column="Comment" jdbcType="VARCHAR" property="comment" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Attachments" jdbcType="VARCHAR" property="attachments" />
+    <result column="Project" jdbcType="INTEGER" property="project" />
+    <result column="CloseDate" jdbcType="TIMESTAMP" property="closeDate" />
+    <result column="DuplicateIssueID" jdbcType="VARCHAR" property="duplicateIssueId" />
+    <result column="LastAssignedTo" jdbcType="VARCHAR" property="lastAssignedTo" />
+    <result column="ActovotyRatio" jdbcType="REAL" property="actovotyRatio" />
+    <result column="ResolvedBy" jdbcType="INTEGER" property="resolvedBy" />
+    <result column="LastModifiedBy" jdbcType="INTEGER" property="lastModifiedBy" />
+    <result column="LastModifiedOn" jdbcType="TIMESTAMP" property="lastModifiedOn" />
+    <result column="ResolvedOn" jdbcType="TIMESTAMP" property="resolvedOn" />
+    <result column="ExProps" jdbcType="VARCHAR" property="exProps" />
+    <result column="ETA" jdbcType="TIMESTAMP" property="eTA" />
+    <result column="SubSystem" jdbcType="INTEGER" property="subSystem" />
+    <result column="Approvals" jdbcType="VARCHAR" property="approvals" />
+    <result column="ParentID" jdbcType="INTEGER" property="parentId" />
+    <result column="Owner" jdbcType="INTEGER" property="owner" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BriefDescription, FullDescription, CreatedBy, ClosedBy, AssignedTo, CreatedOn, 
+    Type, Severity, Priority, ResolutionOutcome, Comment, Status, Attachments, Project, 
+    CloseDate, DuplicateIssueID, LastAssignedTo, ActovotyRatio, ResolvedBy, LastModifiedBy, 
+    LastModifiedOn, ResolvedOn, ExProps, ETA, SubSystem, Approvals, ParentID, Owner
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.Reqissues">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.reqissues
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="briefDescription != null">
+        BriefDescription,
+      </if>
+      <if test="fullDescription != null">
+        FullDescription,
+      </if>
+      <if test="createdBy != null">
+        CreatedBy,
+      </if>
+      <if test="closedBy != null">
+        ClosedBy,
+      </if>
+      <if test="assignedTo != null">
+        AssignedTo,
+      </if>
+      <if test="createdOn != null">
+        CreatedOn,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="severity != null">
+        Severity,
+      </if>
+      <if test="priority != null">
+        Priority,
+      </if>
+      <if test="resolutionOutcome != null">
+        ResolutionOutcome,
+      </if>
+      <if test="comment != null">
+        Comment,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="attachments != null">
+        Attachments,
+      </if>
+      <if test="project != null">
+        Project,
+      </if>
+      <if test="closeDate != null">
+        CloseDate,
+      </if>
+      <if test="duplicateIssueId != null">
+        DuplicateIssueID,
+      </if>
+      <if test="lastAssignedTo != null">
+        LastAssignedTo,
+      </if>
+      <if test="actovotyRatio != null">
+        ActovotyRatio,
+      </if>
+      <if test="resolvedBy != null">
+        ResolvedBy,
+      </if>
+      <if test="lastModifiedBy != null">
+        LastModifiedBy,
+      </if>
+      <if test="lastModifiedOn != null">
+        LastModifiedOn,
+      </if>
+      <if test="resolvedOn != null">
+        ResolvedOn,
+      </if>
+      <if test="exProps != null">
+        ExProps,
+      </if>
+      <if test="eTA != null">
+        ETA,
+      </if>
+      <if test="subSystem != null">
+        SubSystem,
+      </if>
+      <if test="approvals != null">
+        Approvals,
+      </if>
+      <if test="parentId != null">
+        ParentID,
+      </if>
+      <if test="owner != null">
+        Owner,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="briefDescription != null">
+        #{briefDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="fullDescription != null">
+        #{fullDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="closedBy != null">
+        #{closedBy,jdbcType=INTEGER},
+      </if>
+      <if test="assignedTo != null">
+        #{assignedTo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="severity != null">
+        #{severity,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="resolutionOutcome != null">
+        #{resolutionOutcome,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="attachments != null">
+        #{attachments,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=INTEGER},
+      </if>
+      <if test="closeDate != null">
+        #{closeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duplicateIssueId != null">
+        #{duplicateIssueId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastAssignedTo != null">
+        #{lastAssignedTo,jdbcType=VARCHAR},
+      </if>
+      <if test="actovotyRatio != null">
+        #{actovotyRatio,jdbcType=REAL},
+      </if>
+      <if test="resolvedBy != null">
+        #{resolvedBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifiedBy != null">
+        #{lastModifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifiedOn != null">
+        #{lastModifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resolvedOn != null">
+        #{resolvedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exProps != null">
+        #{exProps,jdbcType=VARCHAR},
+      </if>
+      <if test="eTA != null">
+        #{eTA,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subSystem != null">
+        #{subSystem,jdbcType=INTEGER},
+      </if>
+      <if test="approvals != null">
+        #{approvals,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.Reqissues">
+    update cp.reqissues
+    <set>
+      <if test="briefDescription != null">
+        BriefDescription = #{briefDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="fullDescription != null">
+        FullDescription = #{fullDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        CreatedBy = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="closedBy != null">
+        ClosedBy = #{closedBy,jdbcType=INTEGER},
+      </if>
+      <if test="assignedTo != null">
+        AssignedTo = #{assignedTo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        CreatedOn = #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="severity != null">
+        Severity = #{severity,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        Priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="resolutionOutcome != null">
+        ResolutionOutcome = #{resolutionOutcome,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="attachments != null">
+        Attachments = #{attachments,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null">
+        Project = #{project,jdbcType=INTEGER},
+      </if>
+      <if test="closeDate != null">
+        CloseDate = #{closeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duplicateIssueId != null">
+        DuplicateIssueID = #{duplicateIssueId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastAssignedTo != null">
+        LastAssignedTo = #{lastAssignedTo,jdbcType=VARCHAR},
+      </if>
+      <if test="actovotyRatio != null">
+        ActovotyRatio = #{actovotyRatio,jdbcType=REAL},
+      </if>
+      <if test="resolvedBy != null">
+        ResolvedBy = #{resolvedBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifiedBy != null">
+        LastModifiedBy = #{lastModifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifiedOn != null">
+        LastModifiedOn = #{lastModifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resolvedOn != null">
+        ResolvedOn = #{resolvedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exProps != null">
+        ExProps = #{exProps,jdbcType=VARCHAR},
+      </if>
+      <if test="eTA != null">
+        ETA = #{eTA,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subSystem != null">
+        SubSystem = #{subSystem,jdbcType=INTEGER},
+      </if>
+      <if test="approvals != null">
+        Approvals = #{approvals,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        ParentID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null">
+        Owner = #{owner,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

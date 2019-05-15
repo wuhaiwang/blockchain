@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CpBudgetAppendInfoMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.CpBudgetAppendInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cp_budget_id" jdbcType="BIGINT" property="cpBudgetId" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cp_budget_id, amount, create_time, reason
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.CpBudgetAppendInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp_budget_append_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpBudgetId != null">
+        cp_budget_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpBudgetId != null">
+        #{cpBudgetId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CpBudgetAppendInfo">
+    update cp_budget_append_info
+    <set>
+      <if test="cpBudgetId != null">
+        cp_budget_id = #{cpBudgetId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+
+  <select id="selectSimpleBudgetDtoByProjectIdsAndYear" resultType="com.seasun.management.dto.SimpleBudgetDto">
+    select b.amount,date_format(b.create_time,'%Y-%m-%d') createTime,b.reason from cp_budget a left join cp_budget_append_info b on a.id=b.cp_budget_id
+    where  b.amount is not null and a.cp_project_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    and a.budget_year=#{year}
+  </select>
+</mapper>

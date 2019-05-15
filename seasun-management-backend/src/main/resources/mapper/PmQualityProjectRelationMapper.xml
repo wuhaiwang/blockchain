@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PmQualityProjectRelationMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.PmQualityProjectRelation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="it_project_id" jdbcType="BIGINT" property="itProjectId" />
+    <result column="quality_project_id" jdbcType="BIGINT" property="qualityProjectId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, it_project_id, quality_project_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.PmQualityProjectRelation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pm_quality_project_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itProjectId != null">
+        it_project_id,
+      </if>
+      <if test="qualityProjectId != null">
+        quality_project_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itProjectId != null">
+        #{itProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="qualityProjectId != null">
+        #{qualityProjectId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PmQualityProjectRelation">
+    update pm_quality_project_relation
+    <set>
+      <if test="itProjectId != null">
+        it_project_id = #{itProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="qualityProjectId != null">
+        quality_project_id = #{qualityProjectId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

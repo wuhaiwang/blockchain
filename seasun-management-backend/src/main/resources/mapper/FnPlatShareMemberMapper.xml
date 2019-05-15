@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnPlatShareMemberMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FnPlatShareMember">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plat_id" jdbcType="BIGINT" property="platId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plat_id, user_id, weight
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FnPlatShareMember">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fn_plat_share_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        plat_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnPlatShareMember">
+    update fn_plat_share_member
+    <set>
+      <if test="platId != null">
+        plat_id = #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- the following are user defined...-->
+  <insert id ="batchInsert" parameterType="java.util.List" >
+    insert into fn_plat_share_member
+    (plat_id, user_id, weight)
+    values
+    <foreach collection ="collection" item="item" index= "index" separator =",">
+      (
+      #{item.platId},
+      #{item.userId},
+      #{item.weight}
+      )
+    </foreach >
+  </insert >
+
+</mapper>

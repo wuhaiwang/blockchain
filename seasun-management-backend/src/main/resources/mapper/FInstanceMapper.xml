@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FInstanceMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FInstance">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="flow_id" jdbcType="BIGINT" property="flowId" />
+    <result column="business_key" jdbcType="BIGINT" property="businessKey" />
+    <result column="process_result" jdbcType="TINYINT" property="processResult" />
+    <result column="created_by" jdbcType="BIGINT" property="createdBy" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, flow_id, business_key, process_result, created_by, start_time, end_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FInstance">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_instance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="flowId != null">
+        flow_id,
+      </if>
+      <if test="businessKey != null">
+        business_key,
+      </if>
+      <if test="processResult != null">
+        process_result,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="flowId != null">
+        #{flowId,jdbcType=BIGINT},
+      </if>
+      <if test="businessKey != null">
+        #{businessKey,jdbcType=BIGINT},
+      </if>
+      <if test="processResult != null">
+        #{processResult,jdbcType=TINYINT},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FInstance">
+    update f_instance
+    <set>
+      <if test="flowId != null">
+        flow_id = #{flowId,jdbcType=BIGINT},
+      </if>
+      <if test="businessKey != null">
+        business_key = #{businessKey,jdbcType=BIGINT},
+      </if>
+      <if test="processResult != null">
+        process_result = #{processResult,jdbcType=TINYINT},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

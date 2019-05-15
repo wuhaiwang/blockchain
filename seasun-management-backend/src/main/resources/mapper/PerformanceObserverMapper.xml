@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.PerformanceObserverMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.PerformanceObserver">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="perf_manager_id" jdbcType="BIGINT" property="perfManagerId" />
+    <result column="observer_id" jdbcType="BIGINT" property="observerId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, perf_manager_id, observer_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.PerformanceObserver">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into performance_observer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="perfManagerId != null">
+        perf_manager_id,
+      </if>
+      <if test="observerId != null">
+        observer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="perfManagerId != null">
+        #{perfManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="observerId != null">
+        #{observerId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.PerformanceObserver">
+    update performance_observer
+    <set>
+      <if test="perfManagerId != null">
+        perf_manager_id = #{perfManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="observerId != null">
+        observer_id = #{observerId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.dataCenter.Jx2LoginstatMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.dataCenter.Jx2Loginstat">
+    <result column="STAT_DATE" jdbcType="TIMESTAMP" property="statDate" />
+    <result column="LOGIN_TOTAL_ACC_NUM" jdbcType="DECIMAL" property="loginTotalAccNum" />
+    <result column="FIRST_LOGIN_ACC_NUM" jdbcType="DECIMAL" property="firstLoginAccNum" />
+    <result column="PAY_PLAYER_NUM" jdbcType="DECIMAL" property="payPlayerNum" />
+    <result column="WEEK_PLAYER_NUM" jdbcType="DECIMAL" property="weekPlayerNum" />
+    <result column="MONTH_PLAYER_NUM" jdbcType="DECIMAL" property="monthPlayerNum" />
+    <result column="POINT_PLAYER_NUM" jdbcType="DECIMAL" property="pointPlayerNum" />
+    <result column="ONLINE_PAY_PLAYER_MAX" jdbcType="DECIMAL" property="onlinePayPlayerMax" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="MON_ACTIVE_ACC_NUM" jdbcType="DECIMAL" property="monActiveAccNum" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.dataCenter.Jx2Loginstat">
+    insert into KBOSS_PAYSYS10.JX2_LOGINSTAT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="statDate != null">
+        STAT_DATE,
+      </if>
+      <if test="loginTotalAccNum != null">
+        LOGIN_TOTAL_ACC_NUM,
+      </if>
+      <if test="firstLoginAccNum != null">
+        FIRST_LOGIN_ACC_NUM,
+      </if>
+      <if test="payPlayerNum != null">
+        PAY_PLAYER_NUM,
+      </if>
+      <if test="weekPlayerNum != null">
+        WEEK_PLAYER_NUM,
+      </if>
+      <if test="monthPlayerNum != null">
+        MONTH_PLAYER_NUM,
+      </if>
+      <if test="pointPlayerNum != null">
+        POINT_PLAYER_NUM,
+      </if>
+      <if test="onlinePayPlayerMax != null">
+        ONLINE_PAY_PLAYER_MAX,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="monActiveAccNum != null">
+        MON_ACTIVE_ACC_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="statDate != null">
+        #{statDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTotalAccNum != null">
+        #{loginTotalAccNum,jdbcType=DECIMAL},
+      </if>
+      <if test="firstLoginAccNum != null">
+        #{firstLoginAccNum,jdbcType=DECIMAL},
+      </if>
+      <if test="payPlayerNum != null">
+        #{payPlayerNum,jdbcType=DECIMAL},
+      </if>
+      <if test="weekPlayerNum != null">
+        #{weekPlayerNum,jdbcType=DECIMAL},
+      </if>
+      <if test="monthPlayerNum != null">
+        #{monthPlayerNum,jdbcType=DECIMAL},
+      </if>
+      <if test="pointPlayerNum != null">
+        #{pointPlayerNum,jdbcType=DECIMAL},
+      </if>
+      <if test="onlinePayPlayerMax != null">
+        #{onlinePayPlayerMax,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="monActiveAccNum != null">
+        #{monActiveAccNum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

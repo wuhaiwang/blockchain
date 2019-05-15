@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserPsychologicalConsultationMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserPsychologicalConsultation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="employee_no" jdbcType="BIGINT" property="employeeNo" />
+    <result column="password" jdbcType="INTEGER" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, year, month, employee_no, password
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserPsychologicalConsultation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_psychological_consultation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="employeeNo != null">
+        employee_no,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null">
+        #{employeeNo,jdbcType=BIGINT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserPsychologicalConsultation">
+    update user_psychological_consultation
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null">
+        employee_no = #{employeeNo,jdbcType=BIGINT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+  <insert id="batchInsert">
+    INSERT INTO user_psychological_consultation(user_id,year,month,employee_no,password)
+    VALUES
+    <foreach collection="list" open="" item="item" separator="," close="">
+      (#{item.userId}, #{item.year}, #{item.month}, #{item.employeeNo},#{item.password})
+    </foreach>
+  </insert>
+</mapper>

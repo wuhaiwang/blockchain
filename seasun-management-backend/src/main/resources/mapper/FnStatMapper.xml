@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnStatMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FnStat">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, parent_id, type, project_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FnStat">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fn_stat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnStat">
+    update fn_stat
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+  <insert id ="batchInsert" parameterType="java.util.List" >
+    insert into fn_stat
+    (name, parent_id, type , project_id)
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.name},
+      #{item.parentId},
+      #{item.type},
+      #{item.projectId})
+    </foreach >
+  </insert >
+</mapper>

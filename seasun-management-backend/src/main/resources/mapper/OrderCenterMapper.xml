@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.OrderCenterMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.OrderCenter">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+  </resultMap>
+  <resultMap id="OrderCenterWithParentHrIdDtoResultMap" type="com.seasun.management.dto.OrderCenterWithParentHrIdDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="parent_hr_id" jdbcType="BIGINT" property="parentHrId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, code, project_id, city
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.OrderCenter">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into order_center
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.OrderCenter">
+    update order_center
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+  <update id="removeByProjectIdAndCodesNotIn">
+    update order_center set project_id=null, code=upper(code)
+    where project_id=#{projectId} and upper(code) not in
+    <foreach item="item" index="index" collection="codes"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <update id="updateProjectByCodesIn">
+    update order_center set project_id=#{projectId}, code=upper(code)
+    where upper(code) in
+    <foreach item="item" index="index" collection="codes"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into order_center
+    (name, project_id, code, city)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.name},
+      #{item.projectId},
+      #{item.code},
+      #{item.city}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectByProjectIdsOrParentHrIds" parameterType="java.util.List" resultMap="OrderCenterWithParentHrIdDtoResultMap">
+    select a.*, b.parent_hr_id
+    from order_center as a
+    left join project b on a.project_id=b.id
+    where (a.project_id in
+    <foreach item="item" index="index" collection="list"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    or (b.parent_hr_id in
+    <foreach item="item" index="index" collection="list"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    and active_flag=1))
+  </select>
+
+  <select id="selectOrderCenterVoByUsedFlag" resultType="com.seasun.management.vo.OrderCenterVo">
+    select o.*,p.name projectName
+    from order_center o left join project p on o.project_id=p.id
+    <if test="usedFlag !=null">
+      where o.project_id is
+      <if test="usedFlag">
+        not null
+      </if>
+      <if test="!usedFlag">
+        null
+      </if>
+    </if>
+  </select>
+</mapper>

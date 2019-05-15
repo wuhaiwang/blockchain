@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CfgExchangeRateMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.CfgExchangeRate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="s_code" jdbcType="VARCHAR" property="sCode" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
+    <result column="rate" jdbcType="DECIMAL" property="rate" />
+    <result column="d_code" jdbcType="VARCHAR" property="dCode" />
+    <result column="d_name" jdbcType="VARCHAR" property="dName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, s_code, s_name, rate, d_code, d_name
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.CfgExchangeRate">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cfg_exchange_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sCode != null">
+        s_code,
+      </if>
+      <if test="sName != null">
+        s_name,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="dCode != null">
+        d_code,
+      </if>
+      <if test="dName != null">
+        d_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sCode != null">
+        #{sCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null">
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="dCode != null">
+        #{dCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dName != null">
+        #{dName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CfgExchangeRate">
+    update cfg_exchange_rate
+    <set>
+      <if test="sCode != null">
+        s_code = #{sCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null">
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="dCode != null">
+        d_code = #{dCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dName != null">
+        d_name = #{dName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

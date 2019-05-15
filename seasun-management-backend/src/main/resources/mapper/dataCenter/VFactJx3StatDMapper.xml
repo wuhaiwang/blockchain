@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.dataCenter.VFactJx3StatDMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.dataCenter.VFactJx3StatD">
+    <result column="STAT_DATE" jdbcType="TIMESTAMP" property="statDate" />
+    <result column="ACTV_ACCOUNT_NUM" jdbcType="DECIMAL" property="actvAccountNum" />
+    <result column="NEW_ACCOUNT_NUM" jdbcType="DECIMAL" property="newAccountNum" />
+    <result column="WEEK_ACTV_ACCOUNT_NUM" jdbcType="DECIMAL" property="weekActvAccountNum" />
+    <result column="MONTH_ACTV_ACCOUNT_NUM" jdbcType="DECIMAL" property="monthActvAccountNum" />
+    <result column="ALL_LOST_ACCOUNT_NUM" jdbcType="DECIMAL" property="allLostAccountNum" />
+    <result column="CARD_MONEY_VALUE" jdbcType="DECIMAL" property="cardMoneyValue" />
+    <result column="CONSUME_VALUE" jdbcType="DECIMAL" property="consumeValue" />
+    <result column="CONSUME_TIME_VALUE" jdbcType="DECIMAL" property="consumeTimeValue" />
+    <result column="CONSUME_ITEM_VALUE" jdbcType="DECIMAL" property="consumeItemValue" />
+    <result column="CONSUME_TIME_RATE" jdbcType="DECIMAL" property="consumeTimeRate" />
+    <result column="ARPU" jdbcType="DECIMAL" property="arpu" />
+    <result column="CHARGE_ACCOUNT_NUM" jdbcType="DECIMAL" property="chargeAccountNum" />
+    <result column="NEW_CHARGE_ACCNT_NUM" jdbcType="DECIMAL" property="newChargeAccntNum" />
+    <result column="DAY_FILL_RACE" jdbcType="DECIMAL" property="dayFillRace" />
+    <result column="PCU" jdbcType="DECIMAL" property="pcu" />
+    <result column="INDEP_IP_NUM" jdbcType="DECIMAL" property="indepIpNum" />
+    <result column="ALL_LOST_RATE" jdbcType="DECIMAL" property="allLostRate" />
+    <result column="LOST_RATE" jdbcType="DECIMAL" property="lostRate" />
+    <result column="LOST_ACCOUNT_NUM" jdbcType="DECIMAL" property="lostAccountNum" />
+    <result column="BACK_ACCOUNT_NUM" jdbcType="DECIMAL" property="backAccountNum" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.dataCenter.VFactJx3StatD">
+    insert into KBOSS20.V_FACT_JX3_STAT_D
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="statDate != null">
+        STAT_DATE,
+      </if>
+      <if test="actvAccountNum != null">
+        ACTV_ACCOUNT_NUM,
+      </if>
+      <if test="newAccountNum != null">
+        NEW_ACCOUNT_NUM,
+      </if>
+      <if test="weekActvAccountNum != null">
+        WEEK_ACTV_ACCOUNT_NUM,
+      </if>
+      <if test="monthActvAccountNum != null">
+        MONTH_ACTV_ACCOUNT_NUM,
+      </if>
+      <if test="allLostAccountNum != null">
+        ALL_LOST_ACCOUNT_NUM,
+      </if>
+      <if test="cardMoneyValue != null">
+        CARD_MONEY_VALUE,
+      </if>
+      <if test="consumeValue != null">
+        CONSUME_VALUE,
+      </if>
+      <if test="consumeTimeValue != null">
+        CONSUME_TIME_VALUE,
+      </if>
+      <if test="consumeItemValue != null">
+        CONSUME_ITEM_VALUE,
+      </if>
+      <if test="consumeTimeRate != null">
+        CONSUME_TIME_RATE,
+      </if>
+      <if test="arpu != null">
+        ARPU,
+      </if>
+      <if test="chargeAccountNum != null">
+        CHARGE_ACCOUNT_NUM,
+      </if>
+      <if test="newChargeAccntNum != null">
+        NEW_CHARGE_ACCNT_NUM,
+      </if>
+      <if test="dayFillRace != null">
+        DAY_FILL_RACE,
+      </if>
+      <if test="pcu != null">
+        PCU,
+      </if>
+      <if test="indepIpNum != null">
+        INDEP_IP_NUM,
+      </if>
+      <if test="allLostRate != null">
+        ALL_LOST_RATE,
+      </if>
+      <if test="lostRate != null">
+        LOST_RATE,
+      </if>
+      <if test="lostAccountNum != null">
+        LOST_ACCOUNT_NUM,
+      </if>
+      <if test="backAccountNum != null">
+        BACK_ACCOUNT_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="statDate != null">
+        #{statDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actvAccountNum != null">
+        #{actvAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="newAccountNum != null">
+        #{newAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="weekActvAccountNum != null">
+        #{weekActvAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="monthActvAccountNum != null">
+        #{monthActvAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="allLostAccountNum != null">
+        #{allLostAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="cardMoneyValue != null">
+        #{cardMoneyValue,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeValue != null">
+        #{consumeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeTimeValue != null">
+        #{consumeTimeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeItemValue != null">
+        #{consumeItemValue,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeTimeRate != null">
+        #{consumeTimeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="arpu != null">
+        #{arpu,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeAccountNum != null">
+        #{chargeAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="newChargeAccntNum != null">
+        #{newChargeAccntNum,jdbcType=DECIMAL},
+      </if>
+      <if test="dayFillRace != null">
+        #{dayFillRace,jdbcType=DECIMAL},
+      </if>
+      <if test="pcu != null">
+        #{pcu,jdbcType=DECIMAL},
+      </if>
+      <if test="indepIpNum != null">
+        #{indepIpNum,jdbcType=DECIMAL},
+      </if>
+      <if test="allLostRate != null">
+        #{allLostRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lostRate != null">
+        #{lostRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lostAccountNum != null">
+        #{lostAccountNum,jdbcType=DECIMAL},
+      </if>
+      <if test="backAccountNum != null">
+        #{backAccountNum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

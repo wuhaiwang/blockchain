@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.EmailTempletMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.EmailTemplet">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="Subject" jdbcType="VARCHAR" property="subject" />
+    <result column="MainBody" jdbcType="VARCHAR" property="mainBody" />
+    <result column="MailTo" jdbcType="VARCHAR" property="mailTo" />
+    <result column="MailCC" jdbcType="VARCHAR" property="mailCC" />
+    <result column="AutoSend" jdbcType="TINYINT" property="autoSend" />
+    <result column="SendFrequency" jdbcType="INTEGER" property="sendFrequency" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, Subject, MainBody, MailTo, MailCC, AutoSend, SendFrequency
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.EmailTemplet">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.emailtemplet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subject != null">
+        Subject,
+      </if>
+      <if test="mainBody != null">
+        MainBody,
+      </if>
+      <if test="mailTo != null">
+        MailTo,
+      </if>
+      <if test="mailCC != null">
+        MailCC,
+      </if>
+      <if test="autoSend != null">
+        AutoSend,
+      </if>
+      <if test="sendFrequency != null">
+        SendFrequency,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBody != null">
+        #{mainBody,jdbcType=VARCHAR},
+      </if>
+      <if test="mailTo != null">
+        #{mailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="mailCC != null">
+        #{mailCC,jdbcType=VARCHAR},
+      </if>
+      <if test="autoSend != null">
+        #{autoSend,jdbcType=TINYINT},
+      </if>
+      <if test="sendFrequency != null">
+        #{sendFrequency,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.EmailTemplet">
+    update cp.emailtemplet
+    <set>
+      <if test="subject != null">
+        Subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBody != null">
+        MainBody = #{mainBody,jdbcType=VARCHAR},
+      </if>
+      <if test="mailTo != null">
+        MailTo = #{mailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="mailCC != null">
+        MailCC = #{mailCC,jdbcType=VARCHAR},
+      </if>
+      <if test="autoSend != null">
+        AutoSend = #{autoSend,jdbcType=TINYINT},
+      </if>
+      <if test="sendFrequency != null">
+        SendFrequency = #{sendFrequency,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

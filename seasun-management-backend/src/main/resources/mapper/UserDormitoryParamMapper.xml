@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserDormitoryParamMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserDormitoryParam">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="value" jdbcType="INTEGER" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, year, month, key, value
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserDormitoryParam">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_dormitory_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserDormitoryParam">
+    update user_dormitory_param
+    <set>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        key = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

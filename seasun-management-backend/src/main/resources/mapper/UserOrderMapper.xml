@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserOrderMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="total_fee" jdbcType="BIGINT" property="totalFee" />
+    <result column="local_trade_no" jdbcType="VARCHAR" property="localTradeNo" />
+    <result column="prepay_id" jdbcType="VARCHAR" property="prepayId" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="client_full_info" jdbcType="VARCHAR" property="clientFullInfo" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="transaction_id" jdbcType="VARCHAR" property="transactionId" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="callback_time" jdbcType="TIMESTAMP" property="callbackTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_comment" jdbcType="VARCHAR" property="updateComment" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="error_message" jdbcType="VARCHAR" property="errorMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, product_id, total_fee, local_trade_no, prepay_id, pay_type, client_full_info,
+    status, transaction_id, open_id,create_time, callback_time, update_time, update_comment,
+    pay_time, error_message
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserOrder">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="localTradeNo != null">
+        local_trade_no,
+      </if>
+      <if test="prepayId != null">
+        prepay_id,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="clientFullInfo != null">
+        client_full_info,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="transactionId != null">
+        transaction_id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="callbackTime != null">
+        callback_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateComment != null">
+        update_comment,
+      </if>
+      <if test="payTime != null">
+        endTime,
+      </if>
+      <if test="errorMessage != null">
+        error_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=BIGINT},
+      </if>
+      <if test="localTradeNo != null">
+        #{localTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayId != null">
+        #{prepayId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientFullInfo != null">
+        #{clientFullInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null">
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackTime != null">
+        #{callbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateComment != null">
+        #{updateComment,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorMessage != null">
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserOrder">
+    update user_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=BIGINT},
+      </if>
+      <if test="localTradeNo != null">
+        local_trade_no = #{localTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayId != null">
+        prepay_id = #{prepayId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientFullInfo != null">
+        client_full_info = #{clientFullInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null">
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackTime != null">
+        callback_time = #{callbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateComment != null">
+        update_comment = #{updateComment,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorMessage != null">
+        error_message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

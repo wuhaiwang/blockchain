@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserHideThePhoneMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserHideThePhone">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserHideThePhone">
+    insert into user_hide_the_phone
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

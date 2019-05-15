@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.DumpDayMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.DumpDay">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="versionex" jdbcType="VARCHAR" property="versionex" />
+    <result column="dump_count" jdbcType="INTEGER" property="dumpCount" />
+    <result column="dump_machine_count" jdbcType="INTEGER" property="dumpMachineCount" />
+    <result column="active_machine_count" jdbcType="INTEGER" property="activeMachineCount" />
+    <result column="session_count" jdbcType="INTEGER" property="sessionCount" />
+    <result column="dump_type_count" jdbcType="INTEGER" property="dumpTypeCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date, project, version, versionex, dump_count, dump_machine_count, active_machine_count, 
+    session_count, dump_type_count
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.DumpDay">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into dump_day
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="date != null">
+        date,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="versionex != null">
+        versionex,
+      </if>
+      <if test="dumpCount != null">
+        dump_count,
+      </if>
+      <if test="dumpMachineCount != null">
+        dump_machine_count,
+      </if>
+      <if test="activeMachineCount != null">
+        active_machine_count,
+      </if>
+      <if test="sessionCount != null">
+        session_count,
+      </if>
+      <if test="dumpTypeCount != null">
+        dump_type_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="versionex != null">
+        #{versionex,jdbcType=VARCHAR},
+      </if>
+      <if test="dumpCount != null">
+        #{dumpCount,jdbcType=INTEGER},
+      </if>
+      <if test="dumpMachineCount != null">
+        #{dumpMachineCount,jdbcType=INTEGER},
+      </if>
+      <if test="activeMachineCount != null">
+        #{activeMachineCount,jdbcType=INTEGER},
+      </if>
+      <if test="sessionCount != null">
+        #{sessionCount,jdbcType=INTEGER},
+      </if>
+      <if test="dumpTypeCount != null">
+        #{dumpTypeCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.DumpDay">
+    update dump_day
+    <set>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="versionex != null">
+        versionex = #{versionex,jdbcType=VARCHAR},
+      </if>
+      <if test="dumpCount != null">
+        dump_count = #{dumpCount,jdbcType=INTEGER},
+      </if>
+      <if test="dumpMachineCount != null">
+        dump_machine_count = #{dumpMachineCount,jdbcType=INTEGER},
+      </if>
+      <if test="activeMachineCount != null">
+        active_machine_count = #{activeMachineCount,jdbcType=INTEGER},
+      </if>
+      <if test="sessionCount != null">
+        session_count = #{sessionCount,jdbcType=INTEGER},
+      </if>
+      <if test="dumpTypeCount != null">
+        dump_type_count = #{dumpTypeCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

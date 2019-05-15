@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnProjectSchedDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.FnProjectSchedData">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="project_id" jdbcType="BIGINT" property="projectId" />
+        <result column="year" jdbcType="INTEGER" property="year" />
+        <result column="month" jdbcType="INTEGER" property="month" />
+        <result column="total_cost" jdbcType="REAL" property="totalCost" />
+        <result column="total_budget" jdbcType="REAL" property="totalBudget" />
+        <result column="expect_income" jdbcType="REAL" property="expectIncome" />
+        <result column="human_number" jdbcType="REAL" property="humanNumber" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, project_id, year, month, total_cost, total_budget, expect_income, human_number,
+        create_time, update_time
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.FnProjectSchedData">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into fn_project_sched_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="totalCost != null">
+                total_cost,
+            </if>
+            <if test="totalBudget != null">
+                total_budget,
+            </if>
+            <if test="expectIncome != null">
+                expect_income,
+            </if>
+            <if test="humanNumber != null">
+                human_number,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="totalCost != null">
+                #{totalCost,jdbcType=REAL},
+            </if>
+            <if test="totalBudget != null">
+                #{totalBudget,jdbcType=REAL},
+            </if>
+            <if test="expectIncome != null">
+                #{expectIncome,jdbcType=REAL},
+            </if>
+            <if test="humanNumber != null">
+                #{humanNumber,jdbcType=REAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnProjectSchedData">
+        update fn_project_sched_data
+        <set>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="totalCost != null">
+                total_cost = #{totalCost,jdbcType=REAL},
+            </if>
+            <if test="totalBudget != null">
+                total_budget = #{totalBudget,jdbcType=REAL},
+            </if>
+            <if test="expectIncome != null">
+                expect_income = #{expectIncome,jdbcType=REAL},
+            </if>
+            <if test="humanNumber != null">
+                human_number = #{humanNumber,jdbcType=REAL},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+    <select id="selectByCondition" parameterType="com.seasun.management.model.FnProjectSchedData" resultMap="BaseResultMap">
+        select * from
+        fn_project_sched_data
+        where year = #{year, jdbcType = BIGINT}
+        <if test="projectId != null">
+            and project_id = #{projectId, jdbcType = BIGINT}
+        </if>
+        <if test="month != null">
+            and month = #{month, jdbcType = BIGINT}
+        </if>
+    </select>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into fn_project_sched_data
+        (project_id, year,month,total_cost,total_budget,expect_income,human_number,create_time,update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.projectId},
+            #{item.year},
+            #{item.month},
+            #{item.totalCost},
+            #{item.totalBudget},
+            #{item.expectIncome},
+            #{item.humanNumber},
+            #{item.createTime},
+            #{item.updateTime})
+        </foreach>
+    </insert>
+    <update id="batchUpdateByPks" parameterType="java.util.List">
+        update fn_project_sched_data set
+        total_cost=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.totalCost}
+        </foreach>
+        ,human_number=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.humanNumber}
+        </foreach>
+        ,update_time=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then now()
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+</mapper>

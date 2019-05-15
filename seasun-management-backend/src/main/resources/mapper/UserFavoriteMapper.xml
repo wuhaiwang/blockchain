@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserFavoriteMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserFavorite">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, menu_id, seq
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserFavorite">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_favorite
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="menuId != null">
+        menu_id,
+      </if>
+      <if test="seq != null">
+        seq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserFavorite">
+    update user_favorite
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="seq != null">
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+
+  <insert id ="batchInsert" parameterType="java.util.List" >
+    insert into user_favorite
+    (user_id, menu_id, seq)
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.userId},
+      #{item.menuId},
+      #{item.seq})
+    </foreach >
+  </insert >
+</mapper>

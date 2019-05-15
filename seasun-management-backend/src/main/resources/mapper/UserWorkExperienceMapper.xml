@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserWorkExperienceMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserWorkExperience">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="begin_date" jdbcType="DATE" property="beginDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="post" jdbcType="VARCHAR" property="post" />
+    <result column="responsibility" jdbcType="VARCHAR" property="responsibility" />
+    <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, begin_date, end_date, city, company, department, post, responsibility, 
+    leave_reason
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserWorkExperience">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_work_experience
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="beginDate != null">
+        begin_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="post != null">
+        post,
+      </if>
+      <if test="responsibility != null">
+        responsibility,
+      </if>
+      <if test="leaveReason != null">
+        leave_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="beginDate != null">
+        #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null">
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibility != null">
+        #{responsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveReason != null">
+        #{leaveReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserWorkExperience">
+    update user_work_experience
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="beginDate != null">
+        begin_date = #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null">
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibility != null">
+        responsibility = #{responsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveReason != null">
+        leave_reason = #{leaveReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+
+  <insert id ="batchInsert" parameterType="java.util.List" >
+    insert into user_work_experience
+    (user_id, begin_date, end_date, city,company,department,post,responsibility,leave_reason)
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.userId},
+      #{item.beginDate},
+      #{item.endDate},
+      #{item.city},
+      #{item.company}),
+      #{item.department}),
+      #{item.post}),
+      #{item.responsibility}),
+      #{item.leave_reason})
+    </foreach >
+  </insert >
+</mapper>

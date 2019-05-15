@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnShareDataMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FnShareData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plat_id" jdbcType="BIGINT" property="platId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="share_pro" jdbcType="REAL" property="sharePro" />
+    <result column="share_amount" jdbcType="REAL" property="shareAmount" />
+    <result column="share_number" jdbcType="REAL" property="shareNumber" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plat_id, project_id, year, month, share_pro, share_amount, share_number, create_time,
+    update_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FnShareData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fn_share_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        plat_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="sharePro != null">
+        share_pro,
+      </if>
+      <if test="shareAmount != null">
+        share_amount,
+      </if>
+      <if test="shareNumber != null">
+        share_number,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="platId != null">
+        #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="sharePro != null">
+        #{sharePro,jdbcType=REAL},
+      </if>
+      <if test="shareAmount != null">
+        #{shareAmount,jdbcType=REAL},
+      </if>
+      <if test="shareNumber != null">
+        #{shareNumber,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnShareData">
+    update fn_share_data
+    <set>
+      <if test="platId != null">
+        plat_id = #{platId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="sharePro != null">
+        share_pro = #{sharePro,jdbcType=REAL},
+      </if>
+      <if test="shareAmount != null">
+        share_amount = #{shareAmount,jdbcType=REAL},
+      </if>
+      <if test="shareNumber != null">
+        share_number = #{shareNumber,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+  <insert id ="batchInsert" parameterType="java.util.Collection" >
+    insert into fn_share_data
+    (plat_id, project_id, year,month,share_pro,share_amount,share_number,create_time,update_time)
+    values
+    <foreach collection ="collection" item="item" index= "index" separator =",">
+      (
+      #{item.platId},
+      #{item.projectId},
+      #{item.year},
+      #{item.month},
+      #{item.sharePro},
+      #{item.shareAmount},
+      #{item.shareNumber},
+      #{item.createTime},
+      #{item.updateTime})
+    </foreach >
+  </insert >
+</mapper>

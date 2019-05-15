@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_center_id" jdbcType="BIGINT" property="orderCenterId"/>
+        <result column="cost_center_id" jdbcType="BIGINT" property="costCenterId"/>
+        <result column="work_group_id" jdbcType="BIGINT" property="workGroupId"/>
+        <result column="perf_work_group_id" jdbcType="BIGINT" property="perfWorkGroupId"/>
+        <result column="employee_no" jdbcType="BIGINT" property="employeeNo"/>
+        <result column="middle_name" jdbcType="VARCHAR" property="middleName"/>
+        <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
+        <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
+        <result column="login_id" jdbcType="VARCHAR" property="loginId"/>
+        <result column="floor_id" jdbcType="BIGINT" property="floorId"/>
+        <result column="label" jdbcType="VARCHAR" property="label"/>
+        <result column="photo" jdbcType="VARCHAR" property="photo"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="work_place" jdbcType="VARCHAR" property="workPlace"/>
+        <result column="active_flag" jdbcType="BIT" property="activeFlag"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="in_date" jdbcType="DATE" property="inDate"/>
+        <result column="virtual_flag" jdbcType="BIT" property="virtualFlag"/>
+        <result column="virtual_expire_time" jdbcType="DATE" property="virtualExpireTime"/>
+        <result column="virtual_manager_id" jdbcType="BIGINT" property="virtualManagerId"/>
+        <result column="hr_id" jdbcType="BIGINT" property="hrId"/>
+        <result column="grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="evaluate_type" jdbcType="VARCHAR" property="evaluateType"/>
+        <result column="couple_user_id" jdbcType="BIGINT" property="coupleUserId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, order_center_id, cost_center_id, work_group_id, perf_work_group_id, employee_no,
+        middle_name, first_name, last_name, login_id, floor_id, label, photo, email, work_place,
+        active_flag, phone, in_date, virtual_flag, virtual_expire_time, virtual_manager_id,
+        hr_id, grade, evaluate_type, couple_user_id, create_time, update_time
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderCenterId != null">
+                order_center_id,
+            </if>
+            <if test="costCenterId != null">
+                cost_center_id,
+            </if>
+            <if test="workGroupId != null">
+                work_group_id,
+            </if>
+            <if test="perfWorkGroupId != null">
+                perf_work_group_id,
+            </if>
+            <if test="employeeNo != null">
+                employee_no,
+            </if>
+            <if test="middleName != null">
+                middle_name,
+            </if>
+            <if test="firstName != null">
+                first_name,
+            </if>
+            <if test="lastName != null">
+                last_name,
+            </if>
+            <if test="loginId != null">
+                login_id,
+            </if>
+            <if test="floorId != null">
+                floor_id,
+            </if>
+            <if test="label != null">
+                label,
+            </if>
+            <if test="photo != null">
+                photo,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="workPlace != null">
+                work_place,
+            </if>
+            <if test="activeFlag != null">
+                active_flag,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="inDate != null">
+                in_date,
+            </if>
+            <if test="virtualFlag != null">
+                virtual_flag,
+            </if>
+            <if test="virtualExpireTime != null">
+                virtual_expire_time,
+            </if>
+            <if test="virtualManagerId != null">
+                virtual_manager_id,
+            </if>
+            <if test="hrId != null">
+                hr_id,
+            </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="evaluateType != null">
+                evaluate_type,
+            </if>
+            <if test="coupleUserId != null">
+                couple_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderCenterId != null">
+                #{orderCenterId,jdbcType=BIGINT},
+            </if>
+            <if test="costCenterId != null">
+                #{costCenterId,jdbcType=BIGINT},
+            </if>
+            <if test="workGroupId != null">
+                #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="perfWorkGroupId != null">
+                #{perfWorkGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="employeeNo != null">
+                #{employeeNo,jdbcType=BIGINT},
+            </if>
+            <if test="middleName != null">
+                #{middleName,jdbcType=VARCHAR},
+            </if>
+            <if test="firstName != null">
+                #{firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastName != null">
+                #{lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginId != null">
+                #{loginId,jdbcType=VARCHAR},
+            </if>
+            <if test="floorId != null">
+                #{floorId,jdbcType=BIGINT},
+            </if>
+            <if test="label != null">
+                #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null">
+                #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="workPlace != null">
+                #{workPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="activeFlag != null">
+                #{activeFlag,jdbcType=BIT},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="inDate != null">
+                #{inDate,jdbcType=DATE},
+            </if>
+            <if test="virtualFlag != null">
+                #{virtualFlag,jdbcType=BIT},
+            </if>
+            <if test="virtualExpireTime != null">
+                #{virtualExpireTime,jdbcType=DATE},
+            </if>
+            <if test="virtualManagerId != null">
+                #{virtualManagerId,jdbcType=BIGINT},
+            </if>
+            <if test="hrId != null">
+                #{hrId,jdbcType=BIGINT},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateType != null">
+                #{evaluateType,jdbcType=VARCHAR},
+            </if>
+            <if test="coupleUserId != null">
+                #{coupleUserId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.User">
+        update user
+        <set>
+            <if test="orderCenterId != null">
+                order_center_id = #{orderCenterId,jdbcType=BIGINT},
+            </if>
+            <if test="costCenterId != null">
+                cost_center_id = #{costCenterId,jdbcType=BIGINT},
+            </if>
+            <if test="workGroupId != null">
+                work_group_id = #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="perfWorkGroupId != null">
+                perf_work_group_id = #{perfWorkGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="employeeNo != null">
+                employee_no = #{employeeNo,jdbcType=BIGINT},
+            </if>
+            <if test="middleName != null">
+                middle_name = #{middleName,jdbcType=VARCHAR},
+            </if>
+            <if test="firstName != null">
+                first_name = #{firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastName != null">
+                last_name = #{lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginId != null">
+                login_id = #{loginId,jdbcType=VARCHAR},
+            </if>
+            <if test="floorId != null">
+                floor_id = #{floorId,jdbcType=BIGINT},
+            </if>
+            <if test="label != null">
+                label = #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null">
+                photo = #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="workPlace != null">
+                work_place = #{workPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag,jdbcType=BIT},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="inDate != null">
+                in_date = #{inDate,jdbcType=DATE},
+            </if>
+            <if test="virtualFlag != null">
+                virtual_flag = #{virtualFlag,jdbcType=BIT},
+            </if>
+            <if test="virtualExpireTime != null">
+                virtual_expire_time = #{virtualExpireTime,jdbcType=DATE},
+            </if>
+            <if test="virtualManagerId != null">
+                virtual_manager_id = #{virtualManagerId,jdbcType=BIGINT},
+            </if>
+            <if test="hrId != null">
+                hr_id = #{hrId,jdbcType=BIGINT},
+            </if>
+            <if test="grade != null">
+                grade = #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateType != null">
+                evaluate_type = #{evaluateType,jdbcType=VARCHAR},
+            </if>
+            <if test="coupleUserId != null">
+                couple_user_id = #{coupleUserId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+
+    <resultMap id="IdNameResultMap" type="com.seasun.management.model.IdNameBaseObject">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="selectUserByIds" resultMap="IdNameResultMap">
+        select id, concat(last_name, first_name) as name
+        FROM user
+        WHERE id in
+        <foreach item="item" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="batchUpdatePerfWorkGroupIdByPks" parameterType="java.util.List">
+        update user set
+        perf_work_group_id=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.perfWorkGroupId}
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <select id="selectUserIdsByEmployeeNos" parameterType="list" resultType="com.seasun.management.vo.SimUserCoupleInfoVo">
+        select id userId,employee_no  employeeNo from user where active_flag=1 and employee_no IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectMarriedUsersByCitys" parameterType="list"
+            resultType="com.seasun.management.vo.SimUserCoupleInfoVo">
+        select u.id userId,CONCAT(u.last_name,u.first_name) name,u.employee_no,u.login_id,u.photo,u.couple_user_id,d.post,d.gender,FLOOR(DATEDIFF(NOW(), u.in_date) / 365) workAgeInKs,u.work_group_id , w.name workGroup,p.city
+        from user u left join user_detail d on u.id=d.user_id left join work_group w  on u.work_group_id=w.id left join order_center o on o.id=u.order_center_id left join project p on p.id=o.project_id
+        where u.active_flag=1 and u.virtual_flag=0 and u.couple_user_id is not null
+        and p.city in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="batchUpdateUserCouple" parameterType="java.util.List">
+        update user set
+        couple_user_id=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.userId} then #{item.coupleUserId}
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.userId}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateUserPhoto" parameterType="java.util.List">
+        update user set
+        photo=
+        <foreach collection="list" item="item" index="index" separator=" " open="case login_Id" close="end">
+            when #{item.loginId} then #{item.photo}
+        </foreach>
+        where login_Id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.loginId}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateUserPhone" parameterType="java.util.List">
+        update user set
+        phone=
+        <foreach collection="list" item="item" index="index" separator=" " open="case login_Id" close="end">
+            when #{item.loginId} then #{item.phone}
+        </foreach>
+        where login_Id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.loginId}
+        </foreach>
+    </update>
+
+    <update id="clearUserPerformanceGroupIdInList" parameterType="java.util.List">
+        update user set
+        perf_work_group_id = null
+        where perf_work_group_id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="selectWithPerformanceByPWGUserIdInList" parameterType="java.util.List"
+            resultType="com.seasun.management.dto.PerformanceUserDto">
+        select u.id as user_id, concat(u.last_name,u.first_name) as name, u.login_id, u.employee_no, d.post,
+        d.work_status,g.performance_manager_id as leader_id,
+        u.perf_work_group_id as work_group_id, g.parent as parent_work_group_id, g.name as work_group_name,
+        floor((datediff(now(), u.in_date) + d.work_age_out_ks) / 365) as work_age,
+        floor(datediff(now(), u.in_date) / 365) as work_age_in_ks,
+        (select count(*) from performance_work_group g where g.performance_manager_id = u.id) > 0 as leader_flag
+        from user u
+        left join user_detail d on d.user_id = u.id
+        left join performance_work_group g on g.id = u.perf_work_group_id
+        where u.id IN
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectActiveUserIdByPerfWorkGroup" resultType="long" parameterType="java.util.List">
+        SELECT
+        id
+        FROM
+        USER
+        <where>
+            active_flag=1 and virtual_flag=0
+            <if test="list != null">
+                AND perf_work_group_id IN
+                <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectActiveUserIdsByPlatIds" resultType="long">
+        select id from user where active_flag=1 and virtual_flag=0 and  order_center_id in(
+        select id from order_center where project_id IN
+        <foreach collection="list" open="(" item="item" close=")" separator="," >
+            #{item}
+        </foreach>
+        )
+    </select>
+
+    <select id="selectSimUserCoupleInfoVoBYUserIds" resultType="com.seasun.management.vo.SimUserCoupleInfoVo">
+        select u.id userId,CONCAT(u.last_name,u.first_name) name,u.employee_no,u.login_id,u.photo,u.couple_user_id,d.post,d.gender,FLOOR(DATEDIFF(NOW(), u.in_date) / 365) workAgeInKs,u.work_group_id ,d.work_status workStatus,date_format(u.in_date,'%Y/%c/%e') inDate, w.name workGroup,p.city from user u left join user_detail d on u.id=d.user_id left join work_group w  on u.work_group_id=w.id left join order_center o on o.id=u.order_center_id left join project p on p.id=o.project_id where u.active_flag=1 and u.virtual_flag=0
+        and
+        u.id IN
+        <foreach collection="list" open="(" item="item" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectBYUserLoginIds" resultType="com.seasun.management.model.User">
+        SELECT * FROM USER
+        WHERE
+        login_id IN
+        <foreach collection="list" open="(" item="item" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectBYUserIds" resultType="com.seasun.management.model.User">
+        SELECT * FROM USER
+        WHERE
+        id IN
+        <foreach collection="list" open="(" item="item" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectUserMiniVoByCertificationNo" parameterType="list" resultType="com.seasun.management.vo.UserMiniVo">
+        select u.id,concat(u.last_name, u.first_name) name,d.work_status workStatus,u.phone mobile,d.certification_no idCode,IF(d.gender=0,1,2)gender,concat(p.name,'/',w.`name`) departmentName,p.id projectId,p.name projectName,s.id companyId,s.name companyName
+        from user u left join user_detail d on d.user_id=u.id left join order_center o on o.id=u.order_center_id left join project p on p.id=o.project_id left join cost_center c on c.id=u.cost_center_id left join work_group w on w.id=u.work_group_id left join subcompany s on substr(c.code,1,4)=s.code
+        where d.certification_no IN
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectActiveUserTemplateDtoByWorkGroupIds" resultType="com.seasun.management.dto.UserShareTemplateDto" parameterType="list">
+        select u.employee_no,u.login_id, concat(u.last_name, u.first_name) userName, ud.gender, ud.work_status,ud.post,ud.first_join_date,wg.name as workGroupName
+        from user u left join user_detail ud on u.id = ud.user_id left join work_group wg on u.work_group_id = wg.id
+        where u.active_flag=1 and u.virtual_flag=0 and ud.work_status in ('正式','试用')
+        and u.work_group_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectActiveUserEmployeeNoDtoByWorkGroupIds" resultType="com.seasun.management.dto.UserEmployeeNoDto" parameterType="list">
+        select u.id user_Id, u.employee_no, concat(u.last_name, u.first_name) user_name, u.work_group_id workGroupId,u.login_id loginId
+        from user u,user_detail ud
+        where u.id = ud.user_id and ud.work_status in ('正式','试用') and u.active_flag=1 and u.virtual_flag=0
+        and u.work_group_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectUserIdsByWorkGroupIds" parameterType="list" resultType="Long" >
+        select id from user where work_group_id IN
+        <foreach collection="list" item="item" close=")" separator="," open="(" >
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectActiveShareConfiUserDTOByWorkGroupIds" resultType="com.seasun.management.dto.FnPlatShareConfigUserDTO">
+        select u.id createBy,u.employee_no,concat(u.last_name,u.first_name) userName,CASE d.gender WHEN 0 THEN '男' ELSE '女' END gender , d.work_status,date_format(u.in_date,'%Y/%c/%e') inDate,w.`name` workGroupName,w.id workGroupId,d.post
+        from user u left join user_detail d on u.id=d.user_id left join work_group w on u.work_group_id = w.id
+        where u.active_flag=1 and u.virtual_flag=0  and d.work_status in( '试用','正式') and u.work_group_id IN
+        <foreach collection="list" separator="," close=")" item="item" open="(" >
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectUsersInWorkGroupIdAndRole" resultType="com.seasun.management.model.User">
+        select u.id,u.login_id, u.phone, u.email, u.last_name, u.first_name, perm.work_group_id from r_user_work_group_perm perm join user u on u.id = perm.user_id and perm.work_group_id in
+        <foreach collection="group_id_list" separator="," close=")" item="item" open="(" >
+            #{item}
+        </foreach>
+        and perm.work_group_role_id = #{role} order by perm.work_group_id desc;
+    </select>
+
+    <select id="findUserGroupManagers" resultType="com.seasun.management.dto.UserGroupManagerDto">
+        select u.id as id, u.login_id, u.work_group_id as group_id, concat( u.last_name, u.first_name) as name,u.email, u.phone,
+        group_user.id group_manager_id, concat(group_user.last_name,group_user.first_name) as group_manager_name, group_user.login_id as group_manager_login_id,  group_user.phone as  group_manager_phone,  group_user.email as group_manager_email,
+        role.id as group_role_id, role.name as group_role_name
+        from user as u
+        left join r_user_work_group_perm gp on u.work_group_id = gp.work_group_id
+        left join user group_user on  gp.user_id = group_user.id
+        left join work_group_role role on role.id = gp.work_group_role_id  and role.id = 3
+        where u.id in
+        <foreach collection="user_ids" separator="," close=")" item="item" open="(" >
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectUsersByEmployeeNos" resultType="com.seasun.management.model.User">
+        select * from user where employee_no in
+        <foreach item="item" open="(" close=")" collection="employee_nos" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectUsersByFullName" resultType="com.seasun.management.model.User">
+        select * from user where concat(last_name, first_name) in
+        <foreach item="item" open="(" close=")" collection="full_names" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="selectUserBaseInfoListWhereCondition">
+        from user u
+        left  join user_detail ud on u.id = ud.user_id
+        left  join cost_center cc on cc.id = u.cost_center_id
+        left  join order_center oc on oc.id = u.order_center_id
+        left  join project on project.id = oc.project_id
+        left  join work_group wg on wg.id = u.work_group_id
+        left join subcompany on substr(cc.code,1,4) = subcompany.code
+        <if test="requestVo.needDepartment">
+            left join department on department.id = cc.department_id
+        </if>
+        <where>
+            <if test="requestVo.employeeNo!=null and requestVo.employeeNo.trim().length()>0">
+                u.employee_no = #{requestVo.employeeNo}
+            </if>
+            <if test="requestVo.loginId!=null and requestVo.loginId.trim().length()>0">
+                <bind name="pattern" value=" requestVo.loginId + '%'" />
+                and u.login_id like #{pattern}
+            </if>
+            <if test="requestVo.workGroupId!=null and  requestVo.workGroupId.trim().length()>0">
+                and u.work_group_id = #{requestVo.workGroupId}
+            </if>
+            <if test="requestVo.projectId!=null and requestVo.projectId.trim().length()>0">
+                and oc.project_id = #{requestVo.projectId}
+            </if>
+            <if test="requestVo.orderCenterCode!=null and requestVo.orderCenterCode.trim().length()>0">
+                and oc.code = #{requestVo.orderCenterCode}
+            </if>
+            <if test="requestVo.costCenterCode!=null and requestVo.costCenterCode.trim().length()>0">
+                and cc.code = #{requestVo.orderCenterCode}
+            </if>
+            <if test="requestVo.workStatus!=null and requestVo.workStatus.trim().length()>0">
+                and ud.work_status = #{requestVo.workStatus}
+            </if>
+            <if test="requestVo.activeFlag!=null and requestVo.activeFlag.trim().length()>0">
+                and u.active_flag = #{requestVo.activeFlag}
+            </if>
+            <if test="requestVo.virtualFlag!=null and requestVo.virtualFlag.trim().length()>0">
+                and u.virtual_flag = #{requestVo.virtualFlag}
+            </if>
+            <if test="requestVo.subcompanys!=null">
+                <foreach collection="requestVo.subcompanys" open="and subcompany.id in (" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <select id="selectUserBaseInfoList" resultType="com.seasun.management.dto.UserBaseInfoDto">
+        SELECT u.id as user_id, u.login_id, concat(u.last_name, u.first_name) as full_name, ud.work_status, u.employee_no, cc.code as cost_center_code,oc.code as order_center_code, project.name as project,
+        subcompany.city, u.work_group_id, u.virtual_flag, wg.name as work_group, u.active_flag, wg.id as work_group_id
+        <include refid="selectUserBaseInfoListWhereCondition"/>
+        order by FIELD(`work_status`,'离职','实习','试用','正式') desc,
+        u.id asc
+        limit #{requestVo.offset}, #{requestVo.limit} ;
+    </select>
+
+    <select id="countUserBaseInfoList" resultType="java.lang.Long">
+        SELECT count(1) <include refid="selectUserBaseInfoListWhereCondition"/>
+    </select>
+
+
+    <select id="selectUserJoinUserDetailAndDeparemtnyByUserId" resultType="com.seasun.management.dto.UserBaseInfoExportDto">
+
+        select u.*, ud.*, concat(u.last_name, u.first_name) as full_name,floor((datediff(now(), u.in_date) + ud.work_age_out_ks) / 365) as work_age, floor(datediff(now(), u.in_date) / 365) as work_age_in_ks,
+        cc.code as cost_center_code, oc.code as order_center_code, project.name as project, subcompany.name as subcompany
+        <if test="requestVo.needDepartment">
+            , department.name as department
+        </if>
+        <include refid="selectUserBaseInfoListWhereCondition"/>
+        order by FIELD(`work_status`,'离职','实习','试用','正式') desc,
+        u.id asc
+    </select>
+</mapper>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.OperateLogMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.OperateLog">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="operate_id" jdbcType="BIGINT" property="operateId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="channel" jdbcType="VARCHAR" property="channel" />
+        <result column="system" jdbcType="VARCHAR" property="system" />
+        <result column="version" jdbcType="VARCHAR" property="version" />
+        <result column="model" jdbcType="VARCHAR" property="model" />
+        <result column="app_version" jdbcType="VARCHAR" property="appVersion" />
+        <result column="imei" jdbcType="VARCHAR" property="imei" />
+        <result column="code_push_label" jdbcType="VARCHAR" property="codePushLabel" />
+        <result column="code_push_environment" jdbcType="VARCHAR" property="codePushEnvironment" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, type, operate_id, create_time, description, channel, system, version, model,
+        app_version, imei, code_push_label, code_push_environment
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.OperateLog">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into operate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                type,
+            </if>
+            <if test="operateId != null">
+                operate_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+            <if test="system != null">
+                system,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="model != null">
+                model,
+            </if>
+            <if test="appVersion != null">
+                app_version,
+            </if>
+            <if test="imei != null">
+                imei,
+            </if>
+            <if test="codePushLabel != null">
+                code_push_label,
+            </if>
+            <if test="codePushEnvironment != null">
+                code_push_environment,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="operateId != null">
+                #{operateId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="system != null">
+                #{system,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersion != null">
+                #{appVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="imei != null">
+                #{imei,jdbcType=VARCHAR},
+            </if>
+            <if test="codePushLabel != null">
+                #{codePushLabel,jdbcType=VARCHAR},
+            </if>
+            <if test="codePushEnvironment != null">
+                #{codePushEnvironment,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.OperateLog">
+        update operate_log
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="operateId != null">
+                operate_id = #{operateId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="system != null">
+                system = #{system,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                model = #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersion != null">
+                app_version = #{appVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="imei != null">
+                imei = #{imei,jdbcType=VARCHAR},
+            </if>
+            <if test="codePushLabel != null">
+                code_push_label = #{codePushLabel,jdbcType=VARCHAR},
+            </if>
+            <if test="codePushEnvironment != null">
+                code_push_environment = #{codePushEnvironment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--the flowing are user defined ... -->
+    <insert id="batchInsertSelective" parameterType="java.util.List">
+        INSERT INTO operate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                `type`,
+                operate_id,
+                create_time,
+                description,
+                channel,
+                system,
+                version,
+                model,
+                app_version,
+                imei,
+                code_push_label,
+                code_push_environment
+        </trim>
+        VALUES
+        <foreach collection="list" item="operateLog" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{operateLog.type,jdbcType=VARCHAR},
+                    #{operateLog.operateId,jdbcType=BIGINT},
+                    #{operateLog.createTime,jdbcType=TIMESTAMP},
+                    #{operateLog.description,jdbcType=VARCHAR},
+                    #{operateLog.channel,jdbcType=VARCHAR},
+                    #{operateLog.system,jdbcType=VARCHAR},
+                    #{operateLog.version,jdbcType=VARCHAR},
+                    #{operateLog.model,jdbcType=VARCHAR},
+                    #{operateLog.appVersion,jdbcType=VARCHAR},
+                    #{operateLog.imei,jdbcType=VARCHAR},
+                    #{operateLog.codePushLabel,jdbcType=VARCHAR},
+                    #{operateLog.codePushEnvironment,jdbcType=VARCHAR}
+            </trim>
+        </foreach>
+    </insert>
+
+    <select id="selectByCondition" resultType="com.seasun.management.model.OperateLog"
+            parameterType="com.seasun.management.vo.LogQueryConditionVo">
+
+        select l.*,concat(u.last_name,u.first_name) as operate_name from operate_log l
+        left join user u on l.operate_id = u.id
+
+        WHERE 1 = 1
+        <if test="channel !=null and channel !=''">
+            AND channel = #{channel}
+        </if>
+        <if test="operator !=null and operator !=''">
+            AND concat(u.last_name,u.first_name) LIKE CONCAT('%',#{operator},'%')
+        </if>
+        <if test="operate !=null and operate !=''">
+            AND l.description = #{operate}
+        </if>
+        <if test="system !=null and system !=''">
+            AND l.system = #{system}
+        </if>
+        <if test="systemVersion !=null and systemVersion !=''">
+            AND l.version = #{systemVersion}
+        </if>
+        <if test="model !=null and model !=''">
+            AND l.model = #{model}
+        </if>
+        <if test="appVersion !=null and appVersion !=''">
+            AND l.app_version = #{appVersion}
+        </if>
+        <if test="locations !=null and locations.size > 0">
+            AND
+            <if test="hasOther" >
+                <foreach collection="locations" item="item" open="" separator=" and " close="">
+                    l.type NOT LIKE CONCAT('%',#{item},'%')
+                </foreach>
+            </if>
+
+            <if test="!hasOther" >
+                <foreach collection="locations" item="item" open="(" separator=" or " close=")">
+                    l.type  LIKE CONCAT('%',#{item},'%')
+                </foreach>
+            </if>
+        </if>
+        <if test="keyword !=null and keyword !=''">
+            AND (concat(u.last_name,u.first_name) LIKE CONCAT('%',#{keyword},'%')
+            OR l.description LIKE CONCAT('%',#{keyword},'%')
+            OR l.system LIKE CONCAT('%',#{keyword},'%')
+            OR l.version LIKE CONCAT('%',#{keyword},'%')
+            OR l.model LIKE CONCAT('%',#{keyword},'%')
+            OR l.app_version LIKE CONCAT('%',#{keyword},'%')
+            OR l.type LIKE CONCAT('%',#{keyword},'%')
+            )
+        </if>
+        <if test="startTime != null">
+            and  <![CDATA[ l.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ l.create_time <= #{endTime} ]]>
+        </if>
+
+        ORDER BY create_time DESC
+        <if test="currentPage !=null">
+            LIMIT #{beginNum} , #{pageSize}
+        </if>
+    </select>
+    <select id="selectCountByCondition" resultType="java.lang.Double"
+            parameterType="com.seasun.management.vo.LogQueryConditionVo">
+
+        select count(*) from operate_log l
+        left join user u on l.operate_id = u.id
+        WHERE 1 = 1
+
+        <if test="channel !=null and channel !=''">
+            AND channel = #{channel}
+        </if>
+        <if test="operator !=null and operator !=''">
+            AND concat(u.last_name,u.first_name) LIKE CONCAT('%',#{operator},'%')
+        </if>
+        <if test="operate !=null and operate !=''">
+            AND l.description = #{operate}
+        </if>
+        <if test="system !=null and system !=''">
+            AND l.system = #{system}
+        </if>
+        <if test="systemVersion !=null and systemVersion !=''">
+            AND l.version = #{systemVersion}
+        </if>
+        <if test="model !=null and model !=''">
+            AND l.model = #{model}
+        </if>
+        <if test="appVersion !=null and appVersion !=''">
+            AND l.app_version = #{appVersion}
+        </if>
+        <if test="locations !=null and locations.size > 0">
+            AND
+            <if test="hasOther" >
+                <foreach collection="locations" item="item" open="" separator=" and " close="">
+                    l.type NOT LIKE CONCAT('%',#{item},'%')
+                </foreach>
+            </if>
+
+            <if test="!hasOther" >
+                <foreach collection="locations" item="item" open="(" separator=" or " close=")">
+                    l.type  LIKE CONCAT('%',#{item},'%')
+                </foreach>
+            </if>
+        </if>
+        <if test="keyword !=null and keyword !=''">
+            AND (concat(u.last_name,u.first_name) LIKE CONCAT('%',#{keyword},'%')
+            OR l.description LIKE CONCAT('%',#{keyword},'%')
+            OR l.system LIKE CONCAT('%',#{keyword},'%')
+            OR l.version LIKE CONCAT('%',#{keyword},'%')
+            OR l.model LIKE CONCAT('%',#{keyword},'%')
+            OR l.app_version LIKE CONCAT('%',#{keyword},'%')
+            OR l.type LIKE CONCAT('%',#{keyword},'%')
+            )
+        </if>
+        <if test="startTime != null">
+            and  <![CDATA[ l.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ l.create_time <= #{endTime} ]]>
+        </if>
+    </select>
+
+</mapper>

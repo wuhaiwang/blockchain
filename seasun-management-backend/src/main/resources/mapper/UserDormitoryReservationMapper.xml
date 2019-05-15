@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserDormitoryReservationMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserDormitoryReservation">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="certificateType" jdbcType="VARCHAR" property="name"/>
+        <result column="id_code" jdbcType="VARCHAR" property="idCode"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="bedroom_type" jdbcType="VARCHAR" property="bedroomType"/>
+        <result column="berth_type" jdbcType="VARCHAR" property="berthType"/>
+        <result column="expect_checkin_date" jdbcType="DATE" property="expectCheckinDate"/>
+        <result column="expect_checkout_date" jdbcType="DATE" property="expectCheckoutDate"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_id" jdbcType="BIGINT" property="createId"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, id_code, user_id, bedroom_type, berth_type, expect_checkin_date, expect_checkout_date, 
+    status, create_id, create_date
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserDormitoryReservation">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_dormitory_reservation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="idCode != null">
+                id_code,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="bedroomType != null">
+                bedroom_type,
+            </if>
+            <if test="berthType != null">
+                berth_type,
+            </if>
+            <if test="expectCheckinDate != null">
+                expect_checkin_date,
+            </if>
+            <if test="expectCheckoutDate != null">
+                expect_checkout_date,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idCode != null">
+                #{idCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="bedroomType != null">
+                #{bedroomType,jdbcType=VARCHAR},
+            </if>
+            <if test="berthType != null">
+                #{berthType,jdbcType=VARCHAR},
+            </if>
+            <if test="expectCheckinDate != null">
+                #{expectCheckinDate,jdbcType=DATE},
+            </if>
+            <if test="expectCheckoutDate != null">
+                #{expectCheckoutDate,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserDormitoryReservation">
+        update user_dormitory_reservation
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idCode != null">
+                id_code = #{idCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="bedroomType != null">
+                bedroom_type = #{bedroomType,jdbcType=VARCHAR},
+            </if>
+            <if test="berthType != null">
+                berth_type = #{berthType,jdbcType=VARCHAR},
+            </if>
+            <if test="expectCheckinDate != null">
+                expect_checkin_date = #{expectCheckinDate,jdbcType=DATE},
+            </if>
+            <if test="expectCheckoutDate != null">
+                expect_checkout_date = #{expectCheckoutDate,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--  the flowing are user defined ... -->
+    <insert id="batchInsert" parameterType="list">
+        INSERT into user_dormitory_reservation
+        (`name`,
+        `id_code`,
+        `user_id`, `bedroom_type`, `berth_type`, `expect_checkin_date`, `expect_checkout_date`, `status`,
+        `create_date`, `room_no`,
+        `gender`, `live_no`, `mobile`,
+        `type`, `project_id`, `company_id`,
+        `login_id`)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.name},
+            #{item.idCode},
+            #{item.userId},#{item.bedroomType},#{item.berthType},#{item.expectCheckinDate},#{item.expectCheckoutDate},#{item.status},
+            #{item.createDate},#{item.roomNo},
+            #{item.gender},#{item.liveNo},#{item.mobile},
+            #{item.type}, #{item.projectId},#{item.companyId},
+            #{item.loginId}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectDtoByIdCodes" parameterType="list"
+            resultType="com.seasun.management.dto.UserDormitoryReservationDto">
+        select u.*,IF(company_id=-2,'珠海剑心互动娱乐有限公司',s.name) companyName,IF(project_id=-2,'剑心',p.name) projectName from (SELECT id_code,max(create_date) maxCreateTime
+        FROM `user_dormitory_reservation` GROUP BY id_code) a left join user_dormitory_reservation u on
+        u.id_code=a.id_code and a.maxCreateTime=u.create_date left join subcompany s on s.id=u.company_id left join
+        project p on p.id=u.project_id
+        <if test="list.size>0">
+            WHERE u.id_code in
+            <foreach collection="list" separator="," open="(" item="item" close=")" >
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <update id = "batchUpdateUserIdByPrimaryKey" parameterType="list">
+            update user_dormitory_reservation set user_id =
+            <foreach collection="userDormitoryReservationList" item="item" open="case id" close="end" separator="  ">
+                when #{item.id } then #{item.userId}
+            </foreach>
+            where id in
+            <foreach collection="userDormitoryReservationList" item="item" separator="," open="(" close=")">
+                #{item.id}
+            </foreach>
+    </update>
+
+    <update id = "batchUpdateCheckInAndCheckout" parameterType="list">
+        update user_dormitory_reservation set checkin_date =
+        <foreach collection="items" open=" case id" separator=" " item="item" close="end">
+            when #{item.id} then #{item.checkInDate}
+        </foreach>
+        ,
+        checkout_date =
+        <foreach collection="items" open=" case id" separator="  " item="item" close="end">
+            when #{item.id} then #{item.checkOutDate}
+        </foreach>
+        ,
+        bedroom_type =
+        <foreach collection="items" open=" case id" separator="  " item="item" close="end">
+            when #{item.id} then #{item.bedroomType}
+        </foreach>
+        ,
+        berth_type =
+        <foreach collection="items" open=" case id" separator="  " item="item" close="end">
+            when #{item.id} then #{item.berthType}
+        </foreach>
+        ,
+        status =
+        <foreach collection="items" open=" case id" separator="  " item="item" close="end">
+            when #{item.id} then #{item.status}
+        </foreach>
+        ,
+        room_no =
+        <foreach collection="items" open=" case id" separator="  " item="item" close="end">
+            when #{item.id} then #{item.roomNo}
+        </foreach>
+        where id in
+        <foreach collection="items" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+    <select id="selectUserDormitoryReport" resultType="com.seasun.management.dto.UserDormitoryReportDto">
+        <![CDATA[
+          select IF(company_id=-2,'珠海剑心互动娱乐有限公司',(select CODE FROM subcompany WHERE ID=company_id))companyCode,IF(project_id=-2,'剑心',(select short_name FROM PROJECT WHERE ID=project_id))projectName ,company_id companyId,project_id projectId,bedroom_type bedroomType,berth_type berthType,days from (
+            select IFNULL(company_id,-1)company_id,IFNULL(project_id,-1)project_id,bedroom_type,berth_type,
+            case
+            when CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)<15 or (CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(checkout_date,'%i'),SIGNED)<1) then timestampdiff(day,expect_checkin_date,checkout_date)
+            when CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)>15 or (CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(checkout_date,'%i'),SIGNED)>0) then timestampdiff(day,expect_checkin_date,checkout_date)+1 end as days
+            from user_dormitory_reservation d
+            where d.expect_checkin_date BETWEEN str_to_date(#{startDate},'%Y-%m-%d %T')  AND str_to_date(#{endDate},'%Y-%m-%d %T')
+            and checkout_date BETWEEN str_to_date(#{startDate},'%Y-%m-%d %T')  AND str_to_date(#{endDate},'%Y-%m-%d %T')
+            union all
+            select IFNULL(company_id,-1)company_id,IFNULL(project_id,-1)project_id,bedroom_type,berth_type,
+            case
+            when CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)<15 or (CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(checkout_date,'%i'),SIGNED)<1) then timestampdiff(day,str_to_date(#{startDate},'%Y-%m-%d %T'),checkout_date)
+            when CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)>15 or (CONVERT(DATE_FORMAT(checkout_date,'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(checkout_date,'%i'),SIGNED)>0) then timestampdiff(day,str_to_date(#{startDate},'%Y-%m-%d %T'),checkout_date)+1 end as days
+            from user_dormitory_reservation d
+            where d.expect_checkin_date < str_to_date(#{startDate},'%Y-%m-%d %T')
+            and  checkout_date BETWEEN str_to_date(#{startDate},'%Y-%m-%d %T')  AND str_to_date(#{endDate},'%Y-%m-%d %T')
+            union ALL
+            select IFNULL(company_id,-1)company_id,IFNULL(project_id,-1)project_id,bedroom_type,berth_type,
+              case
+             when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)<15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)<1) then timestampdiff(day,expect_checkin_date,str_to_date(#{endDate},'%Y-%m-%d %T') )
+             when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)>15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)>0) then timestampdiff(day,expect_checkin_date,str_to_date(#{endDate},'%Y-%m-%d %T') )+1 end as days
+            from user_dormitory_reservation d
+            where d.expect_checkin_date BETWEEN str_to_date(#{startDate},'%Y-%m-%d %T')  AND str_to_date(#{endDate},'%Y-%m-%d %T')
+            and checkout_date is null
+            union ALL
+            select IFNULL(company_id,-1)company_id,IFNULL(project_id,-1)project_id,bedroom_type,berth_type,
+             case
+             when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)<15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)<1) then timestampdiff(day,str_to_date(#{startDate}, '%Y-%m-%d %T'),str_to_date(#{endDate}, '%Y-%m-%d %T'))
+             when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)>15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)>0) then timestampdiff(day,str_to_date(#{startDate}, '%Y-%m-%d %T'),str_to_date(#{endDate}, '%Y-%m-%d %T'))+1 end as days
+            from user_dormitory_reservation d
+            where d.expect_checkin_date<str_to_date(#{startDate},'%Y-%m-%d %T')
+            and checkout_date is null
+            union ALL
+            select IFNULL(company_id,-1)company_id,IFNULL(project_id,-1)project_id,bedroom_type,berth_type,
+            case
+            when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)<15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)<1) then timestampdiff(day,expect_checkin_date,str_to_date(#{endDate}, '%Y-%m-%d %T'))
+            when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)>15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)>0) then timestampdiff(day,expect_checkin_date,str_to_date(#{endDate}, '%Y-%m-%d %T'))+1 end as days
+            from user_dormitory_reservation d
+            where d.expect_checkin_date BETWEEN str_to_date(#{startDate},'%Y-%m-%d %T')  AND str_to_date(#{endDate},'%Y-%m-%d %T')
+            and checkout_date > str_to_date(#{endDate},'%Y-%m-%d %T')
+            union ALL
+            select IFNULL(company_id,-1)company_id,IFNULL(project_id,-1)project_id,bedroom_type,berth_type,
+            case
+            when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)<15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)<1) then timestampdiff(day,str_to_date(#{startDate}, '%Y-%m-%d %T'),str_to_date(#{endDate}, '%Y-%m-%d %T'))
+            when CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)>15 or (CONVERT(DATE_FORMAT(#{endDate},'%H'),SIGNED)=15 and CONVERT(DATE_FORMAT(#{endDate},'%i'),SIGNED)>0) then timestampdiff(day,str_to_date(#{startDate}, '%Y-%m-%d %T'),str_to_date(#{endDate}, '%Y-%m-%d %T'))+1 end as days
+            from user_dormitory_reservation d
+            where d.expect_checkin_date<str_to_date(#{startDate},'%Y-%m-%d %T')
+            and checkout_date > str_to_date(#{endDate},'%Y-%m-%d %T')
+            )temp order by companyCode
+        ]]>
+    </select>
+    <update id = "updateUserCompanyIdOrProjectIdById" parameterType="list">
+        update user_dormitory_reservation set company_id =
+        <foreach collection="list" item="item" open="case id" close="end" separator="  ">
+            when #{item.id } then #{item.companyId}
+        </foreach>
+        ,
+        project_id =
+        <foreach collection="list" item="item" open="case id" close="end" separator="  ">
+            when #{item.id } then #{item.projectId}
+        </foreach>
+        where id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+</mapper>

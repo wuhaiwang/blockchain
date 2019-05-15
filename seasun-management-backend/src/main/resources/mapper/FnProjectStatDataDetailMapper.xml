@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnProjectStatDataDetailMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.FnProjectStatDataDetail">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="stat_id" jdbcType="BIGINT" property="statId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="value" jdbcType="DECIMAL" property="value"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="code" jdbcType="BIGINT" property="code"/>
+        <result column="line_number" jdbcType="INTEGER" property="lineNumber"/>
+    </resultMap>
+
+    <resultMap id="ProjectResultMap" type="com.seasun.management.vo.FnProjectStatDataDetailVo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="stat_id" jdbcType="BIGINT" property="statId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="projectName" jdbcType="BIGINT" property="projectName"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="value" jdbcType="DECIMAL" property="value"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="code" jdbcType="BIGINT" property="code"/>
+        <result column="line_number" jdbcType="INTEGER" property="lineNumber"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, stat_id, project_id, year, month, name, value, reason, code, line_number
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.FnProjectStatDataDetail">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into fn_project_stat_data_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="statId != null">
+                stat_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="value != null">
+                value,
+            </if>
+            <if test="reason != null">
+                reason,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="lineNumber != null">
+                line_number,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="statId != null">
+                #{statId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=DECIMAL},
+            </if>
+            <if test="reason != null">
+                #{reason,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=BIGINT},
+            </if>
+            <if test="lineNumber != null">
+                #{lineNumber,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnProjectStatDataDetail">
+        update fn_project_stat_data_detail
+        <set>
+            <if test="statId != null">
+                stat_id = #{statId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                value = #{value,jdbcType=DECIMAL},
+            </if>
+            <if test="reason != null">
+                reason = #{reason,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=BIGINT},
+            </if>
+            <if test="lineNumber != null">
+                line_number = #{lineNumber,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+    <select id="getDetailByProjectIdsAndYearAndMonthAndStatId" resultMap="ProjectResultMap">
+        select f.*,p.name as projectName from fn_project_stat_data_detail f left join project p on f.project_id = p.id
+        where year = #{year} and month = #{month} and stat_id = #{statId} and project_id in
+        <foreach item="item" index="index" collection="projectIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by f.value desc
+    </select>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into fn_project_stat_data_detail
+        (stat_id, project_id, name,year,month,value,reason,code,line_number)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.statId},
+            #{item.projectId},
+            #{item.name},
+            #{item.year},
+            #{item.month},
+            #{item.value},
+            #{item.reason},
+            #{item.code},
+            #{item.lineNumber}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectDetailByCondition" resultType="com.seasun.management.vo.FnProjectStatDataDetaildataVo">
+        select id,name,value,reason
+        from fn_project_stat_data_detail
+        <where>
+             stat_id=#{statId} and year=#{year} and month=#{month}
+            <if test="projectIds !=null and projectIds.size !=0">
+                and project_id in
+                <foreach collection="projectIds" item="item" open="(" separator="," close=")">
+                  #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

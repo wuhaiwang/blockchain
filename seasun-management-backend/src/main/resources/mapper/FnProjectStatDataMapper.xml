@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FnProjectStatDataMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.FnProjectStatData">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="fn_stat_id" jdbcType="BIGINT" property="fnStatId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+        <result column="value" jdbcType="REAL" property="value"/>
+        <result column="detail_flag" jdbcType="BIT" property="detailFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, fn_stat_id, project_id, year, month, value, create_time, update_time
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.FnProjectStatData">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into fn_project_stat_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fnStatId != null">
+                fn_stat_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="value != null">
+                value,
+            </if>
+            <if test="detailFlag != null">
+                detail_Flag,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fnStatId != null">
+                #{fnStatId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=REAL},
+            </if>
+            <if test="detailFlag != null">
+                #{detailFlag,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FnProjectStatData">
+        update fn_project_stat_data
+        <set>
+            <if test="fnStatId != null">
+                fn_stat_id = #{fnStatId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="value != null">
+                value = #{value,jdbcType=REAL},
+            </if>
+            <if test="detailFlag != null">
+                detail_flag = #{detailFlag,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <!-- the following are user defined...-->
+    <select id="selectByCondition" parameterType="com.seasun.management.model.FnProjectStatData" resultMap="BaseResultMap">
+        select * from
+        fn_project_stat_data
+        where year = #{year, jdbcType = BIGINT}
+        <if test="month != null">
+            and month = #{month, jdbcType = BIGINT}
+        </if>
+        <if test="projectId != null">
+            and project_id = #{projectId, jdbcType = BIGINT}
+        </if>
+        <if test="fnStatId != null">
+            and fn_stat_id = #{fnStatId, jdbcType = BIGINT}
+        </if>
+    </select>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into fn_project_stat_data
+        (fn_stat_id, project_id, year,month,value,detail_flag,create_time,update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.fnStatId},
+            #{item.projectId},
+            #{item.year},
+            #{item.month},
+            #{item.value},
+            #{item.detailFlag},
+            #{item.createTime},
+            #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateByPks" parameterType="java.util.List">
+        update fn_project_stat_data set
+        value=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.value}
+        </foreach>
+        ,update_time=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then now()
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateDetailFlagByPks" parameterType="java.util.List">
+        update fn_project_stat_data set
+        detail_flag=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.detailFlag}
+        </foreach>
+        ,update_time=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then now()
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <select id="selectByProjectIds" resultMap="BaseResultMap">
+        select * from fn_project_stat_data
+        where project_id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

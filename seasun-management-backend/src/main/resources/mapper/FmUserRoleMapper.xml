@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FmUserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.FmUserRole">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="plat_id" jdbcType="BIGINT" property="platId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, role_id, project_id, plat_id
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.FmUserRole">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        insert into fm_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="platId != null">
+                plat_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="platId != null">
+                #{platId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPlatAndProject" parameterType="com.seasun.management.model.FmUserRole">
+        update fm_user_role
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="platId != null">
+                plat_id = #{platId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where project_id = #{projectId,jdbcType=BIGINT}
+        AND plat_id = #{platId,jdbcType=BIGINT}
+    </update>
+
+
+    <!-- the following are user defined...-->
+    <select id="selectSelective" parameterType="com.seasun.management.model.FmUserRole" resultMap="BaseResultMap">
+        select * from fm_user_role
+        where 1 = 1
+        <if test="null != roleId">
+            and role_id = #{roleId,jdbcType=BIGINT}
+        </if>
+        <if test="null != userId">
+            and user_id = #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="null != projectId">
+            and project_id = #{projectId,jdbcType=BIGINT}
+        </if>
+        <if test="null != platId">
+            and plat_id = #{platId,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <delete id="deleteSelective" parameterType="com.seasun.management.model.FmUserRole">
+        delete from fm_user_role
+        where 1 = 1
+        <if test="userId !=null">
+            and user_id = #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="projectId != null">
+            and project_id = #{projectId,jdbcType=BIGINT}
+        </if>
+        <if test="platId != null">
+            and plat_id = #{platId,jdbcType=BIGINT}
+        </if>
+        <if test="roleId != null">
+            and role_id = #{roleId,jdbcType=BIGINT}
+        </if>
+    </delete>
+
+    <select id="selectManagerByMemberIds" parameterType="java.util.List" resultType="com.seasun.management.dto.FmUserRoleDto">
+        SELECT fm.* ,  concat(u.last_name,u.first_name) user_name FROM fm_member fm
+        LEFT JOIN fm_user_role ur ON fm.project_id = ur.project_id
+        LEFT JOIN user u ON ur.user_id = u.id
+        WHERE ur.role_id = #{roleId}
+        AND fm.user_id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.userId}
+        </foreach>
+    </select>
+</mapper>

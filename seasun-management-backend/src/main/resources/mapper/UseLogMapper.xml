@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UseLogMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UseLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="system" jdbcType="VARCHAR" property="system" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="app_version" jdbcType="VARCHAR" property="appVersion" />
+    <result column="imei" jdbcType="VARCHAR" property="imei" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, system, version, model, app_version, imei, create_time
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UseLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into use_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="system != null">
+        system,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="appVersion != null">
+        app_version,
+      </if>
+      <if test="imei != null">
+        imei,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="system != null">
+        #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null">
+        #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UseLog">
+    update use_log
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="system != null">
+        system = #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null">
+        app_version = #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null">
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--the flowing are user defined ... -->
+  <select id="selectByCondition" resultType="com.seasun.management.vo.UseLogVo"
+          parameterType="com.seasun.management.vo.UserMessageConditionVo">
+    select l.*,concat(u.last_name,u.first_name) as user_name from use_log l left join user u on l.user_id = u.id
+    WHERE 1 = 1
+    ORDER BY create_time DESC
+    <if test="currentPage != null">
+      LIMIT #{beginNum} , #{pageSize}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.FStepDefineMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.FStepDefine">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="flow_id" jdbcType="BIGINT" property="flowId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="manager_id" jdbcType="BIGINT" property="managerId" />
+    <result column="previous_step" jdbcType="BIGINT" property="previousStep" />
+    <result column="end_flag" jdbcType="BIT" property="endFlag" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, flow_id, name, manager_id, previous_step, end_flag, description
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.FStepDefine">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_step_define
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="flowId != null">
+        flow_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="previousStep != null">
+        previous_step,
+      </if>
+      <if test="endFlag != null">
+        end_flag,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="flowId != null">
+        #{flowId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=BIGINT},
+      </if>
+      <if test="previousStep != null">
+        #{previousStep,jdbcType=BIGINT},
+      </if>
+      <if test="endFlag != null">
+        #{endFlag,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.FStepDefine">
+    update f_step_define
+    <set>
+      <if test="flowId != null">
+        flow_id = #{flowId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        manager_id = #{managerId,jdbcType=BIGINT},
+      </if>
+      <if test="previousStep != null">
+        previous_step = #{previousStep,jdbcType=BIGINT},
+      </if>
+      <if test="endFlag != null">
+        end_flag = #{endFlag,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

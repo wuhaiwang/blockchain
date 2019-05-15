@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.RUserContactGroupMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.RUserContactGroup">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_contact_group_id" jdbcType="BIGINT" property="userContactGroupId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_contact_group_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.RUserContactGroup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_user_contact_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userContactGroupId != null">
+        user_contact_group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userContactGroupId != null">
+        #{userContactGroupId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.RUserContactGroup">
+    update r_user_contact_group
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userContactGroupId != null">
+        user_contact_group_id = #{userContactGroupId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+
+  <select id="selectContactGroupUsersByUserContactGroupIds" resultType="com.seasun.management.dto.ContactGroupUserDto">
+    select r.user_contact_group_id,u.id userId,CONCAT(u.last_name,u.first_name) name ,u.login_id,u.photo,u.employee_no employeeNo from
+    (select user_id,user_contact_group_id from r_user_contact_group where user_contact_group_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    ) r , user u where u.id=r.user_id
+  </select>
+
+  <select id="selectContactGroupUsersByUserContactGroupId" resultType="com.seasun.management.dto.ContactGroupUserDto">
+    select r.user_contact_group_id,u.id userId,CONCAT(u.last_name,u.first_name) name ,u.login_id,u.photo,u.employee_no employeeNo,d.post from
+    (select user_id,user_contact_group_id from r_user_contact_group where user_contact_group_id =#{0}
+    ) r , user u ,user_detail d where u.id=r.user_id and u.id =d.user_id
+  </select>
+
+  <insert id="batchInsert" parameterType="int" >
+  INSERT INTO r_user_contact_group( user_id, user_contact_group_id) VALUES
+  <foreach collection="list" item="item" open="" separator="," close="">
+    (#{item.userId},#{id})
+  </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserPerformanceMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserPerformance">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="work_group_id" jdbcType="BIGINT" property="workGroupId"/>
+        <result column="sub_group" jdbcType="VARCHAR" property="subGroup"/>
+        <result column="parent_group" jdbcType="BIGINT" property="parentGroup"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+        <result column="final_performance" jdbcType="VARCHAR" property="finalPerformance"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="month_goal" jdbcType="VARCHAR" property="monthGoal"/>
+        <result column="month_goal_last_modify_time" jdbcType="TIMESTAMP" property="monthGoalLastModifyTime"/>
+        <result column="direct_manager_comment" jdbcType="VARCHAR" property="directManagerComment"/>
+        <result column="manager_comment" jdbcType="VARCHAR" property="managerComment"/>
+        <result column="last_modify_user" jdbcType="BIGINT" property="lastModifyUser"/>
+        <result column="self_comment" jdbcType="VARCHAR" property="selfComment"/>
+        <result column="self_performance" jdbcType="VARCHAR" property="selfPerformance"/>
+        <result column="fm_project_id" jdbcType="BIGINT" property="fmProjectId"/>
+        <result column="fm_confirmed_status" jdbcType="VARCHAR" property="fmConfirmedStatus"/>
+        <result column="post" jdbcType="VARCHAR" property="post"/>
+        <result column="work_age" jdbcType="INTEGER" property="workAge"/>
+        <result column="work_age_in_ks" jdbcType="INTEGER" property="workAgeInKs"/>
+        <result column="work_group_name" jdbcType="VARCHAR" property="workGroupName"/>
+        <result column="work_status" jdbcType="VARCHAR" property="workStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="sub_b_flag" jdbcType="BIT" property="subBFlag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, work_group_id, sub_group, parent_group, user_id, year, month, final_performance,
+        status, month_goal, month_goal_last_modify_time, direct_manager_comment, manager_comment,
+        last_modify_user, self_comment, self_performance, fm_project_id, fm_confirmed_status,
+        post, work_age, work_age_in_ks, work_group_name, work_status, create_time, update_time,
+        sub_b_flag
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserPerformance">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_performance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workGroupId != null">
+                work_group_id,
+            </if>
+            <if test="subGroup != null">
+                sub_group,
+            </if>
+            <if test="parentGroup != null">
+                parent_group,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="finalPerformance != null">
+                final_performance,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="monthGoal != null">
+                month_goal,
+            </if>
+            <if test="monthGoalLastModifyTime != null">
+                month_goal_last_modify_time,
+            </if>
+            <if test="directManagerComment != null">
+                direct_manager_comment,
+            </if>
+            <if test="managerComment != null">
+                manager_comment,
+            </if>
+            <if test="lastModifyUser != null">
+                last_modify_user,
+            </if>
+            <if test="selfComment != null">
+                self_comment,
+            </if>
+            <if test="selfPerformance != null">
+                self_performance,
+            </if>
+            <if test="fmProjectId != null">
+                fm_project_id,
+            </if>
+            <if test="fmConfirmedStatus != null">
+                fm_confirmed_status,
+            </if>
+            <if test="post != null">
+                post,
+            </if>
+            <if test="workAge != null">
+                work_age,
+            </if>
+            <if test="workAgeInKs != null">
+                work_age_in_ks,
+            </if>
+            <if test="workGroupName != null">
+                work_group_name,
+            </if>
+            <if test="workStatus != null">
+                work_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="subBFlag != null">
+                sub_b_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workGroupId != null">
+                #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="subGroup != null">
+                #{subGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="parentGroup != null">
+                #{parentGroup,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="finalPerformance != null">
+                #{finalPerformance,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="monthGoal != null">
+                #{monthGoal,jdbcType=VARCHAR},
+            </if>
+            <if test="monthGoalLastModifyTime != null">
+                #{monthGoalLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="directManagerComment != null">
+                #{directManagerComment,jdbcType=VARCHAR},
+            </if>
+            <if test="managerComment != null">
+                #{managerComment,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyUser != null">
+                #{lastModifyUser,jdbcType=BIGINT},
+            </if>
+            <if test="selfComment != null">
+                #{selfComment,jdbcType=VARCHAR},
+            </if>
+            <if test="selfPerformance != null">
+                #{selfPerformance,jdbcType=VARCHAR},
+            </if>
+            <if test="fmProjectId != null">
+                #{fmProjectId,jdbcType=BIGINT},
+            </if>
+            <if test="fmConfirmedStatus != null">
+                #{fmConfirmedStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null">
+                #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="workAge != null">
+                #{workAge,jdbcType=INTEGER},
+            </if>
+            <if test="workAgeInKs != null">
+                #{workAgeInKs,jdbcType=INTEGER},
+            </if>
+            <if test="workGroupName != null">
+                #{workGroupName,jdbcType=VARCHAR},
+            </if>
+            <if test="workStatus != null">
+                #{workStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="subBFlag != null">
+                #{subBFlag,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserPerformance">
+        update user_performance
+        <set>
+            <if test="workGroupId != null">
+                work_group_id = #{workGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="subGroup != null">
+                sub_group = #{subGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="parentGroup != null">
+                parent_group = #{parentGroup,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="finalPerformance != null">
+                final_performance = #{finalPerformance,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="monthGoal != null">
+                month_goal = #{monthGoal,jdbcType=VARCHAR},
+            </if>
+            <if test="monthGoalLastModifyTime != null">
+                month_goal_last_modify_time = #{monthGoalLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="directManagerComment != null">
+                direct_manager_comment = #{directManagerComment,jdbcType=VARCHAR},
+            </if>
+            <if test="managerComment != null">
+                manager_comment = #{managerComment,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyUser != null">
+                last_modify_user = #{lastModifyUser,jdbcType=BIGINT},
+            </if>
+            <if test="selfComment != null">
+                self_comment = #{selfComment,jdbcType=VARCHAR},
+            </if>
+            <if test="selfPerformance != null">
+                self_performance = #{selfPerformance,jdbcType=VARCHAR},
+            </if>
+            <if test="fmProjectId != null">
+                fm_project_id = #{fmProjectId,jdbcType=BIGINT},
+            </if>
+            <if test="fmConfirmedStatus != null">
+                fm_confirmed_status = #{fmConfirmedStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="workAge != null">
+                work_age = #{workAge,jdbcType=INTEGER},
+            </if>
+            <if test="workAgeInKs != null">
+                work_age_in_ks = #{workAgeInKs,jdbcType=INTEGER},
+            </if>
+            <if test="workGroupName != null">
+                work_group_name = #{workGroupName,jdbcType=VARCHAR},
+            </if>
+            <if test="workStatus != null">
+                work_status = #{workStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="subBFlag != null">
+                sub_b_flag = #{subBFlag,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <!--the following are user defined...-->
+
+
+    <select id="selectStatus" resultType="com.seasun.management.dto.UserStatusDto">
+        SELECT z.status,count(*) num from
+        (SELECT up.id,up.user_id ,up.year ,up.month ,
+        up.final_performance,up.status FROM
+        (SELECT x.id, x.work_group, u.id user_id FROM
+        (SELECT id,name work_group from work_group
+        where id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        x LEFT JOIN user u on x.id = u.work_group_id)
+        y LEFT JOIN user_performance up ON up.user_id = y.user_id
+        WHERE year = #{year}
+        AND month = #{month})
+        z GROUP BY z.status
+    </select>
+
+    <select id="selectPerformanceList" resultType="com.seasun.management.dto.PerformanceDto">
+        SELECT up.id,up.user_id ,up.year ,up.month , y.name ,y.work_group,
+        up.final_performance,up.status, up.self_performance,y.manager FROM
+        (SELECT x.id, x.work_group, u.id user_id ,CONCAT(last_name,first_name) name ,x.manager FROM
+        (select q.id,q.work_group, GROUP_CONCAT(CONCAT(last_name,first_name)) manager from
+        (SELECT z.id,z.work_group,r.user_id FROM
+        (SELECT id,name work_group from work_group
+        WHERE id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        z LEFT JOIN r_user_work_group_perm r ON z.id=r.work_group_id)
+        q LEFT JOIN user on q.user_id=user.id
+        GROUP BY id)
+        x LEFT JOIN user u on x.id=u.work_group_id)
+        y LEFT JOIN user_performance up ON up.user_id=y.user_id
+        WHERE year = #{year}
+        AND month = #{month}
+    </select>
+
+    <select id="selectPerformancePro" resultType="com.seasun.management.dto.UserPerformanceLevelDto">
+        SELECT z.final_performance level,count(*) num from
+        (SELECT up.id,up.user_id ,up.year ,up.month ,
+        up.final_performance,up.status FROM
+        (SELECT x.id, x.work_group, u.id user_id FROM
+        (SELECT id,name work_group from work_group
+        WHERE id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        x LEFT JOIN user u on x.id=u.work_group_id)
+        y LEFT JOIN user_performance up ON up.user_id = y.user_id
+        WHERE year = #{year}
+        AND month = #{month})
+        z GROUP BY z.final_performance
+    </select>
+
+    <select id="selectAllPerformanceDetailList" resultType="com.seasun.management.dto.UserPerformanceDetailDto">
+        SELECT xy.name,xy.work_group ,xy.manager,xy.post,xy.work_age,xy.join_time,xy.employee_no,
+        xy.final_performance,xy.month_goal ,xy.manager_comment,xy.status,xy.self_comment,
+        up.final_performance last_performance FROM
+        (SELECT q.*,ud.post,ud.join_post_date join_time,
+        floor(DATEDIFF(NOW(),ud.join_post_date)/365+ud.work_age_out_ks) work_age FROM
+        (SELECT p.*,w.name work_group FROM
+        (SELECT z.*, GROUP_CONCAT(CONCAT(user.last_name,user.first_name)) manager FROM
+        (SELECT y.* ,r.user_id manager_id FROM
+        (SELECT x.*,CONCAT(u.last_name,u.first_name) name ,u.work_group_id,u.employee_no FROM
+        (SELECT * FROM user_performance
+        WHERE year = #{year}
+        AND month = #{month})
+        x LEFT JOIN user u ON x.user_id=u.id)
+        y LEFT JOIN r_user_work_group_perm r ON y.work_group_id=r.work_group_id)
+        z LEFT JOIN user ON z.manager_id=user.id
+        GROUP BY id)
+        p LEFT JOIN work_group w ON p.work_group_id=w.id)
+        q LEFT JOIN user_detail ud ON q.user_id=ud.user_id)
+        xy LEFT JOIN user_performance up
+        ON xy.user_id=up.user_id
+        AND CASE WHEN xy.month=1 THEN (up.year=xy.year-1 AND up.month=12)
+        ELSE (up.year=xy.year AND up.month=xy.month-1)
+        END
+    </select>
+
+    <select id="selectPerformanceDetailList" resultType="com.seasun.management.dto.UserPerformanceDetailDto">
+        SELECT xy.name,xy.work_group,xy.manager,xy.post,xy.work_age,xy.join_time,xy.employee_no ,
+        xy.status,xy.month_goal,xy.manager_comment,xy.status,xy.self_comment,
+        up.final_performance last_performance FROM
+        (SELECT z.name,z.work_group,z.manager ,z.post,z.work_age,z.join_time,z.employee_no
+        ,up.final_performance status,up.user_id,
+        up.month_goal,up.manager_comment,up.self_comment,up.year,up.month,
+        up.status FROM
+        (SELECT y.*,GROUP_CONCAT(CONCAT(user.last_name,user.first_name)) manager FROM
+        (SELECT x.*,ru.user_id manager_id FROM
+        (SELECT uf.*,ud.join_post_date join_time,
+        floor(DATEDIFF(NOW(),ud.join_post_date)/365+ud.work_age_out_ks) work_age ,
+        ud.post FROM
+        (SELECT w.*,user.id user_id,user.employee_no,CONCAT(user.last_name,user.first_name) name FROM
+        (SELECT id,name work_group from work_group
+        WHERE id IN
+        <foreach item="list" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{list}
+        </foreach>)
+        w LEFT JOIN user ON w.id=user.work_group_id)
+        uf LEFT JOIN user_detail ud ON uf.user_id=ud.user_id)
+        x LEFT JOIN r_user_work_group_perm ru ON x.id=ru.work_group_id)
+        y LEFT JOIN user ON y.manager_id=user.id
+        GROUP BY user_id)
+        z LEFT JOIN user_performance up ON z.user_id=up.user_id
+        WHERE up.year = #{year}
+        AND up.month = #{month})
+        xy LEFT JOIN user_performance up ON
+        xy.user_id=up.user_id
+        AND CASE WHEN xy.month=1 THEN (up.year=xy.year-1 AND up.month=12)
+        ELSE (up.year=xy.year AND up.month=xy.month-1)
+        END
+    </select>
+
+    <insert id="batchInsertByLeaderSubmit" parameterType="java.util.List">
+        insert into user_performance
+        (work_group_id, sub_group, parent_group, user_id, year, month, final_performance, month_goal,
+        direct_manager_comment,manager_comment,
+        last_modify_user, status, fm_project_id, fm_confirmed_status, work_age, work_age_in_ks, post, work_group_name,
+        work_status,
+        create_time,
+        update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.workGroupId},
+            #{item.subGroup},
+            #{item.parentGroup},
+            #{item.userId},
+            #{item.year},
+            #{item.month},
+            #{item.finalPerformance},
+            #{item.monthGoal},
+            #{item.directManagerComment},
+            #{item.managerComment},
+            #{item.lastModifyUser},
+            #{item.status},
+            #{item.fmProjectId},
+            #{item.fmConfirmedStatus},
+            #{item.workAge},
+            #{item.workAgeInKs},
+            #{item.post},
+            #{item.workGroupName},
+            #{item.workStatus},
+            #{item.createTime},
+            #{item.updateTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateStatusByPks" parameterType="java.util.List">
+        update user_performance set
+        status=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.status}
+        </foreach>
+        ,final_performance=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.finalPerformance}
+        </foreach>
+        ,fm_project_id=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.fmProjectId}
+        </foreach>
+        ,fm_confirmed_status=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.fmConfirmedStatus}
+        </foreach>
+        ,update_time=
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then now()
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <delete id="deleteByWorkGroupIdAndYearAndMonth">
+        delete from user_performance where year = #{year} and month = #{month} and work_group_id in
+        <foreach collection="workGroupIds" index="index" item="workGroupId" separator="," open="(" close=")">
+            #{workGroupId}
+        </foreach>
+    </delete>
+
+    <select id="selectCountByWorkGroupIdAndYearAndMonth">
+        select count(*) from user_performance where year = #{year} and month = #{month} and work_group_id in
+        <foreach collection="workGroupIds" index="index" item="workGroupId" separator="," open="(" close=")">
+            #{workGroupId}
+        </foreach>
+    </select>
+
+    <select id="selectByWorkGroupIdAndYearAndMonth" resultType="com.seasun.management.model.UserPerformance">
+        select * from user_performance where year = #{year} and month = #{month} and work_group_id in
+        <foreach collection="workGroupIds" index="index" item="workGroupId" separator="," open="(" close=")">
+            #{workGroupId}
+        </foreach>
+    </select>
+
+    <select id="selectYearMonthByPerformanceWorkGroupIds" resultType="com.seasun.management.dto.YearMonthDto">
+        select year,month from user_performance where work_group_id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        group by year,month;
+    </select>
+
+    <update id="updateFinalPerformanceByUserIdAndYearMonth">
+        <foreach close="" collection="list" index="index" item="item" open="" separator=";">
+            UPDATE user_performance
+            <set>
+                final_performance = #{item.finalPerformance,jdbcType=VARCHAR}
+            </set>
+            where user_id= #{item.userId,jdbcType=BIGINT}
+            AND year = #{item.year,jdbcType=INTEGER}
+            AND month = #{item.month,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <update id="updateFPAndMCById" parameterType="java.util.List">
+        update user_performance set
+        final_performance =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.finalPerformance}
+        </foreach>
+        ,manager_comment =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.managerComment}
+        </foreach>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <select id="selectLeavedByGroupIdsAndUserIds" parameterType="java.util.List"
+            resultType="com.seasun.management.dto.UserPerformanceDto">
+        SELECT
+        concat(u.last_name, u.first_name) AS user_name,
+        u.login_id,
+        u.employee_no,
+        u.in_date,
+        u.id user_id,
+        p.work_age,
+        p.post
+        FROM
+        user_performance p
+        LEFT JOIN USER u ON p.user_id = u.id
+        WHERE
+        p.year = #{year}
+        <if test="userIds != null">
+            AND p.user_id NOT IN
+            <foreach collection="userIds" item="item" open="(" index="index" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="groupIds != null">
+            AND p.work_group_id IN
+            <foreach collection="groupIds" item="item" open="(" index="index" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY
+        p.month
+    </select>
+
+    <select id="selectDtoByWorkGroupIdsAndDate" parameterType="java.util.List"
+            resultType="com.seasun.management.dto.UserPerformanceDto">
+        SELECT
+        concat(u.last_name, u.first_name) AS user_name,
+        u.login_id,
+        u.employee_no,
+        u.in_date,
+        p.*
+        FROM
+        user_performance p
+        LEFT JOIN USER u ON p.user_id = u.id
+        WHERE
+        p.year = #{year}
+        <if test="month != null">
+            AND p.month = #{month}
+        </if>
+        <if test="list != null">
+            AND p.work_group_id IN
+            <foreach collection="list" item="item" open="(" index="index" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY
+        p.month
+    </select>
+
+    <select id="selectDtoByUserIdsAndDate" parameterType="java.util.List"
+            resultType="com.seasun.management.dto.UserPerformanceDto">
+        SELECT
+        concat(u.last_name, u.first_name) AS user_name,
+        u.login_id,
+        u.employee_no,
+        u.in_date,
+        p.*
+        FROM
+        user_performance p
+        LEFT JOIN USER u ON p.user_id = u.id
+        WHERE
+        p.year = #{year}
+        <if test="month != null">
+            AND p.month = #{month}
+        </if>
+        <if test="list != null">
+            AND p.user_id IN
+            <foreach collection="list" item="item" open="(" index="index" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY
+        p.month
+    </select>
+
+    <select id="selectByUserIdsAndYearAndMonth" parameterType="java.util.List"
+            resultType="com.seasun.management.model.UserPerformance">
+        SELECT * FROM user_performance
+        WHERE year =#{year}
+        <if test="month != null">
+            AND month = #{month}
+        </if>
+        AND user_id IN
+        <foreach collection="list" item="item" open="(" index="index" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPerformancesByPKs" parameterType="java.util.List"
+            resultType="com.seasun.management.dto.UserPerformanceDto">
+        select concat(u.last_name,u.first_name) as user_name, u.login_id, u.employee_no, u.in_date,
+        p.*, g.performance_manager_id as leader_id
+        from user_performance p
+        left join user u on p.user_id = u.id
+        left join performance_work_group g on g.id = u.perf_work_group_id
+        WHERE p.id IN
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="batchUpdateUserPerformanceInfoByPks" parameterType="java.util.List">
+        UPDATE user_performance SET
+        month_goal_last_modify_time =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.monthGoalLastModifyTime}
+        </foreach>
+        ,work_age =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.workAge}
+        </foreach>
+        ,work_age_in_ks =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.workAgeInKs}
+        </foreach>
+        ,post =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.post}
+        </foreach>
+        ,work_group_name =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.workGroupName}
+        </foreach>
+        ,work_status =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.workStatus}
+        </foreach>
+        ,status =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.status}
+        </foreach>
+        ,update_time =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.updateTime}
+        </foreach>
+        ,final_performance =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.finalPerformance}
+        </foreach>
+        ,manager_comment =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.managerComment}
+        </foreach>
+        ,last_modify_user =
+        <foreach collection="list" item="item" index="index" separator=" " open="case ID" close="end">
+            when #{item.id} then #{item.lastModifyUser}
+        </foreach>
+
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <insert id="batchInsertUserPerformance" parameterType="java.util.List">
+        insert into user_performance
+        (work_group_id, sub_group, parent_group, user_id, year, month, final_performance, month_goal,
+        direct_manager_comment,manager_comment,last_modify_user,
+        status, fm_project_id, fm_confirmed_status, work_age, work_age_in_ks, post, work_group_name, work_status,
+        create_time,
+        update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.workGroupId},
+            #{item.subGroup},
+            #{item.parentGroup},
+            #{item.userId},
+            #{item.year},
+            #{item.month},
+            #{item.finalPerformance},
+            #{item.monthGoal},
+            #{item.directManagerComment},
+            #{item.managerComment},
+            #{item.lastModifyUser},
+            #{item.status},
+            #{item.fmProjectId},
+            #{item.fmConfirmedStatus},
+            #{item.workAge},
+            #{item.workAgeInKs},
+            #{item.post},
+            #{item.workGroupName},
+            #{item.workStatus},
+            #{item.createTime},
+            #{item.updateTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateUserPerByYearAndMonth" parameterType="java.util.List">
+        UPDATE user_performance set status ='已确认' where year = #{year,jdbcType=INTEGER} and month = #{month,jdbcType=INTEGER} and user_id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.userId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>

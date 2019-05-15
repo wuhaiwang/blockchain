@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserFeedbackMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserFeedback">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="channel" jdbcType="VARCHAR" property="channel"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, user_id, content, channel, create_time
+  </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserFeedback">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_feedback
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserFeedback">
+        update user_feedback
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--the flowing are user defined ... -->
+    <select id="selectByCondition" resultType="com.seasun.management.dto.UserFeedbackDto"
+            parameterType="com.seasun.management.vo.UserFeedbackQueryConditionVo">
+
+        select f.*, concat(u.last_name,u.first_name) user_name
+        from user_feedback f
+        left join user u on u.id = f.user_id
+
+        where 1 = 1
+        <if test="channel != null and channel != ''">
+            and channel = #{channel}
+        </if>
+        <if test="startTime != null">
+            and  <![CDATA[ f.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ f.create_time <= #{endTime} ]]>
+        </if>
+        <if test="userName != null and userName != ''">
+            AND concat(u.last_name,u.first_name) LIKE CONCAT('%',#{userName},'%')
+        </if>
+        <if test="content != null and content !=''">
+            AND content LIKE CONCAT('%',#{content},'%')
+        </if>
+        <if test="keyword != null and keyword !=''">
+            AND ( concat(u.last_name,u.first_name) LIKE CONCAT('%',#{keyword},'%')
+            OR content LIKE CONCAT('%',#{keyword},'%'))
+        </if>
+        order by create_time desc
+        <if test="currentPage != null">
+            limit #{beginNum} , #{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCountByCondition" resultType="java.lang.Double"
+            parameterType="com.seasun.management.vo.UserFeedbackQueryConditionVo">
+
+        select COUNT(*)
+        from user_feedback f
+        left join user u on u.id = f.user_id
+
+        where 1 = 1
+        <if test="channel != null and channel != ''">
+            and channel = #{channel}
+        </if>
+        <if test="startTime != null">
+            and  <![CDATA[ f.create_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ f.create_time <= #{endTime} ]]>
+        </if>
+        <if test="userName != null and userName != ''">
+            AND concat(u.last_name,u.first_name) LIKE CONCAT('%',#{userName},'%')
+        </if>
+        <if test="content != null and content !=''">
+            AND content LIKE CONCAT('%',#{content},'%')
+        </if>
+        <if test="keyword != null and keyword !=''">
+            AND ( concat(u.last_name,u.first_name) LIKE CONCAT('%',#{keyword},'%')
+            OR content LIKE CONCAT('%',#{keyword},'%'))
+        </if>
+
+    </select>
+
+</mapper>

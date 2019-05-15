@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.RMenuProjectRolePermMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.RMenuProjectRolePerm">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="project_role_id" jdbcType="BIGINT" property="projectRoleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menu_id, project_role_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.RMenuProjectRolePerm">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_menu_project_role_perm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        menu_id,
+      </if>
+      <if test="projectRoleId != null">
+        project_role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="projectRoleId != null">
+        #{projectRoleId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.RMenuProjectRolePerm">
+    update r_menu_project_role_perm
+    <set>
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="projectRoleId != null">
+        project_role_id = #{projectRoleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch" parameterType="com.seasun.management.model.RMenuProjectRolePerm">
+    insert into r_menu_project_role_perm (menu_id, project_role_id) values
+    <foreach collection="menu_ids" item="item" separator=",">
+      (#{item}, #{project_role_id})
+    </foreach>
+  </insert>
+</mapper>

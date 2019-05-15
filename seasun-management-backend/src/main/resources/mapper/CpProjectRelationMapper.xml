@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.CpProjectRelationMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.CpProjectRelation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="it_project_id" jdbcType="BIGINT" property="itProjectId" />
+    <result column="cp_project_id" jdbcType="BIGINT" property="cpProjectId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, it_project_id, cp_project_id
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.CpProjectRelation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp_project_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itProjectId != null">
+        it_project_id,
+      </if>
+      <if test="cpProjectId != null">
+        cp_project_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itProjectId != null">
+        #{itProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="cpProjectId != null">
+        #{cpProjectId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.CpProjectRelation">
+    update cp_project_relation
+    <set>
+      <if test="itProjectId != null">
+        it_project_id = #{itProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="cpProjectId != null">
+        cp_project_id = #{cpProjectId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectProjects" resultType="com.seasun.management.vo.cp.CpProjectRelationVo">
+      SELECT
+          g.id cpProjectId,
+          g.NAME cpProjectName,
+          p.id itProjectId,
+          p.NAME itProjectName,
+          b.budget_amount amount
+      FROM
+          cp.gameproject g
+      LEFT JOIN cp_project_relation r ON g.ID = r.cp_project_id
+      LEFT JOIN project p ON p.id = r.it_project_id
+      AND (
+          p.service_line != '平台'
+          AND p.active_flag = 1
+      )
+      LEFT JOIN cp_budget b ON b.cp_project_id = g.ID
+      AND B.budget_year = #{year,jdbcType=INTEGER}
+      WHERE
+      (g.Active = 1 or g.Code='XSJ_BUDGET')
+      <if test="keyWord != null and keyWord != ''">
+          AND (p.name like CONCAT('%','${keyWord}','%' ) or g.NAME like CONCAT('%','${keyWord}','%' ))
+      </if>
+      order by g.Active asc,g.ID asc
+      limit #{currentPage},#{pageSize}
+  </select>
+  <select id="selectProjectsCount" resultType="INTEGER">
+      SELECT
+        count(g.id)
+      FROM
+        cp.gameproject g
+      LEFT JOIN cp_project_relation r ON g.ID = r.cp_project_id
+      LEFT JOIN project p ON p.id = r.it_project_id
+      AND (
+        p.service_line != '平台'
+        AND p.active_flag = 1
+      )
+      LEFT JOIN cp_budget b ON b.cp_project_id = g.ID
+      AND B.budget_year = #{year,jdbcType=INTEGER}
+      WHERE
+      (g.Active = 1 or g.Code='XSJ_BUDGET')
+      <if test="keyWord != null and keyWord != ''">
+          AND (p.name like CONCAT('%','${keyWord}','%' ) or g.NAME like CONCAT('%','${keyWord}','%' ))
+      </if>
+      ORDER BY G.Active
+  </select>
+</mapper>

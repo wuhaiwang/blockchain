@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserNdaMapper">
+    <resultMap id="BaseResultMap" type="com.seasun.management.model.UserNda">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="nda_id" jdbcType="BIGINT" property="ndaId"/>
+        <result column="operate_time" jdbcType="TIMESTAMP" property="operateTime"/>
+        <result column="begin_date" jdbcType="DATE" property="beginDate"/>
+        <result column="end_date" jdbcType="DATE" property="endDate"/>
+        <result column="upload_file" jdbcType="VARCHAR" property="uploadFile"/>
+        <result column="active_flag" jdbcType="BIT" property="activeFlag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, nda_id, operate_time, begin_date, end_date, upload_file, active_flag
+    </sql>
+    <insert id="insertSelective" parameterType="com.seasun.management.model.UserNda">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_nda
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="ndaId != null">
+                nda_id,
+            </if>
+            <if test="operateTime != null">
+                operate_time,
+            </if>
+            <if test="beginDate != null">
+                begin_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+            <if test="uploadFile != null">
+                upload_file,
+            </if>
+            <if test="activeFlag != null">
+                active_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="ndaId != null">
+                #{ndaId,jdbcType=BIGINT},
+            </if>
+            <if test="operateTime != null">
+                #{operateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="beginDate != null">
+                #{beginDate,jdbcType=DATE},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=DATE},
+            </if>
+            <if test="uploadFile != null">
+                #{uploadFile,jdbcType=VARCHAR},
+            </if>
+            <if test="activeFlag != null">
+                #{activeFlag,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserNda">
+        update user_nda
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="ndaId != null">
+                nda_id = #{ndaId,jdbcType=BIGINT},
+            </if>
+            <if test="operateTime != null">
+                operate_time = #{operateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate,jdbcType=DATE},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=DATE},
+            </if>
+            <if test="uploadFile != null">
+                upload_file = #{uploadFile,jdbcType=VARCHAR},
+            </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- the following are user defined...-->
+    <select id="selectByCondition" parameterType="com.seasun.management.model.UserNda" resultMap="BaseResultMap">
+        select * from user_nda
+        where user_id = #{userId,jdbcType=BIGINT}
+        and nda_id = #{ndaId,jdbcType=BIGINT}
+        and active_flag = 1
+    </select>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into user_nda
+        (user_id, nda_id, operate_time, begin_date,end_date,upload_file,active_flag)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.userId},
+            #{item.ndaId},
+            #{item.operateTime},
+            #{item.beginDate},
+            #{item.endDate}),
+            #{item.uploadFile}),
+            #{item.activeFlag})
+        </foreach>
+    </insert>
+</mapper>

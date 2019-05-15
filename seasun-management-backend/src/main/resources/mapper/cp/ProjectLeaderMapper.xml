@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.cp.ProjectLeaderMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.cp.ProjectLeader">
+    <id column="GameProject" jdbcType="VARCHAR" property="gameProject" />
+    <id column="UserID" jdbcType="INTEGER" property="userId" />
+    <id column="ConnectionType" jdbcType="INTEGER" property="connectionType" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    GameProject, UserID, ConnectionType, ID
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.cp.ProjectLeader">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cp.projectleader
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gameProject != null">
+        GameProject,
+      </if>
+      <if test="userId != null">
+        UserID,
+      </if>
+      <if test="connectionType != null">
+        ConnectionType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gameProject != null">
+        #{gameProject,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="connectionType != null">
+        #{connectionType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.cp.ProjectLeader">
+    update cp.projectleader
+    <set>
+      <if test="id != null">
+        ID = #{id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where GameProject = #{gameProject,jdbcType=VARCHAR}
+      and UserID = #{userId,jdbcType=INTEGER}
+      and ConnectionType = #{connectionType,jdbcType=INTEGER}
+  </update>
+</mapper>

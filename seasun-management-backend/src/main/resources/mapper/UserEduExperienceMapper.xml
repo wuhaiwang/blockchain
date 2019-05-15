@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.UserEduExperienceMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.UserEduExperience">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="begin_date" jdbcType="DATE" property="beginDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="education_type" jdbcType="VARCHAR" property="educationType" />
+    <result column="certification" jdbcType="VARCHAR" property="certification" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="college" jdbcType="VARCHAR" property="college" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, begin_date, end_date, education_type, certification, area, school, college, 
+    major
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.UserEduExperience">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_edu_experience
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="beginDate != null">
+        begin_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="educationType != null">
+        education_type,
+      </if>
+      <if test="certification != null">
+        certification,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="college != null">
+        college,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="beginDate != null">
+        #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="educationType != null">
+        #{educationType,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null">
+        #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null">
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.UserEduExperience">
+    update user_edu_experience
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="beginDate != null">
+        begin_date = #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="educationType != null">
+        education_type = #{educationType,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null">
+        certification = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null">
+        college = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- the following are user defined...-->
+
+  <insert id ="batchInsert" parameterType="java.util.List" >
+    insert into user_edu_experience
+    (user_id, begin_date, end_date,education_type,certification,area,school,college,major)
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.userId},
+      #{item.beginDate},
+      #{item.endDate},
+      #{item.educationType},
+      #{item.certification},
+      #{item.area},
+      #{item.school},
+      #{item.college},
+      #{item.major})
+    </foreach >
+  </insert >
+</mapper>

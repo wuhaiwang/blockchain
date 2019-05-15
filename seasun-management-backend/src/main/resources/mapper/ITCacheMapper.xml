@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seasun.management.mapper.ITCacheMapper">
+  <resultMap id="BaseResultMap" type="com.seasun.management.model.ITCache">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="hash_key" jdbcType="VARCHAR" property="hashKey" />
+    <result column="entry_key" jdbcType="VARCHAR" property="entryKey" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, hash_key, entry_key, type, remark
+  </sql>
+  <insert id="insertSelective" parameterType="com.seasun.management.model.ITCache">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into it_cache
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="hashKey != null">
+        hash_key,
+      </if>
+      <if test="entryKey != null">
+        entry_key,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hashKey != null">
+        #{hashKey,jdbcType=VARCHAR},
+      </if>
+      <if test="entryKey != null">
+        #{entryKey,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seasun.management.model.ITCache">
+    update it_cache
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hashKey != null">
+        hash_key = #{hashKey,jdbcType=VARCHAR},
+      </if>
+      <if test="entryKey != null">
+        entry_key = #{entryKey,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
